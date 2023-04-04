@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:urban_escape/theme/theme_constants.dart';
 import 'package:urban_escape/theme/theme_manager.dart';
-import 'package:flutter/material.dart';
 
 void main() {
   runApp(const MyApp());
@@ -100,33 +99,37 @@ class _HomeScreenState extends State<HomeScreen> {
           ],
         ),
       ),
-      body: ListView(
-        padding: const EdgeInsets.all(8),
-        children: [
-          Card(
-              elevation: 20,
-              //color: ,
-              shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(50),
-              ),
-              child: SizedBox(
-                width: 300,
-                height: 200,
-                child: Column(children: [
-                  Expanded(
-                    child: 
-                    ClipRRect(
-                      borderRadius: BorderRadius.circular(50),
-                      child: Image.network("http://t1.gstatic.com/licensed-image?q=tbn:ANd9GcRlaYD_IV60Tce81mrXVAClonV5wGyGXjBdyPArGFZuoOI8n4TdZwB_BPrdx0mJ_mBaFO58uqHqFAOpEdE",
-                      fit: BoxFit.fitWidth,
-                        width: double.infinity, ),
+      body: new ListView.builder(
+        itemCount: 5,
+        itemBuilder: (BuildContext context, int index) {
+          return Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: Card(
+                elevation: 20,
+                //color: ,
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(50),
+                ),
+                child: SizedBox(
+                  width: 300,
+                  height: 200,
+                  child: Column(children: [
+                    Expanded(
+                      child: ClipRRect(
+                        borderRadius: BorderRadius.circular(50),
+                        child: Image.network(
+                          "http://t1.gstatic.com/licensed-image?q=tbn:ANd9GcRlaYD_IV60Tce81mrXVAClonV5wGyGXjBdyPArGFZuoOI8n4TdZwB_BPrdx0mJ_mBaFO58uqHqFAOpEdE",
+                          fit: BoxFit.fitWidth,
+                          width: double.infinity,
+                        ),
+                      ),
                     ),
-                  ),
-                  Text("Nikola Tesla's Secret Invention",
-                      style: TextStyle(fontSize: 20))
-                ]),
-              )),
-        ],
+                    Text("Nikola Tesla's Secret Invention",
+                        style: TextStyle(fontSize: 20))
+                  ]),
+                )),
+          );
+        }
       ),
     );
   }
