@@ -43,14 +43,19 @@ class _MyAppState extends State<MyApp> {
       theme: lightTheme,
       darkTheme: darkTheme,
       themeMode: _themeManager.themeMode,
-      home: const HomePage(),
+      home: const HomeScreen(),
     );
   }
 }
 
-class HomePage extends StatelessWidget {
-  const HomePage({Key? key}) : super(key: key);
+class HomeScreen extends StatefulWidget {
+  const HomeScreen({Key? key}) : super(key: key);
 
+  @override
+  State<HomeScreen> createState() => _HomeScreenState();
+}
+
+class _HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -66,7 +71,7 @@ class HomePage extends StatelessWidget {
         title: Text('Home'),
         actions: [
           Padding(
-            padding: EdgeInsets.symmetric(horizontal: 16),
+            padding: EdgeInsets.symmetric(horizontal: 20),
           ),
           Icon(Icons.account_circle),
         ],
@@ -79,15 +84,50 @@ class HomePage extends StatelessWidget {
           // Important: Remove any padding from the ListView.
           padding: EdgeInsets.zero,
           children: [
-            Switch(
-                value: false,
-                onChanged: (newValue) {
-                  //Navigator.pop(context); too fast, need to see the switch changed
-                }),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Text("Theme:"),
+                Switch(
+                    value: _themeManager.themeMode == ThemeMode.dark,
+                    onChanged: (newValue) {
+                      _themeManager.toggleTheme(newValue);
+                      setState(() {});
+                      //Navigator.pop(context); too fast, need to see the switch changed
+                    }),
+              ],
+            ),
           ],
         ),
       ),
-      body: Container(),
+      body: ListView(
+        padding: const EdgeInsets.all(8),
+        children: [
+          Card(
+              elevation: 20,
+              //color: ,
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(50),
+              ),
+              child: SizedBox(
+                width: 300,
+                height: 200,
+                child: Column(children: [
+                  Expanded(
+                    child: 
+                    ClipRRect(
+                      borderRadius: BorderRadius.circular(50),
+                      child: Image.network("http://t1.gstatic.com/licensed-image?q=tbn:ANd9GcRlaYD_IV60Tce81mrXVAClonV5wGyGXjBdyPArGFZuoOI8n4TdZwB_BPrdx0mJ_mBaFO58uqHqFAOpEdE",
+                      fit: BoxFit.fitWidth,
+                        width: double.infinity, ),
+                    ),
+                  ),
+                  Text("Nikola Tesla's Secret Invention",
+                      style: TextStyle(fontSize: 20))
+                ]),
+              )),
+        ],
+      ),
     );
   }
 }

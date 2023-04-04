@@ -12,8 +12,6 @@ ThemeData lightTheme = ThemeData(
         primary: COLOR_PRIMARY,
         secondary: COLOR_SECONDARY,
         background: COLOR_BACKGROUND),
-
-    //primaryColor: COLOR_PRIMARY,
     scaffoldBackgroundColor: COLOR_BACKGROUND);
 
 ThemeData darkTheme = ThemeData(
@@ -23,8 +21,6 @@ ThemeData darkTheme = ThemeData(
         primary: COLOR_PRIMARY,
         secondary: COLOR_SECONDARY,
         background: COLOR_BACKGROUND),
-
-    //primaryColor: COLOR_PRIMARY,
     scaffoldBackgroundColor: COLOR_BACKGROUND);
 /*
 ThemeData lightTime1 = ThemeData(
