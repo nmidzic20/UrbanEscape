@@ -83,18 +83,20 @@ class _HomeScreenState extends State<HomeScreen> {
           // Important: Remove any padding from the ListView.
           padding: EdgeInsets.zero,
           children: [
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Text("Theme:"),
-                Switch(
-                    value: _themeManager.themeMode == ThemeMode.dark,
-                    onChanged: (newValue) {
-                      _themeManager.toggleTheme(newValue);
-                      setState(() {});
-                      //Navigator.pop(context); too fast, need to see the switch changed
-                    }),
-              ],
+            Padding(
+              padding: const EdgeInsets.only(top: 50.0),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Text(_themeManager.themeMode == ThemeMode.dark ? "Dark mode" : "Light mode"),
+                  Switch(
+                      value: _themeManager.themeMode == ThemeMode.dark,
+                      onChanged: (newValue) {
+                        _themeManager.toggleTheme(newValue);
+                        setState(() {});
+                      }),
+                ],
+              ),
             ),
           ],
         ),
