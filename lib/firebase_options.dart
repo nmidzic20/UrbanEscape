@@ -17,13 +17,19 @@ import 'package:flutter/foundation.dart'
 class DefaultFirebaseOptions {
   static FirebaseOptions get currentPlatform {
     if (kIsWeb) {
-      return web;
+      throw UnsupportedError(
+        'DefaultFirebaseOptions have not been configured for web - '
+        'you can reconfigure this by running the FlutterFire CLI again.',
+      );
     }
     switch (defaultTargetPlatform) {
       case TargetPlatform.android:
         return android;
       case TargetPlatform.iOS:
-        return ios;
+        throw UnsupportedError(
+          'DefaultFirebaseOptions have not been configured for ios - '
+          'you can reconfigure this by running the FlutterFire CLI again.',
+        );
       case TargetPlatform.macOS:
         throw UnsupportedError(
           'DefaultFirebaseOptions have not been configured for macos - '
@@ -46,31 +52,11 @@ class DefaultFirebaseOptions {
     }
   }
 
-  static const FirebaseOptions web = FirebaseOptions(
-    apiKey: 'AIzaSyAaoPnpATmZN3igYxvhu3cJ3BwAYC-2jVM',
-    appId: '1:708215483312:web:e6513cace89ac2d98f4475',
-    messagingSenderId: '708215483312',
-    projectId: 'lumen-urban-escape',
-    authDomain: 'lumen-urban-escape.firebaseapp.com',
-    storageBucket: 'lumen-urban-escape.appspot.com',
-    measurementId: 'G-831ZTWR3YC',
-  );
-
   static const FirebaseOptions android = FirebaseOptions(
     apiKey: 'AIzaSyDckqOLQSEJlKHos2XgebvISOkfzZINlNs',
     appId: '1:708215483312:android:e54aaff544d470b78f4475',
     messagingSenderId: '708215483312',
     projectId: 'lumen-urban-escape',
     storageBucket: 'lumen-urban-escape.appspot.com',
-  );
-
-  static const FirebaseOptions ios = FirebaseOptions(
-    apiKey: 'AIzaSyAGM-VBzECmnkq-_d5ArLdH9y3YTqwOFwQ',
-    appId: '1:708215483312:ios:f8d303cc7d3804608f4475',
-    messagingSenderId: '708215483312',
-    projectId: 'lumen-urban-escape',
-    storageBucket: 'lumen-urban-escape.appspot.com',
-    iosClientId: '708215483312-rsplcvotdvcu1656ssq10gkov9uoa3m0.apps.googleusercontent.com',
-    iosBundleId: 'com.example.urbanEscape',
   );
 }

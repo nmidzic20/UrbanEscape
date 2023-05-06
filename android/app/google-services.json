@@ -14,7 +14,15 @@
       },
       "oauth_client": [
         {
-          "client_id": "708215483312-o2ib4mov71pbatc8ju3kbi6rrdc54cul.apps.googleusercontent.com",
+          "client_id": "708215483312-rtkrc34j70d7pp4t00sp7bfstafi43j3.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.urban_escape",
+            "certificate_hash": "c3eb53b34c15775b3d30d307c76eec15c93f65a1"
+          }
+        },
+        {
+          "client_id": "708215483312-dk8kfdeqc4iku979eid6mle2eoohau7j.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
@@ -27,7 +35,7 @@
         "appinvite_service": {
           "other_platform_oauth_client": [
             {
-              "client_id": "708215483312-o2ib4mov71pbatc8ju3kbi6rrdc54cul.apps.googleusercontent.com",
+              "client_id": "708215483312-dk8kfdeqc4iku979eid6mle2eoohau7j.apps.googleusercontent.com",
               "client_type": 3
             },
             {
