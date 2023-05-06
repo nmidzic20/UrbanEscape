@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 
 import 'Puzzle.dart';
-import 'Puzzles.dart';
-import 'StoryStartScreen.dart';
+import './Puzzles.dart';
+import '../screens/StoryStartScreen.dart';
 
 class PuzzleCard extends StatelessWidget {
   PuzzleCard(this.index, {Key? key}) : super(key: key) {

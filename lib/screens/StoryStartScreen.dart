@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:urban_escape/Puzzle.dart';
+import 'package:urban_escape/classes/Puzzle.dart';
 
-import 'Puzzles.dart';
+import '/classes/Puzzles.dart';
 
 class StoryStartScreen extends StatelessWidget {
   StoryStartScreen({super.key, required this.puzzleIndex}) {

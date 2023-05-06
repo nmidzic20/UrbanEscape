@@ -1,13 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:urban_escape/auth_gate.dart';
-import 'package:urban_escape/PuzzleCard.dart';
+import 'package:urban_escape/classes/PuzzleCard.dart';
 import 'package:urban_escape/theme/theme_constants.dart';
 import 'package:urban_escape/theme/theme_manager.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'firebase_options.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'app.dart';
-import 'firebase_options.dart';
 import 'package:flutterfire_ui/auth.dart';
 
 const clientId =
@@ -105,7 +104,7 @@ class _HomeScreenState extends State<HomeScreen> {
                       }),
                 ],
               ),
-              padding: EdgeInsets.symmetric(horizontal: 20),
+              //padding: EdgeInsets.symmetric(horizontal: 20),
             ),
             Icon(Icons.account_circle),
           ],
