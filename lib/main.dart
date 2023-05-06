@@ -1,10 +1,29 @@
 import 'package:flutter/material.dart';
+import 'package:urban_escape/auth_gate.dart';
 import 'package:urban_escape/PuzzleCard.dart';
 import 'package:urban_escape/theme/theme_constants.dart';
 import 'package:urban_escape/theme/theme_manager.dart';
+import 'package:firebase_core/firebase_core.dart';
+import 'firebase_options.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'app.dart';
+import 'firebase_options.dart';
+import 'package:flutterfire_ui/auth.dart';
 
-void main() {
-  runApp(const MyApp());
+const clientId =
+    '708215483312-dk8kfdeqc4iku979eid6mle2eoohau7j.apps.googleusercontent.com';
+
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
+
+  FlutterFireUIAuth.configureProviders([
+    const EmailProviderConfiguration(),
+    const GoogleProviderConfiguration(clientId: clientId),
+  ]);
+
+  //runApp(const MyApp());
+  runApp(MaterialApp(home: const AuthGate()));
 }
 
 ThemeManager _themeManager = ThemeManager();
@@ -71,6 +90,21 @@ class _HomeScreenState extends State<HomeScreen> {
           title: Text('Home'),
           actions: [
             Padding(
+              padding: const EdgeInsets.only(top: 50.0),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Text(_themeManager.themeMode == ThemeMode.dark
+                      ? "Dark mode"
+                      : "Light mode"),
+                  Switch(
+                      value: _themeManager.themeMode == ThemeMode.dark,
+                      onChanged: (newValue) {
+                        _themeManager.toggleTheme(newValue);
+                        setState(() {});
+                      }),
+                ],
+              ),
               padding: EdgeInsets.symmetric(horizontal: 20),
             ),
             Icon(Icons.account_circle),

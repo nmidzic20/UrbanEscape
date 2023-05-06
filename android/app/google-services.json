@@ -1,0 +1,54 @@
+{
+  "project_info": {
+    "project_number": "708215483312",
+    "project_id": "lumen-urban-escape",
+    "storage_bucket": "lumen-urban-escape.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:708215483312:android:e54aaff544d470b78f4475",
+        "android_client_info": {
+          "package_name": "com.example.urban_escape"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "708215483312-rtkrc34j70d7pp4t00sp7bfstafi43j3.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.urban_escape",
+            "certificate_hash": "c3eb53b34c15775b3d30d307c76eec15c93f65a1"
+          }
+        },
+        {
+          "client_id": "708215483312-dk8kfdeqc4iku979eid6mle2eoohau7j.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDckqOLQSEJlKHos2XgebvISOkfzZINlNs"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "708215483312-dk8kfdeqc4iku979eid6mle2eoohau7j.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "708215483312-rsplcvotdvcu1656ssq10gkov9uoa3m0.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.urbanEscape"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
