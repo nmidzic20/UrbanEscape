@@ -50,7 +50,7 @@ class _ScoreScreenState extends State<ScoreScreen> {
   }
 
   void _stopCountdown() {
-      _countdownTimer.cancel();
+    _countdownTimer.cancel();
   }
 
   int _calculateTimeLeft() {
