@@ -1,9 +1,8 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 class AnswerCheck extends StatelessWidget {
   TextEditingController _textFieldController = TextEditingController();
-  final String _premadeString = "I WANNA DIE!!!";
+  final String _premadeString = "yes";
 
   @override
   Widget build(BuildContext context) {
@@ -37,10 +36,34 @@ class AnswerCheck extends StatelessWidget {
                         String result = '';
                         if (userInput == _premadeString) {
                           print("Correct answer: $userInput");
-                          result = 'Correct answer!';
+                          showDialog<String>(
+                            context: context,
+                            builder: (BuildContext context) =>
+                                AlertDialog(
+                                  content: const Text('Correct Answer'),
+                                  actions: <Widget>[
+                                    TextButton(
+                                      onPressed: () => Navigator.pop(context, 'Cancel'),
+                                      child: const Text('Cancel'),
+                                    ),
+                                  ],
+                                ),
+                          );
                         } else {
                           print("Wrong answer, the correct answer is: $_premadeString");
-                          result = 'Wrong answer.';
+                          showDialog<String>(
+                              context: context,
+                              builder: (BuildContext context) =>
+                                  AlertDialog(
+                                    content: const Text('Wrong Answer'),
+                                    actions: <Widget>[
+                                      TextButton(
+                                        onPressed: () => Navigator.pop(context, 'Cancel'),
+                                        child: const Text('Cancel'),
+                                      ),
+                                    ],
+                                  )
+                          );
                         }
 
                         showDialog(
