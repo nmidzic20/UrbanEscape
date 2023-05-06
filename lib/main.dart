@@ -88,7 +88,9 @@ class _HomeScreenState extends State<HomeScreen> {
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  Text(_themeManager.themeMode == ThemeMode.dark ? "Dark mode" : "Light mode"),
+                  Text(_themeManager.themeMode == ThemeMode.dark
+                      ? "Dark mode"
+                      : "Light mode"),
                   Switch(
                       value: _themeManager.themeMode == ThemeMode.dark,
                       onChanged: (newValue) {
@@ -102,37 +104,40 @@ class _HomeScreenState extends State<HomeScreen> {
         ),
       ),
       body: new ListView.builder(
-        itemCount: 5,
-        itemBuilder: (BuildContext context, int index) {
-          return Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: Card(
+          itemCount: 5,
+          itemBuilder: (BuildContext context, int index) {
+            return Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Card(
                 elevation: 20,
-                //color: ,
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(50),
                 ),
-                child: SizedBox(
-                  width: 300,
-                  height: 200,
-                  child: Column(children: [
-                    Expanded(
-                      child: ClipRRect(
-                        borderRadius: BorderRadius.circular(50),
-                        child: Image.network(
-                          "http://t1.gstatic.com/licensed-image?q=tbn:ANd9GcRlaYD_IV60Tce81mrXVAClonV5wGyGXjBdyPArGFZuoOI8n4TdZwB_BPrdx0mJ_mBaFO58uqHqFAOpEdE",
-                          fit: BoxFit.fitWidth,
-                          width: double.infinity,
+                child: InkWell(
+                  borderRadius: BorderRadius.circular(50),
+                  onTap: () { print("Tap"); },
+                  child: SizedBox(
+                    width: 300,
+                    height: 200,
+                    child: Column(children: [
+                      Expanded(
+                        child: ClipRRect(
+                          borderRadius: BorderRadius.circular(50),
+                          child: Image.network(
+                            "http://t1.gstatic.com/licensed-image?q=tbn:ANd9GcRlaYD_IV60Tce81mrXVAClonV5wGyGXjBdyPArGFZuoOI8n4TdZwB_BPrdx0mJ_mBaFO58uqHqFAOpEdE",
+                            fit: BoxFit.fitWidth,
+                            width: double.infinity,
+                          ),
                         ),
                       ),
-                    ),
-                    Text("Nikola Tesla's Secret Invention",
-                        style: TextStyle(fontSize: 20))
-                  ]),
-                )),
-          );
-        }
-      ),
+                      Text("Nikola Tesla's Secret Invention",
+                          style: TextStyle(fontSize: 20))
+                    ]),
+                  ),
+                ),
+              ),
+            );
+          }),
     );
   }
 }
