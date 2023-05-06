@@ -1,5 +1,6 @@
-class Story {
+class Puzzle {
   late String title;
+  late String poster_image_url;
   late String city;
   late String country;
   late String avg_time;
@@ -11,8 +12,9 @@ class Story {
   late int challengesTotal;
   static int currentChallenge = 1;
 
-  Story(
+  Puzzle(
       this.title,
+      this.poster_image_url,
       this.city,
       this.country,
       this.avg_time,

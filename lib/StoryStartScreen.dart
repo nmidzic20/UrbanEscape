@@ -1,21 +1,21 @@
 import 'package:flutter/material.dart';
-import 'package:urban_escape/Story.dart';
+import 'package:urban_escape/Puzzle.dart';
 
-import 'Stories.dart';
+import 'Puzzles.dart';
 
 class StoryStartScreen extends StatelessWidget {
-  StoryStartScreen({super.key, required this.storyIndex}) {
-    this.story = stories[this.storyIndex];
+  StoryStartScreen({super.key, required this.puzzleIndex}) {
+    this.puzzle = (this.puzzleIndex < 1) ? puzzles[this.puzzleIndex] : puzzles[1];
   }
 
-  final int storyIndex;
-  late final Story story;
+  final int puzzleIndex;
+  late final Puzzle puzzle;
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(story.title),
+        title: Text(puzzle.title),
       ),
       body: Center(child: Column(children: [])),
     );
