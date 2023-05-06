@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:urban_escape/Widgets/AnswerCheck.dart';
-import 'package:urban_escape/Widgets/TestScreen.dart';
+import 'package:urban_escape/StoryStartScreen.dart';
 import 'package:urban_escape/theme/theme_constants.dart';
 import 'package:urban_escape/theme/theme_manager.dart';
 
@@ -117,7 +116,12 @@ class _HomeScreenState extends State<HomeScreen> {
                 ),
                 child: InkWell(
                   borderRadius: BorderRadius.circular(50),
-                  onTap: () { print("Tap"); },
+                  onTap: () { Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => StoryStartScreen(storyIndex: index),
+                    ),
+                  ); },
                   child: SizedBox(
                     width: 300,
                     height: 200,

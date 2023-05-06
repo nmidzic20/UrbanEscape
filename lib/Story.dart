@@ -8,8 +8,20 @@ class Story {
   late String description;
   late String start_location;
   late List<Challenge> questions;
-  static int currentChallenge = 1;
   late int challengesTotal;
+  static int currentChallenge = 1;
+
+  Story(
+      this.title,
+      this.city,
+      this.country,
+      this.avg_time,
+      this.rating,
+      this.price,
+      this.description,
+      this.start_location,
+      this.questions,
+      this.challengesTotal);
 }
 
 class Challenge {
