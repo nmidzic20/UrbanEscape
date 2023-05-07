@@ -48,7 +48,7 @@ dev_dependencies:
 
 flutter_native_splash:
   color: '#4a4b4f'
-  image: 'assets/splash.png'
+  image: 'assets/images/splash.png'
 
 flutter_icons:
   android: true
@@ -75,12 +75,13 @@ flutter:
 
   # To add assets to your application, add an assets section, like this:
   assets:
-     - assets/dash.png
-     - assets/flutterfire_300x.png
+     - assets/images/dash.png
+     - assets/images/flutterfire_300x.png
      - assets/images/solar-system-voyage-poster.jpg
      - assets/images/gricki-top.png
      - assets/images/ivana-brlic.png
      - assets/images/tesla.png
+     - assets/logo_spin.gif
 
   #   - images/a_dot_ham.jpeg
 

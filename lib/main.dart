@@ -1,12 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:urban_escape/auth_gate.dart';
 import 'package:urban_escape/classes/PuzzleCard.dart';
 import 'package:urban_escape/theme/theme_constants.dart';
 import 'package:urban_escape/theme/theme_manager.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'firebase_options.dart';
-import 'package:firebase_auth/firebase_auth.dart';
-import 'app.dart';
 import 'package:flutterfire_ui/auth.dart';
 
 const clientId =
@@ -21,8 +18,7 @@ void main() async {
     const GoogleProviderConfiguration(clientId: clientId),
   ]);
 
-  //runApp(const MyApp());
-  runApp(MaterialApp(home: const AuthGate()));
+  runApp(const MyApp());
 }
 
 ThemeManager _themeManager = ThemeManager();
@@ -61,7 +57,7 @@ class _MyAppState extends State<MyApp> {
       theme: lightTheme,
       darkTheme: darkTheme,
       themeMode: _themeManager.themeMode,
-      home: const HomeScreen(),
+      home: HomeScreen(), //change to AuthGate() when authentication is fixed
     );
   }
 }
@@ -86,27 +82,34 @@ class _HomeScreenState extends State<HomeScreen> {
               onPressed: () => Scaffold.of(context).openDrawer(),
             );
           }),
-          title: Text('Home'),
+          title: Row(
+            children: [
+              Image.asset(
+                "assets/logo_spin.gif",
+                height: 50.0,
+                width: 50.0,
+              ),
+              SizedBox(width: 15),
+              Text('Home'),
+            ],
+          ),
           actions: [
             Padding(
-              padding: const EdgeInsets.only(top: 50.0),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Text(_themeManager.themeMode == ThemeMode.dark
-                      ? "Dark mode"
-                      : "Light mode"),
-                  Switch(
-                      value: _themeManager.themeMode == ThemeMode.dark,
-                      onChanged: (newValue) {
-                        _themeManager.toggleTheme(newValue);
-                        setState(() {});
-                      }),
-                ],
+              padding: const EdgeInsets.all(8.0),
+              child: IconButton(
+                icon: Icon(
+                  Icons.account_circle,
+                ),
+                onPressed: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => ProfileScreen(),
+                    ),
+                  );
+                },
               ),
-              //padding: EdgeInsets.symmetric(horizontal: 20),
-            ),
-            Icon(Icons.account_circle),
+            )
           ],
         ),
         drawer: Drawer(
@@ -137,13 +140,33 @@ class _HomeScreenState extends State<HomeScreen> {
             ],
           ),
         ),
-        body: new ListView.builder(
-            itemCount: 5,
-            itemBuilder: (BuildContext context, int index) {
-              return Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: new PuzzleCard(index));
-            })
-    );
+        body: Column(
+          children: [
+            Center(
+              child: Padding(
+                padding: const EdgeInsets.all(15.0),
+                child: Text(
+                  "Available stories in ZAGREB",
+                  style: TextStyle(
+                      fontSize: 25,
+                      fontWeight: FontWeight.bold,
+                      color: COLOR_TEXT),
+                ),
+              ),
+            ),
+            Expanded(
+              child: SizedBox(
+                height: 200.0,
+                child: ListView.builder(
+                    itemCount: 5,
+                    itemBuilder: (BuildContext context, int index) {
+                      return Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: new PuzzleCard(index));
+                    }),
+              ),
+            ),
+          ],
+        ));
   }
 }
