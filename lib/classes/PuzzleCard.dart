@@ -4,7 +4,7 @@ import 'package:urban_escape/widgets/Alert.dart';
 import '../Auth.dart';
 import 'Puzzle.dart';
 import './Puzzles.dart';
-import '../screens/StoryStartScreen.dart';
+import '../screens/StartPuzzleScreen.dart';
 
 class PuzzleCard extends StatelessWidget {
   PuzzleCard(this.index, {Key? key}) : super(key: key) {

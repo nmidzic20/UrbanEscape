@@ -6,6 +6,7 @@ import 'package:percent_indicator/percent_indicator.dart';
 import 'package:pie_chart/pie_chart.dart';
 
 import '/classes/Puzzles.dart';
+import 'PuzzleScreen.dart';
 
 class StoryStartScreen extends StatelessWidget {
   StoryStartScreen({super.key, required this.puzzleIndex}) {
@@ -102,25 +103,41 @@ class StoryStartScreen extends StatelessWidget {
               ),
             ),
             Container(
+              width: double.infinity,
               decoration: BoxDecoration(
                 gradient: LinearGradient(
                   begin: Alignment.topCenter,
                   end: Alignment.bottomCenter,
-                  colors: [COLOR_BACKGROUND, Colors.deepPurple],
+                  colors: [Colors.deepPurple, COLOR_BACKGROUND],
                 ),
               ),
               child: Column(
                 children: [
-                  Text(
-                    puzzle.description,
-                    style: TextStyle(color: Colors.white),
+                  Padding(
+                    padding: const EdgeInsets.all(15.0),
+                    child: SizedBox(
+                      width: 200,
+                      child: Text(
+                        puzzle.description,
+                        style: TextStyle(color: Colors.white),
+                      ),
+                    ),
                   ),
                   ElevatedButton(
-                    child: Text("Start"),
+                    child: Text("Start",
+                      style: TextStyle
+                        (fontWeight: FontWeight.bold,
+                      fontSize: 20)
+                    ),
                     style: ElevatedButton.styleFrom(
                         backgroundColor: Colors.pinkAccent),
                     onPressed: () {
-                      print("Start puzzle");
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => PuzzleScreen(),
+                        ),
+                      );
                     },
                   )
                 ],
