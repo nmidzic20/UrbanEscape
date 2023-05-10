@@ -135,7 +135,7 @@ class StoryStartScreen extends StatelessWidget {
                       Navigator.push(
                         context,
                         MaterialPageRoute(
-                          builder: (context) => PuzzleScreen(),
+                          builder: (context) => PuzzleScreen(puzzle),
                         ),
                       );
                     },
