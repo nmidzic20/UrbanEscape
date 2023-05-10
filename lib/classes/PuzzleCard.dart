@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:urban_escape/widgets/Alert.dart';
 
+import '../Auth.dart';
 import 'Puzzle.dart';
 import './Puzzles.dart';
 import '../screens/StoryStartScreen.dart';
@@ -12,6 +14,22 @@ class PuzzleCard extends StatelessWidget {
   late final int index;
   late final Puzzle puzzle;
 
+  ElevatedButton registerButton = ElevatedButton(
+    child: Text("Register"),
+    style: ElevatedButton.styleFrom(backgroundColor: Colors.blueAccent),
+    onPressed: () {
+      print("Register");
+    },
+  );
+
+  ElevatedButton continueAsGuestButton = ElevatedButton(
+    child: Text("Continue as a guest"),
+    style: ElevatedButton.styleFrom(backgroundColor: Colors.pinkAccent),
+    onPressed: () {
+      print("Continue as a guest");
+    },
+  );
+
   @override
   Widget build(BuildContext context) {
     return Card(
@@ -22,12 +40,22 @@ class PuzzleCard extends StatelessWidget {
       child: InkWell(
         borderRadius: BorderRadius.circular(50),
         onTap: () {
-          Navigator.push(
-            context,
-            MaterialPageRoute(
-              builder: (context) => StoryStartScreen(puzzleIndex: index),
-            ),
-          );
+          (!isLoggedIn)
+              ? showDialog(
+                  context: context,
+                  builder: (BuildContext context) {
+                    return Alert(
+                        "Dear guest,",
+                        "To perform this action you need to register an account. We would love to have you on here!",
+                        [registerButton, continueAsGuestButton]);
+                  },
+                )
+              : Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => StoryStartScreen(puzzleIndex: index),
+                  ),
+                );
         },
         child: SizedBox(
           width: 300,
