@@ -1,86 +1,61 @@
-import 'dart:async';
 import 'package:flutter/material.dart';
 
-class ScoreScreen extends StatefulWidget {
+class ScoreCounter extends StatefulWidget {
   int initialScore;
-  int maxScore;
-  Duration countdownDuration;
 
-  ScoreScreen({
-    this.initialScore = 100,
-    this.maxScore = 0,
-    this.countdownDuration = const Duration(seconds: 30)
-  });
-
+  ScoreCounter({required this.initialScore});
 
   @override
-  _ScoreScreenState createState() => _ScoreScreenState();
+  _ScoreCounterState createState() => _ScoreCounterState();
 }
 
-class _ScoreScreenState extends State<ScoreScreen> {
+class _ScoreCounterState extends State<ScoreCounter> {
   late int _score;
-  late int _timeLeft;
-  late Timer _countdownTimer;
 
   @override
   void initState() {
     super.initState();
     _score = widget.initialScore;
-    _timeLeft = _calculateTimeLeft();
-    _startCountdown();
   }
 
-  @override
-  void dispose() {
-    _stopCountdown();
-    super.dispose();
-  }
-
-  void _startCountdown() {
-    _countdownTimer = Timer.periodic(Duration(seconds: 1), (timer) {
-      setState(() {
-        if (_score > widget.maxScore) {
-          _score--;
-          _timeLeft = _calculateTimeLeft();
-        } else {
-          _stopCountdown();
-        }
-      });
+  void decreaseScore() {
+    setState(() {
+      _score--;
     });
-  }
-
-  void _stopCountdown() {
-      _countdownTimer.cancel();
-  }
-
-  int _calculateTimeLeft() {
-    int timeLeft = ((widget.countdownDuration.inSeconds * (widget.maxScore - _score)) / (widget.initialScore - widget.maxScore)).ceil();
-    return timeLeft;
   }
 
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: EdgeInsets.all(16.0),
-      child: Column(
-        children: [
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              Text(
-                'Score: $_score',
-                style: TextStyle(fontSize: 24.0, fontWeight: FontWeight.bold),
-              ),
-              Text(
-                'Time left: $_timeLeft seconds',
-                style: TextStyle(fontSize: 16.0),
-              ),
-            ],
+      decoration: BoxDecoration(
+        color: Colors.white,
+        borderRadius: BorderRadius.circular(16.0),
+        boxShadow: [
+          BoxShadow(
+            color: Colors.grey.withOpacity(0.5),
+            spreadRadius: 2,
+            blurRadius: 5,
+            offset: Offset(0, 3),
           ),
-          SizedBox(height: 16.0),
-          TextButton(
-            child: Text('Stop'),
-            onPressed: _stopCountdown,
+        ],
+      ),
+      padding: EdgeInsets.all(16.0),
+      child: Row(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          Icon(
+            Icons.star,
+            color: Colors.yellow,
+          ),
+          SizedBox(
+            width: 8.0,
+          ),
+          Text(
+            '$_score',
+            style: TextStyle(
+              fontSize: 24.0,
+              fontWeight: FontWeight.bold,
+            ),
           ),
         ],
       ),

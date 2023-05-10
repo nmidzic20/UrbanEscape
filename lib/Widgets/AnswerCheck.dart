@@ -1,99 +1,67 @@
 import 'package:flutter/material.dart';
 
-class AnswerCheck extends StatelessWidget {
-  TextEditingController _textFieldController = TextEditingController();
-  final String _premadeString = "yes";
+class QuestionWidget extends StatelessWidget {
+  final String question;
+  final String correctAnswer;
+
+  QuestionWidget({required this.question, required this.correctAnswer});
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text('Answer Check'),
-      ),
-      body: Center(
-        child: ElevatedButton(
-          onPressed: () {
-            showDialog(
-              context: context,
-              builder: (context) {
-                return AlertDialog(
-                  title: Text('Question'),
-                  content: TextField(
-                    controller: _textFieldController,
-                    decoration: InputDecoration(hintText: 'Answer'),
+    return ElevatedButton(
+      onPressed: () {
+        showDialog(
+          context: context,
+          builder: (BuildContext context) {
+            TextEditingController answerController = TextEditingController();
+            return AlertDialog(
+              title: Text('Question:'),
+              content: Column(
+                mainAxisSize: MainAxisSize.min,
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(question),
+                  TextField(
+                    controller: answerController,
+                    decoration: InputDecoration(labelText: 'Your answer'),
                   ),
-                  actions: <Widget>[
-                    TextButton(
-                      child: Text('CANCEL'),
-                      onPressed: () {
-                        Navigator.pop(context);
-                      },
-                    ),
-                    TextButton(
-                      child: const Text('OK'),
-                      onPressed: () {
-                        String userInput = _textFieldController.text;
-                        String result = '';
-                        if (userInput == _premadeString) {
-                          print("Correct answer: $userInput");
-                          showDialog<String>(
-                            context: context,
-                            builder: (BuildContext context) =>
-                                AlertDialog(
-                                  content: const Text('Correct Answer'),
-                                  actions: <Widget>[
-                                    TextButton(
-                                      onPressed: () => Navigator.pop(context, 'Cancel'),
-                                      child: const Text('Cancel'),
-                                    ),
-                                  ],
-                                ),
-                          );
-                        } else {
-                          print("Wrong answer, the correct answer is: $_premadeString");
-                          showDialog<String>(
-                              context: context,
-                              builder: (BuildContext context) =>
-                                  AlertDialog(
-                                    content: const Text('Wrong Answer'),
-                                    actions: <Widget>[
-                                      TextButton(
-                                        onPressed: () => Navigator.pop(context, 'Cancel'),
-                                        child: const Text('Cancel'),
-                                      ),
-                                    ],
-                                  )
-                          );
-                        }
+                ],
+              ),
+              actions: [
+                ElevatedButton(
+                  onPressed: () {
+                    String userAnswer = answerController.text;
+                    bool isCorrect = userAnswer == correctAnswer;
+                    Navigator.of(context).pop();
 
-                        showDialog(
-                          context: context,
-                          builder: (BuildContext context) {
-                            return AlertDialog(
-                              title: const Text('Answer Check'),
-                              content: Text(result),
-                              actions: [
-                                TextButton(
-                                  child: const Text('OK'),
-                                  onPressed: () {
-                                    Navigator.of(context).pop();
-                                  },
-                                ),
-                              ],
-                            );
-                          },
+                    showDialog(
+                      context: context,
+                      builder: (BuildContext context) {
+                        return AlertDialog(
+                          title: Text(isCorrect ? 'Correct!' : 'Incorrect!'),
+                          content: Text(isCorrect
+                              ? 'Your answer is correct!'
+                              : 'Your answer is incorrect.'),
+                          actions: [
+                            ElevatedButton(
+                              onPressed: () {
+                                Navigator.of(context).pop();
+                              },
+                              child: Text('OK'),
+                            ),
+                          ],
                         );
-                        Navigator.pop(context);
                       },
-                    ),
-                  ],
-                );
-              },
+                    );
+                  },
+                  child: Text('Submit'),
+                ),
+              ],
             );
           },
-          child: const Text('User Input'),
-        ),
-      ),
+        );
+      },
+      child: Text('Answer question'),
     );
   }
 }
