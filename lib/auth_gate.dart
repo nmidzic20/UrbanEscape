@@ -3,6 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:flutterfire_ui/auth.dart';
 import 'package:urban_escape/main.dart';
 
+import 'Auth.dart';
+
 class AuthGate extends StatelessWidget {
   const AuthGate({super.key});
 
@@ -56,7 +58,7 @@ class AuthGate extends StatelessWidget {
             },
           );
         }
-
+        isLoggedIn = true;
         return const HomeScreen();
       },
     );
