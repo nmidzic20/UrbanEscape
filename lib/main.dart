@@ -3,6 +3,7 @@ import 'package:urban_escape/classes/PuzzleCard.dart';
 import 'package:urban_escape/theme/theme_constants.dart';
 import 'package:urban_escape/theme/theme_manager.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'package:urban_escape/widgets/MyAppBar.dart';
 import 'firebase_options.dart';
 import 'package:flutterfire_ui/auth.dart';
 
@@ -73,45 +74,7 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: AppBar(
-          // Necessary to put leading: Builder(...) { return IconButton(...)} instead of leading: IconButton(...)
-          // in order to be able to call context for Scaffold.of (to open the drawer on clicking the icon)
-          leading: Builder(builder: (context) {
-            return IconButton(
-              icon: Icon(Icons.menu),
-              onPressed: () => Scaffold.of(context).openDrawer(),
-            );
-          }),
-          title: Row(
-            children: [
-              Image.asset(
-                "assets/logo_spin.gif",
-                height: 50.0,
-                width: 50.0,
-              ),
-              SizedBox(width: 15),
-              Text('Home'),
-            ],
-          ),
-          actions: [
-            Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: IconButton(
-                icon: Icon(
-                  Icons.account_circle,
-                ),
-                onPressed: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) => ProfileScreen(),
-                    ),
-                  );
-                },
-              ),
-            )
-          ],
-        ),
+        appBar: MyAppBar(),
         drawer: Drawer(
           // Add a ListView to the drawer. This ensures the user can scroll
           // through the options in the drawer if there isn't enough vertical
