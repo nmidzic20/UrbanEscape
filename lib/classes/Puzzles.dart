@@ -35,7 +35,7 @@ List<Puzzle> puzzles = [
                 "answer",
                 [
                   Icon(Icons.star_border, color: Colors.black),
-                  Icon(Icons.cancel, color: Colors.black),
+                  Icon(Icons.close, color: Colors.black),
                   Icon(Icons.favorite_border, color: Colors.black)
                 ],
                 "Look at the walls a bit more carefully...",
@@ -52,6 +52,10 @@ List<Puzzle> puzzles = [
             true),
       ],
       10),
-  Puzzle("TODO", "assets/images/ivana-brlic.png", "TODO", "TODO", "TODO",
+  Puzzle("Search for Ivana Brlić-Mažuranić", "assets/images/ivana-brlic.png", "TODO", "TODO", "TODO",
+      "TODO", "TODO", "TODO", "TODO", List.empty(), 0),
+  Puzzle("True Witch of Grič", "assets/images/gricki-top.png", "TODO", "TODO", "TODO",
+      "TODO", "TODO", "TODO", "TODO", List.empty(), 0),
+  Puzzle("Nikola Tesla’s Secret Invention", "assets/images/tesla.jpg", "TODO", "TODO", "TODO",
       "TODO", "TODO", "TODO", "TODO", List.empty(), 0),
 ];

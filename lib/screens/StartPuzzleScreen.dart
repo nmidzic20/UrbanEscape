@@ -10,8 +10,7 @@ import 'PuzzleScreen.dart';
 
 class StoryStartScreen extends StatelessWidget {
   StoryStartScreen({super.key, required this.puzzleIndex}) {
-    this.puzzle =
-        (this.puzzleIndex < 1) ? puzzles[this.puzzleIndex] : puzzles[1];
+    this.puzzle = puzzles[this.puzzleIndex];
   }
 
   final int puzzleIndex;
@@ -55,10 +54,11 @@ class StoryStartScreen extends StatelessWidget {
       body: Container(
         width: double.maxFinite,
         child: Column(
+          crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
             FittedBox(
-              child: Image.asset(puzzle.poster_image_url),
-              fit: BoxFit.fill,
+              child: Image.asset(puzzle.poster_image_url, height: 100,),
+              fit: BoxFit.fitWidth,
             ),
             Container(
               height: 100,

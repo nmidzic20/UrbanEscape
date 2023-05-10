@@ -9,13 +9,11 @@ import '../screens/StartPuzzleScreen.dart';
 
 class PuzzleCard extends StatelessWidget {
   PuzzleCard(this.index, {Key? key}) : super(key: key) {
-    this.puzzle = (this.index < 1) ? puzzles[this.index] : puzzles[1];
+    this.puzzle = puzzles[this.index];
   }
 
   late final int index;
   late final Puzzle puzzle;
-
-
 
   @override
   Widget build(BuildContext context) {

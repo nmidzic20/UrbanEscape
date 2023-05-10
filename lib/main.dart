@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:urban_escape/classes/PuzzleCard.dart';
+import 'package:urban_escape/classes/Puzzles.dart';
 import 'package:urban_escape/theme/theme_constants.dart';
 import 'package:urban_escape/theme/theme_manager.dart';
 import 'package:firebase_core/firebase_core.dart';
@@ -121,7 +122,7 @@ class _HomeScreenState extends State<HomeScreen> {
               child: SizedBox(
                 height: 200.0,
                 child: ListView.builder(
-                    itemCount: 5,
+                    itemCount: puzzles.length,
                     itemBuilder: (BuildContext context, int index) {
                       return Padding(
                           padding: const EdgeInsets.all(8.0),
