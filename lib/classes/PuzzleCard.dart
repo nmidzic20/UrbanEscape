@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:urban_escape/widgets/Alert.dart';
 
 import '../Auth.dart';
+import '../auth_gate.dart';
 import 'Puzzle.dart';
 import './Puzzles.dart';
 import '../screens/StartPuzzleScreen.dart';
@@ -14,24 +15,28 @@ class PuzzleCard extends StatelessWidget {
   late final int index;
   late final Puzzle puzzle;
 
-  ElevatedButton registerButton = ElevatedButton(
-    child: Text("Register"),
-    style: ElevatedButton.styleFrom(backgroundColor: Colors.blueAccent),
-    onPressed: () {
-      print("Register");
-    },
-  );
 
-  ElevatedButton continueAsGuestButton = ElevatedButton(
-    child: Text("Continue as a guest"),
-    style: ElevatedButton.styleFrom(backgroundColor: Colors.pinkAccent),
-    onPressed: () {
-      print("Continue as a guest");
-    },
-  );
 
   @override
   Widget build(BuildContext context) {
+
+    ElevatedButton registerButton = ElevatedButton(
+      child: Text("Register"),
+      style: ElevatedButton.styleFrom(backgroundColor: Colors.blueAccent),
+      onPressed: () => Navigator.push(
+        context,
+        MaterialPageRoute(
+          builder: (context) => AuthGate(),
+        ),
+      )
+    );
+
+    ElevatedButton continueAsGuestButton = ElevatedButton(
+      child: Text("Continue as a guest"),
+      style: ElevatedButton.styleFrom(backgroundColor: Colors.pinkAccent),
+      onPressed: () => Navigator.of(context).pop(),
+    );
+
     return Card(
       elevation: 20,
       shape: RoundedRectangleBorder(
