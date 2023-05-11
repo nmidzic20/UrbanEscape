@@ -51,99 +51,101 @@ class StoryStartScreen extends StatelessWidget {
           )
         ],
       ),
-      body: Container(
-        width: double.maxFinite,
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.stretch,
-          children: [
-            FittedBox(
-              child: Image.asset(puzzle.poster_image_url, height: 100,),
-              fit: BoxFit.fitWidth,
-            ),
-            Container(
-              height: 100,
-              color: Colors.white,
-              child: Column(
-                children: <Widget>[
-                  Text(
-                    puzzle.title,
-                    style: TextStyle(color: Colors.pink),
-                  ),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                    children: [
-                      PieChart(
-                        dataMap: dataMap,
-                        chartRadius: MediaQuery.of(context).size.width / 6,
-                        legendOptions: LegendOptions(showLegends: false),
-                        chartValuesOptions: ChartValuesOptions(
-                          showChartValueBackground: false,
-                          showChartValues: false,
-                        ),
-                        initialAngleInDegree: -180,
-                        baseChartColor: Colors.grey,
-                      ),
-                      Column(
-                        children: [
-                          Text("AVG. TIME"),
-                          Text(puzzle.avg_time),
-                        ],
-                      ),
-                      CircularPercentIndicator(
-                        radius: 20.0,
-                        lineWidth: 8.0,
-                        percent: 0.25,
-                        center: new Text("1"),
-                        progressColor: Colors.pink,
-                      ),
-                      Text("LEVEL")
-                    ],
-                  )
-                ],
+      body: SingleChildScrollView(
+        child: Container(
+          width: double.maxFinite,
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.stretch,
+            children: [
+              FittedBox(
+                child: Image.asset(puzzle.poster_image_url, height: 100,),
+                fit: BoxFit.fitWidth,
               ),
-            ),
-            Container(
-              width: double.infinity,
-              decoration: BoxDecoration(
-                gradient: LinearGradient(
-                  begin: Alignment.topCenter,
-                  end: Alignment.bottomCenter,
-                  colors: [Colors.deepPurple, COLOR_BACKGROUND],
+              Container(
+                height: 125,
+                color: Colors.white,
+                child: Column(
+                  children: <Widget>[
+                    Text(
+                      puzzle.title,
+                      style: TextStyle(color: Colors.pink),
+                    ),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      children: [
+                        PieChart(
+                          dataMap: dataMap,
+                          chartRadius: MediaQuery.of(context).size.width / 6,
+                          legendOptions: LegendOptions(showLegends: false),
+                          chartValuesOptions: ChartValuesOptions(
+                            showChartValueBackground: false,
+                            showChartValues: false,
+                          ),
+                          initialAngleInDegree: -180,
+                          baseChartColor: Colors.grey,
+                        ),
+                        Column(
+                          children: [
+                            Text("AVG. TIME"),
+                            Text(puzzle.avg_time),
+                          ],
+                        ),
+                        CircularPercentIndicator(
+                          radius: 20.0,
+                          lineWidth: 8.0,
+                          percent: 0.25,
+                          center: new Text("1"),
+                          progressColor: Colors.pink,
+                        ),
+                        Text("LEVEL")
+                      ],
+                    )
+                  ],
                 ),
               ),
-              child: Column(
-                children: [
-                  Padding(
-                    padding: const EdgeInsets.all(15.0),
-                    child: SizedBox(
-                      width: 200,
-                      child: Text(
-                        puzzle.description,
-                        style: TextStyle(color: Colors.white),
+              Container(
+                width: double.infinity,
+                decoration: BoxDecoration(
+                  gradient: LinearGradient(
+                    begin: Alignment.topCenter,
+                    end: Alignment.bottomCenter,
+                    colors: [Colors.deepPurple, COLOR_BACKGROUND],
+                  ),
+                ),
+                child: Column(
+                  children: [
+                    Padding(
+                      padding: const EdgeInsets.all(15.0),
+                      child: SizedBox(
+                        width: 200,
+                        child: Text(
+                          puzzle.description,
+                          style: TextStyle(color: Colors.white),
+                        ),
                       ),
                     ),
-                  ),
-                  ElevatedButton(
-                    child: Text("Start",
-                      style: TextStyle
-                        (fontWeight: FontWeight.bold,
-                      fontSize: 20)
-                    ),
-                    style: ElevatedButton.styleFrom(
-                        backgroundColor: Colors.pinkAccent),
-                    onPressed: () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) => PuzzleScreen(puzzle),
-                        ),
-                      );
-                    },
-                  )
-                ],
-              ),
-            )
-          ],
+                    ElevatedButton(
+                      child: Text("Start",
+                        style: TextStyle
+                          (fontWeight: FontWeight.bold,
+                        fontSize: 20)
+                      ),
+                      style: ElevatedButton.styleFrom(
+                          backgroundColor: Colors.pinkAccent),
+                      onPressed: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => PuzzleScreen(puzzle),
+                          ),
+                        );
+                      },
+                    )
+                  ],
+                ),
+              )
+            ],
+          ),
         ),
       ),
     );
