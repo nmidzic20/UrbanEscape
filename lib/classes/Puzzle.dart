@@ -35,6 +35,7 @@ class Challenge {
   late List<Widget> options;
   late String hint;
   late int points;
+  late Function handleAnswer;
 
   Challenge(
       this.id,
@@ -42,7 +43,8 @@ class Challenge {
       this.answer,
       this.options,
       this.hint,
-      this.points);
+      this.points,
+      this.handleAnswer);
 }
 
 enum TemplateScreen {

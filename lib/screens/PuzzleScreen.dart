@@ -19,11 +19,15 @@ class _PuzzleScreenState extends State<PuzzleScreen> {
   _PuzzleScreenState(this.puzzle);
 
   late final Puzzle puzzle;
+  late Prompt currentPrompt;
   late ElevatedButton nextButton;
 
   @override
   void initState() {
     super.initState();
+
+    currentPrompt = puzzle.prompts[puzzle.currentPrompt];
+
     nextButton = ElevatedButton(
       child: Row(
         mainAxisSize: MainAxisSize.min,
@@ -32,7 +36,17 @@ class _PuzzleScreenState extends State<PuzzleScreen> {
       style: ElevatedButton.styleFrom(backgroundColor: Colors.blueAccent),
       onPressed: () {
         setState(() {
-          puzzle.currentPrompt++;
+          if (currentPrompt.isChallenge) {
+            bool result = currentPrompt.challenge!.handleAnswer(
+                selectedAnswer, currentPrompt.challenge!.answer, context);
+            if (result) {
+              puzzle.currentPrompt++;
+              currentPrompt = puzzle.prompts[puzzle.currentPrompt];
+            }
+          } else {
+            puzzle.currentPrompt++;
+            currentPrompt = puzzle.prompts[puzzle.currentPrompt];
+          }
         });
       },
     );
@@ -52,6 +66,7 @@ class _PuzzleScreenState extends State<PuzzleScreen> {
               else
                 setState(() {
                   puzzle.currentPrompt--;
+                  currentPrompt = puzzle.prompts[puzzle.currentPrompt];
                 });
             },
           );
@@ -83,10 +98,15 @@ class _PuzzleScreenState extends State<PuzzleScreen> {
         ],
       ),
       body: SingleChildScrollView(
-          child: (puzzle.prompts[puzzle.currentPrompt].templateScreen ==
-                  TemplateScreen.FIRST)
-              ? TemplateFirst(puzzle: puzzle, nextButton: nextButton)
-              : TemplateSecond(puzzle: puzzle, nextButton: nextButton)),
+          child: (currentPrompt.templateScreen == TemplateScreen.FIRST)
+              ? TemplateFirst(
+                  puzzle: puzzle,
+                  currentPrompt: currentPrompt,
+                  nextButton: nextButton)
+              : TemplateSecond(
+                  puzzle: puzzle,
+                  currentPrompt: currentPrompt,
+                  nextButton: nextButton)),
       bottomNavigationBar: BottomAppBar(
         color: COLOR_PRIMARY,
         child: Row(
@@ -94,13 +114,11 @@ class _PuzzleScreenState extends State<PuzzleScreen> {
             RawMaterialButton(
               onPressed: () {},
               elevation: 2.0,
-              fillColor: (puzzle.prompts[puzzle.currentPrompt].timerPaused)
+              fillColor: (currentPrompt.timerPaused)
                   ? Colors.blueAccent
                   : Colors.pinkAccent,
               child: Icon(
-                (puzzle.prompts[puzzle.currentPrompt].timerPaused)
-                    ? Icons.pause
-                    : Icons.timer,
+                (currentPrompt.timerPaused) ? Icons.pause : Icons.timer,
                 color: Colors.white,
               ),
               padding: EdgeInsets.all(10.0),
@@ -118,16 +136,14 @@ class _PuzzleScreenState extends State<PuzzleScreen> {
       ),
       floatingActionButton: FloatingActionButton.extended(
           icon: Icon(Icons.lightbulb_outline),
-          backgroundColor: (puzzle.prompts[puzzle.currentPrompt].isChallenge)
-              ? Colors.pinkAccent
-              : Colors.grey,
+          backgroundColor:
+              (currentPrompt.isChallenge) ? Colors.pinkAccent : Colors.grey,
           label: Text('Hint'),
-          onPressed: (puzzle.prompts[puzzle.currentPrompt].isChallenge)
+          onPressed: (currentPrompt.isChallenge)
               ? () => showDialog(
                   context: context,
                   builder: (BuildContext context) {
-                    return Alert("Hint",
-                        puzzle.prompts[puzzle.currentPrompt].challenge!.hint, [
+                    return Alert("Hint", currentPrompt.challenge!.hint, [
                       ElevatedButton(
                         child: Text("OK",
                             style: TextStyle(
@@ -150,30 +166,31 @@ class TemplateFirst extends StatelessWidget {
   const TemplateFirst({
     super.key,
     required this.puzzle,
+    required this.currentPrompt,
     required this.nextButton,
   });
 
   final Puzzle puzzle;
+  final Prompt currentPrompt;
   final ElevatedButton nextButton;
 
   @override
   Widget build(BuildContext context) {
     return Column(mainAxisSize: MainAxisSize.max, children: [
-      Image.asset(puzzle.prompts[puzzle.currentPrompt].image_path),
+      Image.asset(currentPrompt.image_path),
       SizedBox(height: 10),
       Text(
-        puzzle.prompts[puzzle.currentPrompt].title,
+        currentPrompt.title,
         style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
       ),
       Padding(
         padding: const EdgeInsets.all(8.0),
-        child:
-          puzzle.prompts[puzzle.currentPrompt].isChallenge
-              ? puzzle.prompts[puzzle.currentPrompt].challenge!.question
-              : puzzle.prompts[puzzle.currentPrompt].content!,
+        child: currentPrompt.isChallenge
+            ? currentPrompt.challenge!.question
+            : currentPrompt.content!,
       ),
-      puzzle.prompts[puzzle.currentPrompt].isChallenge
-          ? RadioButton(puzzle.prompts[puzzle.currentPrompt].challenge!.options)
+      currentPrompt.isChallenge
+          ? RadioButton(currentPrompt.challenge!.options)
           : Text(""),
       nextButton,
     ]);
@@ -184,10 +201,12 @@ class TemplateSecond extends StatelessWidget {
   const TemplateSecond({
     super.key,
     required this.puzzle,
+    required this.currentPrompt,
     required this.nextButton,
   });
 
   final Puzzle puzzle;
+  final Prompt currentPrompt;
   final ElevatedButton nextButton;
 
   @override
@@ -201,7 +220,7 @@ class TemplateSecond extends StatelessWidget {
                 children: <Widget>[
               SizedBox(height: 10),
               Text(
-                puzzle.prompts[puzzle.currentPrompt].title,
+                currentPrompt.title,
                 style: TextStyle(fontSize: 20, fontWeight: FontWeight.w900),
               ),
               Padding(
@@ -213,10 +232,9 @@ class TemplateSecond extends StatelessWidget {
               ),
               Padding(
                 padding: const EdgeInsets.all(12.0),
-                child:
-                  puzzle.prompts[puzzle.currentPrompt].isChallenge
-                      ? puzzle.prompts[puzzle.currentPrompt].challenge!.question
-                      : puzzle.prompts[puzzle.currentPrompt].content!,
+                child: currentPrompt.isChallenge
+                    ? currentPrompt.challenge!.question
+                    : currentPrompt.content!,
               ),
               nextButton,
             ])));

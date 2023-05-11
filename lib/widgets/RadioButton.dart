@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+int? selectedValue = 0;
+String? selectedAnswer = "";
 
 class RadioButton extends StatefulWidget {
   RadioButton(this.options, {super.key});
@@ -13,8 +15,6 @@ class RadioButton extends StatefulWidget {
 class _RadioButtonState extends State<RadioButton> {
 
   _RadioButtonState(this.options);
-
-  int? selectedValue = 0;
 
   late List<Widget> options;
 
@@ -36,6 +36,7 @@ class _RadioButtonState extends State<RadioButton> {
                   onChanged: (int? value) {
                     setState(() {
                       selectedValue = value;
+                      selectedAnswer = value.toString(); //in Puzzles, correct answers are given as string values of index
                     });
                   },
                 ),

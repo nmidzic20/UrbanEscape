@@ -1,3 +1,4 @@
+import '../widgets/Alert.dart';
 import './Puzzle.dart';
 import 'package:flutter/material.dart';
 import 'package:url_launcher/url_launcher.dart';
@@ -66,14 +67,37 @@ List<Puzzle> puzzles = [
                 1,
                 Text(
                     "There are 2 stars in front of you. They both have the same, strange shape. What is the shape of the 2 stars?"),
-                "answer",
+                "1",
                 [
                   Icon(Icons.star_border, color: Colors.black),
                   Icon(Icons.close, color: Colors.black),
                   Icon(Icons.favorite_border, color: Colors.black)
                 ],
                 "Look at the walls a bit more carefully...",
-                1),
+                1, (selectedAnswer, correctAnswer, context) {
+              String msg = "";
+              if (selectedAnswer == correctAnswer)
+                msg = "Correct!";
+              else
+                msg = "Incorrect :( Try again!";
+              showDialog(
+                  context: context,
+                  builder: (BuildContext context) {
+                    return Alert("", msg, [
+                      ElevatedButton(
+                        child: Text("OK",
+                            style: TextStyle(
+                                fontWeight: FontWeight.bold, fontSize: 20)),
+                        style: ElevatedButton.styleFrom(
+                            backgroundColor: Colors.pinkAccent),
+                        onPressed: () {
+                          Navigator.of(context).pop();
+                        },
+                      )
+                    ]);
+                  });
+              return selectedAnswer == correctAnswer;
+            }),
             false),
         Prompt(
             3,
