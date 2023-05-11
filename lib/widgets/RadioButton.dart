@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 
-enum SingingCharacter { lafayette, jefferson }
 
 class RadioButton extends StatefulWidget {
   RadioButton(this.options, {super.key});
@@ -15,7 +14,7 @@ class _RadioButtonState extends State<RadioButton> {
 
   _RadioButtonState(this.options);
 
-  int? _character = 0;
+  int? selectedValue = 0;
 
   late List<Widget> options;
 
@@ -32,11 +31,11 @@ class _RadioButtonState extends State<RadioButton> {
               return ListTile(
                 title: options[index],
                 leading: Radio<int>(
-                  value: index,//SingingCharacter.lafayette,
-                  groupValue: _character,
+                  value: index,
+                  groupValue: selectedValue,
                   onChanged: (int? value) {
                     setState(() {
-                      _character = value;
+                      selectedValue = value;
                     });
                   },
                 ),
@@ -44,32 +43,5 @@ class _RadioButtonState extends State<RadioButton> {
             }),
       ))
     ]);
-    /*children: <Widget>[
-        ListTile(
-          title: const Text('Lafayette'),
-          leading: Radio<SingingCharacter>(
-            value: SingingCharacter.lafayette,
-            groupValue: _character,
-            onChanged: (SingingCharacter? value) {
-              setState(() {
-                _character = value;
-              });
-            },
-          ),
-        ),
-        ListTile(
-          title: const Text('Thomas Jefferson'),
-          leading: Radio<SingingCharacter>(
-            value: SingingCharacter.jefferson,
-            groupValue: _character,
-            onChanged: (SingingCharacter? value) {
-              setState(() {
-                _character = value;
-              });
-            },
-          ),
-        ),
-      ],
-    );*/
   }
 }

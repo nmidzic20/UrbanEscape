@@ -167,11 +167,10 @@ class TemplateFirst extends StatelessWidget {
       ),
       Padding(
         padding: const EdgeInsets.all(8.0),
-        child: Text(
+        child:
           puzzle.prompts[puzzle.currentPrompt].isChallenge
               ? puzzle.prompts[puzzle.currentPrompt].challenge!.question
               : puzzle.prompts[puzzle.currentPrompt].content!,
-        ),
       ),
       puzzle.prompts[puzzle.currentPrompt].isChallenge
           ? RadioButton(puzzle.prompts[puzzle.currentPrompt].challenge!.options)
@@ -214,11 +213,10 @@ class TemplateSecond extends StatelessWidget {
               ),
               Padding(
                 padding: const EdgeInsets.all(12.0),
-                child: Text(
+                child:
                   puzzle.prompts[puzzle.currentPrompt].isChallenge
                       ? puzzle.prompts[puzzle.currentPrompt].challenge!.question
                       : puzzle.prompts[puzzle.currentPrompt].content!,
-                ),
               ),
               nextButton,
             ])));

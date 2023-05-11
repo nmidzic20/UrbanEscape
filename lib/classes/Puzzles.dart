@@ -1,5 +1,17 @@
 import './Puzzle.dart';
 import 'package:flutter/material.dart';
+import 'package:url_launcher/url_launcher.dart';
+import 'package:flutter/gestures.dart';
+
+Future<void> _launchInBrowser(Uri url) async {
+  if (!await launchUrl(
+    url,
+    mode: LaunchMode.externalApplication,
+  )) {
+    throw Exception('Could not launch $url');
+  }
+  print("launched");
+}
 
 List<Puzzle> puzzles = [
   Puzzle(
@@ -19,7 +31,28 @@ List<Puzzle> puzzles = [
             "assets/images/SSV_q1.jpg",
             "LOCATION 1/7",
             false,
-            "You are a space traveller and you’re trying to make your way back home. Your initial location is... the stars! \n\n Zvjezdarnica Zagreb is your starting point.",
+            RichText(
+              text: TextSpan(
+                children: <TextSpan>[
+                  TextSpan(
+                      text:
+                          'You are a space traveller and you’re trying to make your way back home. Your initial location is... the stars!\n\n',
+                      style: TextStyle(color: Colors.black)),
+                  TextSpan(
+                      text: 'Zvjezdarnica Zagreb',
+                      style: TextStyle(
+                        color: Colors.pinkAccent,
+                        decoration: TextDecoration.underline,
+                      ),
+                      recognizer: TapGestureRecognizer()
+                        ..onTap = () => _launchInBrowser(
+                            Uri.parse("https://zvjezdarnica.hr/"))),
+                  TextSpan(
+                      text: ' is your starting point.',
+                      style: TextStyle(color: Colors.black)),
+                ],
+              ),
+            ),
             null,
             false),
         Prompt(
@@ -31,7 +64,8 @@ List<Puzzle> puzzles = [
             null,
             Challenge(
                 1,
-                "There are 2 stars in front of you. They both have the same, strange shape. What is the shape of the 2 stars?",
+                Text(
+                    "There are 2 stars in front of you. They both have the same, strange shape. What is the shape of the 2 stars?"),
                 "answer",
                 [
                   Icon(Icons.star_border, color: Colors.black),
@@ -47,15 +81,16 @@ List<Puzzle> puzzles = [
             "assets/images/",
             "DID YOU KNOW?",
             false,
-            "The Observatory was founded by the Croatian Society for Natural Sciences. The premises in Popov Toranj were provided by the city government, which gave the funds for the reconstruction and the installation of an astronomic dome and a telescope. The grand opening took place on December 5, 1903. The first manager of the Observatory was Oton Kučera, a major promoter of science in Croatia.",
+            Text(
+                "The Observatory was founded by the Croatian Society for Natural Sciences. The premises in Popov Toranj were provided by the city government, which gave the funds for the reconstruction and the installation of an astronomic dome and a telescope. The grand opening took place on December 5, 1903. The first manager of the Observatory was Oton Kučera, a major promoter of science in Croatia."),
             null,
             true),
       ],
       10),
-  Puzzle("Search for Ivana Brlić-Mažuranić", "assets/images/ivana-brlic.png", "TODO", "TODO", "TODO",
-      "TODO", "TODO", "TODO", "TODO", List.empty(), 0),
-  Puzzle("True Witch of Grič", "assets/images/gricki-top.png", "TODO", "TODO", "TODO",
-      "TODO", "TODO", "TODO", "TODO", List.empty(), 0),
-  Puzzle("Nikola Tesla’s Secret Invention", "assets/images/tesla.jpg", "TODO", "TODO", "TODO",
-      "TODO", "TODO", "TODO", "TODO", List.empty(), 0),
+  Puzzle("Search for Ivana Brlić-Mažuranić", "assets/images/ivana-brlic.png",
+      "TODO", "TODO", "TODO", "TODO", "TODO", "TODO", "TODO", List.empty(), 0),
+  Puzzle("True Witch of Grič", "assets/images/gricki-top.png", "TODO", "TODO",
+      "TODO", "TODO", "TODO", "TODO", "TODO", List.empty(), 0),
+  Puzzle("Nikola Tesla’s Secret Invention", "assets/images/tesla.jpg", "TODO",
+      "TODO", "TODO", "TODO", "TODO", "TODO", "TODO", List.empty(), 0),
 ];

@@ -30,7 +30,7 @@ class Puzzle {
 
 class Challenge {
   late int id;
-  late String question;
+  late Widget question;
   late String answer;
   late List<Widget> options;
   late String hint;
@@ -56,7 +56,7 @@ class Prompt {
   late String image_path;
   late String title;
   late bool isChallenge;
-  late String? content;
+  late Widget? content;
   late Challenge? challenge;
   late bool timerPaused;
 
