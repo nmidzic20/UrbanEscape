@@ -16,6 +16,7 @@ Future<void> _launchInBrowser(Uri url) async {
 
 List<Puzzle> puzzles = [
   Puzzle(
+    1,
       "Solar System Voyage",
       "assets/images/solar-system-voyage-poster.jpg",
       "Zagreb",
@@ -111,10 +112,10 @@ List<Puzzle> puzzles = [
             true),
       ],
       10),
-  Puzzle("Search for Ivana Brlić-Mažuranić", "assets/images/ivana-brlic.png",
+  Puzzle(2,"Search for Ivana Brlić-Mažuranić", "assets/images/ivana-brlic.png",
       "TODO", "TODO", "TODO", "TODO", "TODO", "TODO", "TODO", List.empty(), 0),
-  Puzzle("True Witch of Grič", "assets/images/gricki-top.png", "TODO", "TODO",
+  Puzzle(3,"True Witch of Grič", "assets/images/gricki-top.png", "TODO", "TODO",
       "TODO", "TODO", "TODO", "TODO", "TODO", List.empty(), 0),
-  Puzzle("Nikola Tesla’s Secret Invention", "assets/images/tesla.jpg", "TODO",
+  Puzzle(4,"Nikola Tesla’s Secret Invention", "assets/images/tesla.jpg", "TODO",
       "TODO", "TODO", "TODO", "TODO", "TODO", "TODO", List.empty(), 0),
 ];

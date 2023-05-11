@@ -8,7 +8,7 @@ import 'package:pie_chart/pie_chart.dart';
 import '/classes/Puzzles.dart';
 import 'PuzzleScreen.dart';
 
-class StoryStartScreen extends StatelessWidget {
+class StoryStartScreen extends StatefulWidget {
   StoryStartScreen({super.key, required this.puzzleIndex}) {
     this.puzzle = puzzles[this.puzzleIndex];
   }
@@ -16,7 +16,20 @@ class StoryStartScreen extends StatelessWidget {
   final int puzzleIndex;
   late final Puzzle puzzle;
 
-  Map<String, double> dataMap = {
+  @override
+  State<StoryStartScreen> createState() => _StoryStartScreenState();
+}
+
+class _StoryStartScreenState extends State<StoryStartScreen> {
+  late final String buttonTitle;
+
+  @override
+  void initState() {
+    super.initState();
+    buttonTitle = widget.puzzle.started ? "Continue" : "Start";
+  }
+
+  final Map<String, double> dataMap = {
     "percentage": 1,
     "hour": 3,
   };
@@ -31,7 +44,7 @@ class StoryStartScreen extends StatelessWidget {
             onPressed: () => Navigator.of(context).pop(),
           );
         }),
-        title: Text("Start"),
+        title: Text(widget.puzzle.title),
         actions: [
           Padding(
             padding: const EdgeInsets.all(8.0),
@@ -58,18 +71,18 @@ class StoryStartScreen extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
               FittedBox(
-                child: Image.asset(puzzle.poster_image_url, height: 100,),
+                child: Image.asset(widget.puzzle.poster_image_url, height: 100,),
                 fit: BoxFit.fitWidth,
               ),
               Container(
-                height: 125,
+                height: 110,
                 color: Colors.white,
                 child: Column(
                   children: <Widget>[
-                    Text(
-                      puzzle.title,
+                    /*Text(
+                      widget.puzzle.title,
                       style: TextStyle(color: Colors.pink),
-                    ),
+                    ),*/
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                       children: [
@@ -87,7 +100,7 @@ class StoryStartScreen extends StatelessWidget {
                         Column(
                           children: [
                             Text("AVG. TIME"),
-                            Text(puzzle.avg_time),
+                            Text(widget.puzzle.avg_time),
                           ],
                         ),
                         CircularPercentIndicator(
@@ -119,13 +132,13 @@ class StoryStartScreen extends StatelessWidget {
                       child: SizedBox(
                         width: 200,
                         child: Text(
-                          puzzle.description,
+                          widget.puzzle.description,
                           style: TextStyle(color: Colors.white),
                         ),
                       ),
                     ),
                     ElevatedButton(
-                      child: Text("Start",
+                      child: Text(buttonTitle,
                         style: TextStyle
                           (fontWeight: FontWeight.bold,
                         fontSize: 20)
@@ -133,10 +146,13 @@ class StoryStartScreen extends StatelessWidget {
                       style: ElevatedButton.styleFrom(
                           backgroundColor: Colors.pinkAccent),
                       onPressed: () {
+                        print(widget.puzzle.started);
+                        widget.puzzle.started = true;
+                        print(widget.puzzle.started);
                         Navigator.push(
                           context,
                           MaterialPageRoute(
-                            builder: (context) => PuzzleScreen(puzzle),
+                            builder: (context) => PuzzleScreen(widget.puzzle),
                           ),
                         );
                       },

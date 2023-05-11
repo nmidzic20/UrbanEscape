@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 class Puzzle {
+  late int id;
   late String title;
   late String poster_image_url;
   late String city;
@@ -13,8 +14,10 @@ class Puzzle {
   late List<Prompt> prompts;
   late int promptsTotal;
   int currentPrompt = 0;
+  bool started = false;
 
   Puzzle(
+      this.id,
       this.title,
       this.poster_image_url,
       this.city,

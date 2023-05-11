@@ -60,13 +60,16 @@ class _PuzzleScreenState extends State<PuzzleScreen> {
         leading: Builder(builder: (context) {
           return IconButton(
             icon: Icon(Icons.arrow_back),
+            color: (puzzle.currentPrompt == 0 || !puzzle.prompts[puzzle.currentPrompt - 1].isChallenge) ? Colors.white : Colors.grey,
             onPressed: () {
               if (puzzle.currentPrompt == 0)
                 Navigator.of(context).pop();
               else
                 setState(() {
-                  puzzle.currentPrompt--;
-                  currentPrompt = puzzle.prompts[puzzle.currentPrompt];
+                  if (puzzle.currentPrompt != 0 && !puzzle.prompts[puzzle.currentPrompt - 1].isChallenge) {
+                    puzzle.currentPrompt--;
+                    currentPrompt = puzzle.prompts[puzzle.currentPrompt];
+                  }
                 });
             },
           );
