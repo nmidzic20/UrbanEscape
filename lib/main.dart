@@ -18,37 +18,41 @@ class MyApp extends StatelessWidget {
       title: 'Flutter Widgets',
       home: Scaffold(
         appBar: AppBar(
-          title: Text('I AM SUFFERING'),
+          title: Text('Test'),
         ),
-        body: Stack(children: [
-          Positioned(child: Row(
+        body: Stack(
             children: [
-              Positioned(child: ScoreCounter(initialScore: 15000),
-                right: 0,
-              ),
               Positioned(
-                child: CountdownTimer(hours: 0, minutes: 1, seconds: 30),
-              )
-            ],
-          ),
-            top: 15,
-          ),
+                  child:
+                  Row(
+                      children: [
+                        Positioned(child: ScoreCounter(initialScore: 15000),
+                          left: 0,
+                        ),
+                        Positioned(
+                            child: TimerWidget(),
+                            right: 0
+                        )
+                      ]
+                  ), top:15
+              ),
 
-          Positioned(
-            child: QuestionWidget(
-                question: "What's the meaning of life?",
-                correctAnswer: "42"
-            ),
-            bottom: 100,
-            left: 55,
-            right: 55,
-          ),
-          Positioned(
-              child: HintWidget(text: "THIS IS A CRY FOR HELP",),
-              bottom: 15.0,
-              right: 15.0,
-          )
-      ])
-    ));
+              Positioned(
+                child: QuestionWidget(
+                    question: "What's the meaning of life?",
+                    correctAnswer: "42"
+                ),
+                bottom: 100,
+                left: 55,
+                right: 55,
+              ),
+
+              Positioned(
+                child: HintWidget(text: "This is a hint",),
+                bottom: 15.0,
+                right: 15.0,
+              )
+            ])
+      ));
   }
 }

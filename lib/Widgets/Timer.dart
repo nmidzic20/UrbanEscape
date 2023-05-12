@@ -1,66 +1,62 @@
 import 'package:flutter/material.dart';
 import 'dart:async';
 
-class Timer extends StatefulWidget {
-  final int hours;
-  final int minutes;
-  final int seconds;
-
-  Timer({required this.hours, required this.minutes, required this.seconds});
-
+class TimerWidget extends StatefulWidget {
   @override
-  _TimerState createState() => _TimerState();
+  _TimerWidgetState createState() => _TimerWidgetState();
 }
 
-class _TimerState extends State<Timer> {
-  late int _timeRemaining;
-  bool _isRunning = true;
+class _TimerWidgetState extends State<TimerWidget> {
+  Stopwatch _stopwatch = Stopwatch();
   late Timer _timer;
 
-  @override
-  void initState() {
-    super.initState();
-    _timeRemaining = widget.hours * 3600 + widget.minutes * 60 + widget.seconds;
-    _startTimer();
+  String get _formattedTime {
+    final hours = (_stopwatch.elapsed.inSeconds / 3600).floor().toString().padLeft(2, '0');
+    final minutes = ((_stopwatch.elapsed.inSeconds % 3600) / 60).floor().toString().padLeft(2, '0');
+    final seconds = (_stopwatch.elapsed.inSeconds % 60).floor().toString().padLeft(2, '0');
+    return "$hours:$minutes:$seconds";
   }
 
-  void _startTimer() {
+  void _startStopwatch() {
+    _stopwatch.start();
     _timer = Timer.periodic(Duration(seconds: 1), (timer) {
-      setState(() {
-        if (_timeRemaining > 0) {
-          _timeRemaining--;
-        } else {
-          _stopTimer();
-        }
-      });
+      setState(() {});
     });
   }
 
-  void _stopTimer() {
+  void _stopStopwatch() {
+    _stopwatch.stop();
     _timer.cancel();
-    _isRunning = false;
   }
 
   @override
   void dispose() {
-    if (_isRunning) {
-      _stopTimer();
-    }
+    _timer.cancel();
     super.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
-    int hours = _timeRemaining ~/ 3600;
-    int minutes = (_timeRemaining % 3600) ~/ 60;
-    int seconds = _timeRemaining % 60;
-
     return Column(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
         Text(
-          '${hours.toString().padLeft(2, '0')}:${minutes.toString().padLeft(2, '0')}:${seconds.toString().padLeft(2, '0')}',
-          style: TextStyle(fontSize: 24),
+          _formattedTime,
+          style: TextStyle(fontSize: 48),
+        ),
+        Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            ElevatedButton(
+              onPressed: _stopwatch.isRunning ? null : _startStopwatch,
+              child: Text('Start'),
+            ),
+            SizedBox(width: 10),
+            ElevatedButton(
+              onPressed: _stopwatch.isRunning ? _stopStopwatch : null,
+              child: Text('Stop'),
+            ),
+          ],
         ),
       ],
     );
