@@ -47,6 +47,9 @@ dependencies:
   flutter_dotenv: ^5.0.2
   flutter_stripe: ^9.2.0
   http: ^0.13.6
+  flutter_localizations:
+    sdk: flutter
+  intl: any
 
 dev_dependencies:
   flutter_test:

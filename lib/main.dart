@@ -26,7 +26,8 @@ void main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
   //Assign publishable key to flutter_stripe
-  Stripe.publishableKey = "pk_test_51N6u89LsL63viszIF3Ef24meARmKNqReKgeqgWIeLzakqbn92vWvWNFF9MAmh64tpVZJD7cpLW1JqblhYSijMKUY000qq4prRZ";
+  Stripe.publishableKey =
+      "pk_test_51N6u89LsL63viszIF3Ef24meARmKNqReKgeqgWIeLzakqbn92vWvWNFF9MAmh64tpVZJD7cpLW1JqblhYSijMKUY000qq4prRZ";
 
   //Load our .env file that contains our Stripe Secret key
   await dotenv.load(fileName: "assets/.env");
@@ -70,7 +71,7 @@ class _MyAppState extends State<MyApp> {
       theme: lightTheme,
       darkTheme: darkTheme,
       themeMode: _themeManager.themeMode,
-      home: HomeScreen(), //change to AuthGate() when authentication is fixed
+      home: HomeScreen(),
     );
   }
 }
@@ -83,6 +84,15 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
+  List<String> list = <String>['English', 'Croatian'];
+  late String dropdownValue;
+
+  @override
+  void initState() {
+    super.initState();
+    dropdownValue = list.first;
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -98,7 +108,7 @@ class _HomeScreenState extends State<HomeScreen> {
               Padding(
                 padding: const EdgeInsets.only(top: 50.0),
                 child: Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
+                  mainAxisAlignment: MainAxisAlignment.spaceAround,
                   children: [
                     Text(_themeManager.themeMode == ThemeMode.dark
                         ? "Dark mode"
@@ -109,6 +119,37 @@ class _HomeScreenState extends State<HomeScreen> {
                           _themeManager.toggleTheme(newValue);
                           setState(() {});
                         }),
+                  ],
+                ),
+              ),
+              Padding(
+                padding: const EdgeInsets.only(top: 50.0),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceAround,
+                  children: [
+                    Text("Language"),
+                    DropdownButton<String>(
+                      value: dropdownValue,
+                      icon: const Icon(Icons.arrow_drop_down),
+                      elevation: 16,
+                      style: const TextStyle(color: Colors.deepPurple),
+                      underline: Container(
+                        height: 2,
+                        color: Colors.deepPurpleAccent,
+                      ),
+                      onChanged: (String? value) {
+                        // This is called when the user selects an item.
+                        setState(() {
+                          dropdownValue = value!;
+                        });
+                      },
+                      items: list.map<DropdownMenuItem<String>>((String value) {
+                        return DropdownMenuItem<String>(
+                          value: value,
+                          child: Text(value),
+                        );
+                      }).toList(),
+                    )
                   ],
                 ),
               ),
