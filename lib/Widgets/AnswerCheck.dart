@@ -9,6 +9,14 @@ class QuestionWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ElevatedButton(
+      style: ElevatedButton.styleFrom(
+        foregroundColor: Colors.white,
+        backgroundColor: Color(0xFFFC5285),
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(15.0), // Border radius
+        ),
+
+      ),
       onPressed: () {
         showDialog(
           context: context,

@@ -22,21 +22,28 @@ class MyApp extends StatelessWidget {
         ),
         body: Stack(
             children: [
-              Positioned(
-                  child:
-                  Row(
-                      children: [
-                        Positioned(child: ScoreCounter(initialScore: 15000),
-                          left: 0,
-                        ),
-                        Positioned(
-                            child: TimerWidget(),
-                            right: 0
-                        )
-                      ]
-                  ), top:15
+              // Background color
+              Container(
+                decoration: BoxDecoration(
+                  color: Color(0xFFE3E7FF),
+                ),
               ),
 
+              // ScoreCounter at top left
+              Positioned(
+                child: ScoreCounter(initialScore: 15000),
+                top: 15,
+                left: 15,
+              ),
+
+              // TimerWidget at top right
+              Positioned(
+                child: TimerWidget(),
+                top: 15,
+                right: 15,
+              ),
+
+              // QuestionWidget in the center
               Positioned(
                 child: QuestionWidget(
                     question: "What's the meaning of life?",
@@ -47,12 +54,15 @@ class MyApp extends StatelessWidget {
                 right: 55,
               ),
 
+              // HintWidget at bottom right
               Positioned(
                 child: HintWidget(text: "This is a hint",),
                 bottom: 15.0,
                 right: 15.0,
               )
-            ])
-      ));
+            ]
+        ),
+      ),
+    );
   }
 }

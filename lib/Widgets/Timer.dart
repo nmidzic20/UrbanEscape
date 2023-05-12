@@ -42,7 +42,7 @@ class _TimerWidgetState extends State<TimerWidget> {
       children: [
         Text(
           _formattedTime,
-          style: TextStyle(fontSize: 48),
+          style: TextStyle(fontSize: 16.0),
         ),
         Row(
           mainAxisAlignment: MainAxisAlignment.center,

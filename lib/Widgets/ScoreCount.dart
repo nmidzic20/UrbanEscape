@@ -28,8 +28,8 @@ class _ScoreCounterState extends State<ScoreCounter> {
   Widget build(BuildContext context) {
     return Container(
       decoration: BoxDecoration(
-        color: Colors.white,
-        borderRadius: BorderRadius.circular(16.0),
+        color: Color(0xFFFC5285),
+        borderRadius: BorderRadius.circular(15.0),
         boxShadow: [
           BoxShadow(
             color: Colors.grey.withOpacity(0.5),
@@ -43,17 +43,13 @@ class _ScoreCounterState extends State<ScoreCounter> {
       child: Row(
         mainAxisSize: MainAxisSize.min,
         children: [
-          Icon(
-            Icons.star,
-            color: Colors.yellow,
-          ),
           SizedBox(
             width: 8.0,
           ),
           Text(
-            '$_score',
+            'Score: $_score',
             style: TextStyle(
-              fontSize: 24.0,
+              fontSize: 16.0,
               fontWeight: FontWeight.bold,
             ),
           ),

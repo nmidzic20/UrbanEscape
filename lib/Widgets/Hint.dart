@@ -12,6 +12,13 @@ class HintWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ElevatedButton(
+      style: ElevatedButton.styleFrom(
+        foregroundColor: Colors.white, //#3B4FE6
+        backgroundColor: Color(0xFF3B4FE6),
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(15.0), // Border radius
+        ),
+      ),
       onPressed: () {
         showDialog(
           context: context,
