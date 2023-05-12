@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:urban_escape/widgets/Alert.dart';
+import 'package:urban_escape/main.dart';
 
+import '../theme/theme_manager.dart';
 import 'Puzzle.dart';
 import './Puzzles.dart';
 import '../screens/PuzzleScreenWelcome.dart';
@@ -45,7 +46,7 @@ class PuzzleCard extends StatelessWidget {
                 ),
               ),
             ),
-            Text(puzzle.title, style: TextStyle(fontSize: 20))
+            Text(puzzle.title, style: TextStyle(fontSize: 20, color: (themeManager.themeMode == ThemeMode.dark) ? Colors.white : Colors.black))
           ]),
         ),
       ),

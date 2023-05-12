@@ -5,7 +5,9 @@ import 'package:urban_escape/theme/theme_constants.dart';
 import 'package:percent_indicator/percent_indicator.dart';
 import 'package:pie_chart/pie_chart.dart';
 import '../auth_gate.dart';
+import '../shared.dart';
 import '../widgets/Alert.dart';
+import '../widgets/NavDrawer.dart';
 import '/classes/Puzzles.dart';
 import 'BookingScreen.dart';
 import 'PuzzleScreenPrompt.dart';
@@ -63,6 +65,7 @@ class _PuzzleScreenWelcomeState extends State<PuzzleScreenWelcome> {
           )
         ],
       ),
+      drawer: NavDrawer(),
       body: SingleChildScrollView(
         child: Container(
           width: double.maxFinite,
@@ -352,7 +355,10 @@ class RatingPrice extends StatelessWidget {
                 color: Colors.white,
               ),
               Text(puzzle.puzzle.rating,
-                  style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20))
+                  style: TextStyle(
+                      fontWeight: FontWeight.bold,
+                      fontSize: 20,
+                      color: Colors.black))
             ],
           ),
           padding: EdgeInsets.all(10.0),
@@ -367,7 +373,8 @@ class RatingPrice extends StatelessWidget {
         ),
         Text(
           puzzle.puzzle.price + "€",
-          style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
+          style: TextStyle(
+              fontWeight: FontWeight.bold, fontSize: 20, color: Colors.black),
         ),
       ])
     ]);

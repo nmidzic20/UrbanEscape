@@ -4,6 +4,7 @@ import 'package:urban_escape/widgets/Alert.dart';
 
 import '../main.dart';
 import '../theme/theme_constants.dart';
+import '../widgets/NavDrawer.dart';
 import '../widgets/RadioButton.dart';
 
 class PuzzleScreen extends StatefulWidget {
@@ -100,6 +101,7 @@ class _PuzzleScreenState extends State<PuzzleScreen> {
           )
         ],
       ),
+      drawer: NavDrawer(),
       body: SingleChildScrollView(
           child: (currentPrompt.templateScreen == TemplateScreen.FIRST)
               ? TemplateFirst(

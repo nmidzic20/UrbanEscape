@@ -6,6 +6,8 @@ import 'package:flutter_stripe/flutter_stripe.dart';
 import 'package:urban_escape/classes/Puzzle.dart';
 import 'package:urban_escape/widgets/MyAppBar.dart';
 
+import '../main.dart';
+import '../widgets/NavDrawer.dart';
 import 'PuzzleScreenWelcome.dart';
 
 class BookingScreen extends StatefulWidget {
@@ -27,7 +29,8 @@ class _BookingScreenState extends State<BookingScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: MyAppBar("Stripe Payment"),
+      appBar: MyAppBar("Stripe Payment", true),
+      drawer: NavDrawer(),
       body: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,

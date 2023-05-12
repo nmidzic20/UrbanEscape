@@ -14,13 +14,17 @@ class Alert extends StatelessWidget {
   }
 
   showAlertDialog(BuildContext context) {
-
-
     // Create AlertDialog
     AlertDialog alert = AlertDialog(
-      title: Text(title),
-      backgroundColor: COLOR_BACKGROUND,//Color.fromRGBO(230, 230, 250, 1),
-      content: Text(message),
+      title: Text(
+        title,
+        style: TextStyle(color: Colors.white70),
+      ),
+      backgroundColor: COLOR_BACKGROUND, //Color.fromRGBO(230, 230, 250, 1),
+      content: Text(
+        message,
+        style: TextStyle(color: Colors.white70),
+      ),
       actions: buttons,
     );
 

@@ -11,3 +11,5 @@ class ThemeManager with ChangeNotifier {
     notifyListeners();
   }
 }
+
+ThemeManager themeManager = ThemeManager();

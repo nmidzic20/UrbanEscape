@@ -1,13 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:flutterfire_ui/auth.dart';
+import 'package:urban_escape/main.dart';
 
 class MyAppBar extends StatelessWidget implements PreferredSizeWidget {
   @override
   Size get preferredSize => const Size.fromHeight(60);
 
-  const MyAppBar(this.title, {Key? key}) : super(key: key);
+  const MyAppBar(this.title, this.showHomeIcon, {Key? key}) : super(key: key);
 
   final String title;
+  final bool showHomeIcon;
 
   @override
   Widget build(BuildContext context) {
@@ -36,13 +38,14 @@ class MyAppBar extends StatelessWidget implements PreferredSizeWidget {
           padding: const EdgeInsets.all(8.0),
           child: IconButton(
             icon: Icon(
-              Icons.account_circle,
+              (showHomeIcon) ? Icons.home_filled : Icons.account_circle,
             ),
             onPressed: () {
               Navigator.push(
                 context,
                 MaterialPageRoute(
-                  builder: (context) => ProfileScreen(),
+                  builder: (context) =>
+                      (showHomeIcon) ? HomeScreen() : ProfileScreen(),
                 ),
               );
             },
