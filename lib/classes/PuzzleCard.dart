@@ -5,7 +5,7 @@ import '../Auth.dart';
 import '../auth_gate.dart';
 import 'Puzzle.dart';
 import './Puzzles.dart';
-import '../screens/StartPuzzleScreen.dart';
+import '../screens/PuzzleScreenWelcome.dart';
 
 class PuzzleCard extends StatelessWidget {
   PuzzleCard(this.index, {Key? key}) : super(key: key) {
@@ -18,23 +18,6 @@ class PuzzleCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
 
-    ElevatedButton registerButton = ElevatedButton(
-      child: Text("Register"),
-      style: ElevatedButton.styleFrom(backgroundColor: Colors.blueAccent),
-      onPressed: () => Navigator.push(
-        context,
-        MaterialPageRoute(
-          builder: (context) => AuthGate(),
-        ),
-      )
-    );
-
-    ElevatedButton continueAsGuestButton = ElevatedButton(
-      child: Text("Continue as a guest"),
-      style: ElevatedButton.styleFrom(backgroundColor: Colors.pinkAccent),
-      onPressed: () => Navigator.of(context).pop(),
-    );
-
     return Card(
       elevation: 20,
       shape: RoundedRectangleBorder(
@@ -43,17 +26,7 @@ class PuzzleCard extends StatelessWidget {
       child: InkWell(
         borderRadius: BorderRadius.circular(50),
         onTap: () {
-          (!isLoggedIn)
-              ? showDialog(
-                  context: context,
-                  builder: (BuildContext context) {
-                    return Alert(
-                        "Dear guest,",
-                        "To perform this action you need to register an account. We would love to have you on here!",
-                        [registerButton, continueAsGuestButton]);
-                  },
-                )
-              : Navigator.push(
+          Navigator.push(
                   context,
                   MaterialPageRoute(
                     builder: (context) => StoryStartScreen(puzzleIndex: index),

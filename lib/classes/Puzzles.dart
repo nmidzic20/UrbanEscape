@@ -11,7 +11,6 @@ Future<void> _launchInBrowser(Uri url) async {
   )) {
     throw Exception('Could not launch $url');
   }
-  print("launched");
 }
 
 List<Puzzle> puzzles = [

@@ -14,7 +14,9 @@ class Puzzle {
   late List<Prompt> prompts;
   late int promptsTotal;
   int currentPrompt = 0;
+
   bool started = false;
+  bool purchased = false;
 
   Puzzle(
       this.id,
