@@ -4,8 +4,6 @@ import 'package:urban_escape/main.dart';
 import 'package:urban_escape/theme/theme_constants.dart';
 import 'package:percent_indicator/percent_indicator.dart';
 import 'package:pie_chart/pie_chart.dart';
-
-import '../Auth.dart';
 import '../auth_gate.dart';
 import '../widgets/Alert.dart';
 import '/classes/Puzzles.dart';
@@ -233,7 +231,7 @@ class PurchasePuzzle extends StatelessWidget {
                 onPressed: () => Navigator.of(context).pop(),
               );
 
-              (!isLoggedIn)
+              (!getBoolValuesFromSharedPrefs("isLoggedIn"))
                   ? showDialog(
                       context: context,
                       builder: (BuildContext context) {

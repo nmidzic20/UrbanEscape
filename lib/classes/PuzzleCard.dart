@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:urban_escape/widgets/Alert.dart';
 
-import '../Auth.dart';
-import '../auth_gate.dart';
 import 'Puzzle.dart';
 import './Puzzles.dart';
 import '../screens/PuzzleScreenWelcome.dart';

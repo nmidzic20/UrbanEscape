@@ -3,10 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:flutterfire_ui/auth.dart';
 import 'package:urban_escape/main.dart';
 
-import 'Auth.dart';
-
 class AuthGate extends StatelessWidget {
-  const AuthGate({super.key});
+  AuthGate({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -19,7 +17,7 @@ class AuthGate extends StatelessWidget {
               EmailProviderConfiguration(),
               GoogleProviderConfiguration(
                   clientId:
-                  '708215483312-dk8kfdeqc4iku979eid6mle2eoohau7j.apps.googleusercontent.com'),
+                      '708215483312-dk8kfdeqc4iku979eid6mle2eoohau7j.apps.googleusercontent.com'),
             ],
             headerBuilder: (context, constraints, shrinkOffset) {
               return Padding(
@@ -58,7 +56,41 @@ class AuthGate extends StatelessWidget {
             },
           );
         }
-        isLoggedIn = true;
+
+        loggedInFirstTime = true;
+
+        /*if (firstPassAuthGate && themeChanged) {
+          print("FIRST PASS");
+          firstPassAuthGate = false;
+        } else if (!firstPassAuthGate) {
+          print("SECOND PASS");
+          themeChanged = true;
+          firstPassAuthGate = true;
+        }*/
+
+        if (currentPassAuthGate == 0 && themeChanged) {
+          print("FIRST PASS");
+          currentPassAuthGate++;
+        } else if (currentPassAuthGate != 0 &&
+            currentPassAuthGate < requiredPassesAuthGate) {
+          print(currentPassAuthGate.toString() + " PASS");
+          themeChanged = true;
+          currentPassAuthGate++;
+        }
+
+        if (currentPassAuthGate == requiredPassesAuthGate) currentPassAuthGate = 0;
+
+        if (themeChanged) {
+          themeChanged = false;
+          print("THEME CHANGED");
+        } else {
+          setBoolToSharedPrefs("isLoggedIn", true);
+          print("LOGGED IN");
+          loggedInCount++;
+          requiredPassesAuthGate = loggedInCount * 2;
+        }
+        print("AUTH GATE");
+
         return const HomeScreen();
       },
     );

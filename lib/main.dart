@@ -9,9 +9,29 @@ import 'firebase_options.dart';
 import 'package:flutterfire_ui/auth.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:flutter_stripe/flutter_stripe.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 const clientId =
     '708215483312-dk8kfdeqc4iku979eid6mle2eoohau7j.apps.googleusercontent.com';
+
+late SharedPreferences prefs;
+bool themeChanged = false;
+bool loggedInFirstTime = false;
+bool firstPassAuthGate = true;
+
+int loggedInCount = 0;
+int currentPassAuthGate = 0;
+int requiredPassesAuthGate = 2;
+
+void setBoolToSharedPrefs(String key, bool value) {
+  prefs.setBool(key, value);
+}
+
+bool getBoolValuesFromSharedPrefs(String key) {
+  bool? boolValue = prefs.getBool(key);
+  if (boolValue == null) boolValue = false;
+  return boolValue;
+}
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -31,6 +51,10 @@ void main() async {
 
   //Load our .env file that contains our Stripe Secret key
   await dotenv.load(fileName: "assets/.env");
+
+  prefs = await SharedPreferences.getInstance();
+  if (getBoolValuesFromSharedPrefs("isLoggedIn") != false)
+  setBoolToSharedPrefs("isLoggedIn", false);
 
   runApp(const MyApp());
 }
@@ -108,6 +132,19 @@ class _HomeScreenState extends State<HomeScreen> {
               Padding(
                 padding: const EdgeInsets.only(top: 50.0),
                 child: Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Text(
+                      "Settings",
+                      style:
+                          TextStyle(fontSize: 25, fontWeight: FontWeight.bold),
+                    )
+                  ],
+                ),
+              ),
+              Padding(
+                padding: const EdgeInsets.only(top: 50.0),
+                child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceAround,
                   children: [
                     Text(_themeManager.themeMode == ThemeMode.dark
@@ -118,6 +155,7 @@ class _HomeScreenState extends State<HomeScreen> {
                         onChanged: (newValue) {
                           _themeManager.toggleTheme(newValue);
                           setState(() {});
+                          if (loggedInFirstTime) themeChanged = true;
                         }),
                   ],
                 ),
@@ -132,13 +170,11 @@ class _HomeScreenState extends State<HomeScreen> {
                       value: dropdownValue,
                       icon: const Icon(Icons.arrow_drop_down),
                       elevation: 16,
-                      style: const TextStyle(color: Colors.deepPurple),
                       underline: Container(
                         height: 2,
                         color: Colors.deepPurpleAccent,
                       ),
                       onChanged: (String? value) {
-                        // This is called when the user selects an item.
                         setState(() {
                           dropdownValue = value!;
                         });
@@ -153,6 +189,31 @@ class _HomeScreenState extends State<HomeScreen> {
                   ],
                 ),
               ),
+              Visibility(
+                visible: getBoolValuesFromSharedPrefs("isLoggedIn"),
+                child: Padding(
+                  padding: const EdgeInsets.only(top: 150),
+                  child: Center(
+                    child: ElevatedButton(
+                      child: Text("Log out",
+                          style: TextStyle(
+                              fontWeight: FontWeight.bold, fontSize: 20)),
+                      style: ElevatedButton.styleFrom(
+                          backgroundColor: Colors.pinkAccent),
+                      onPressed: () {
+                        setBoolToSharedPrefs("isLoggedIn", false);
+
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => HomeScreen(),
+                          ),
+                        );
+                      },
+                    ),
+                  ),
+                ),
+              )
             ],
           ),
         ),
