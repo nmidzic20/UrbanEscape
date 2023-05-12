@@ -13,6 +13,11 @@ class _TimerWidgetState extends State<TimerWidget> {
   String get _formattedTime {
     final hours = (_stopwatch.elapsed.inSeconds / 3600).floor().toString().padLeft(2, '0');
     final minutes = ((_stopwatch.elapsed.inSeconds % 3600) / 60).floor().toString().padLeft(2, '0');
+    return "$hours:$minutes";
+  }
+  String get _formattedFullTime {
+    final hours = (_stopwatch.elapsed.inSeconds / 3600).floor().toString().padLeft(2, '0');
+    final minutes = ((_stopwatch.elapsed.inSeconds % 3600) / 60).floor().toString().padLeft(2, '0');
     final seconds = (_stopwatch.elapsed.inSeconds % 60).floor().toString().padLeft(2, '0');
     return "$hours:$minutes:$seconds";
   }
@@ -27,6 +32,15 @@ class _TimerWidgetState extends State<TimerWidget> {
   void _stopStopwatch() {
     _stopwatch.stop();
     _timer.cancel();
+    print(getFullTime());
+  }
+
+  String getShortTime() {
+    return _formattedTime;
+  }
+
+  String getFullTime(){
+    return _formattedFullTime;
   }
 
   @override
