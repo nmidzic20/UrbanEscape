@@ -7,6 +7,8 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:urban_escape/widgets/MyAppBar.dart';
 import 'firebase_options.dart';
 import 'package:flutterfire_ui/auth.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
+import 'package:flutter_stripe/flutter_stripe.dart';
 
 const clientId =
     '708215483312-dk8kfdeqc4iku979eid6mle2eoohau7j.apps.googleusercontent.com';
@@ -19,6 +21,15 @@ void main() async {
     const EmailProviderConfiguration(),
     const GoogleProviderConfiguration(clientId: clientId),
   ]);
+
+  //Initialize Flutter Binding
+  WidgetsFlutterBinding.ensureInitialized();
+
+  //Assign publishable key to flutter_stripe
+  Stripe.publishableKey = "pk_test_51N6u89LsL63viszIF3Ef24meARmKNqReKgeqgWIeLzakqbn92vWvWNFF9MAmh64tpVZJD7cpLW1JqblhYSijMKUY000qq4prRZ";
+
+  //Load our .env file that contains our Stripe Secret key
+  await dotenv.load(fileName: "assets/.env");
 
   runApp(const MyApp());
 }
@@ -75,7 +86,7 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: MyAppBar(),
+        appBar: MyAppBar("Home"),
         drawer: Drawer(
           // Add a ListView to the drawer. This ensures the user can scroll
           // through the options in the drawer if there isn't enough vertical

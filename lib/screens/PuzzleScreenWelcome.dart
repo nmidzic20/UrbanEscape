@@ -12,8 +12,8 @@ import '/classes/Puzzles.dart';
 import 'BookingScreen.dart';
 import 'PuzzleScreenPrompt.dart';
 
-class StoryStartScreen extends StatefulWidget {
-  StoryStartScreen({super.key, required this.puzzleIndex}) {
+class PuzzleScreenWelcome extends StatefulWidget {
+  PuzzleScreenWelcome({super.key, required this.puzzleIndex}) {
     this.puzzle = puzzles[this.puzzleIndex];
   }
 
@@ -21,10 +21,10 @@ class StoryStartScreen extends StatefulWidget {
   late final Puzzle puzzle;
 
   @override
-  State<StoryStartScreen> createState() => _StoryStartScreenState();
+  State<PuzzleScreenWelcome> createState() => _PuzzleScreenWelcomeState();
 }
 
-class _StoryStartScreenState extends State<StoryStartScreen> {
+class _PuzzleScreenWelcomeState extends State<PuzzleScreenWelcome> {
   @override
   void initState() {
     super.initState();
@@ -332,7 +332,7 @@ class RatingPrice extends StatelessWidget {
     required this.puzzle,
   });
 
-  final StoryStartScreen puzzle;
+  final PuzzleScreenWelcome puzzle;
 
   @override
   Widget build(BuildContext context) {

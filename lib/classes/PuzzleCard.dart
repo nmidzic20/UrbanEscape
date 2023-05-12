@@ -29,7 +29,7 @@ class PuzzleCard extends StatelessWidget {
           Navigator.push(
                   context,
                   MaterialPageRoute(
-                    builder: (context) => StoryStartScreen(puzzleIndex: index),
+                    builder: (context) => PuzzleScreenWelcome(puzzleIndex: index),
                   ),
                 );
         },

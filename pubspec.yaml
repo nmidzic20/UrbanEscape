@@ -39,15 +39,18 @@ dependencies:
   cloud_firestore: ^4.6.0
   flutterfire_ui: ^0.4.3+20
   google_sign_in: ^5.4.4
-
-dev_dependencies:
-  flutter_test:
-    sdk: flutter
   flutter_native_splash: ^2.2.19
   flutter_launcher_icons: "^0.12.0"
   percent_indicator: ^4.0.1
   pie_chart: ^5.3.2
   url_launcher: ^6.1.11
+  flutter_dotenv: ^5.0.2
+  flutter_stripe: ^9.2.0
+  http: ^0.13.6
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
 
 flutter_native_splash:
   color: '#4a4b4f'
@@ -86,6 +89,7 @@ flutter:
      - assets/images/tesla.jpg
      - assets/images/SSV_q1.jpg
      - assets/logo_spin.gif
+     - assets/.env
 
   #   - images/a_dot_ham.jpeg
 
