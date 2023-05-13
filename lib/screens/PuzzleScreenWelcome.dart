@@ -238,34 +238,8 @@ class _BookNowState extends State<BookNow> {
                 style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20)),
             style: ElevatedButton.styleFrom(backgroundColor: Colors.pinkAccent),
             onPressed: () {
-              ElevatedButton registerButton = ElevatedButton(
-                  child: Text("Register"),
-                  style: ElevatedButton.styleFrom(
-                      backgroundColor: Colors.blueAccent),
-                  onPressed: () => Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) => AuthGate(),
-                        ),
-                      ));
-
-              ElevatedButton continueAsGuestButton = ElevatedButton(
-                child: Text("Continue as a guest"),
-                style: ElevatedButton.styleFrom(
-                    backgroundColor: Colors.pinkAccent),
-                onPressed: () => Navigator.of(context).pop(),
-              );
-
               if (!getBoolValuesFromSharedPrefs("isLoggedIn"))
-                showDialog(
-                  context: context,
-                  builder: (BuildContext context) {
-                    return Alert(
-                        "Dear guest,",
-                        "To perform this action you need to register an account. We would love to have you on here!",
-                        [registerButton, continueAsGuestButton]);
-                  },
-                );
+                showGuestDialog(context);
               else {
                 if (puzzle.price <= player.coinsAmount) {
                   setState(() {
@@ -357,13 +331,16 @@ class _StartPuzzleState extends State<StartPuzzle> {
                 style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20)),
             style: ElevatedButton.styleFrom(backgroundColor: Colors.pinkAccent),
             onPressed: () {
-              puzzle.started = true;
-              Navigator.push(
-                context,
-                MaterialPageRoute(
-                  builder: (context) => PuzzleScreen(puzzle),
-                ),
-              );
+              if (getBoolValuesFromSharedPrefs("isLoggedIn")) {
+                puzzle.started = true;
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => PuzzleScreen(puzzle),
+                  ),
+                );
+              } else
+                showGuestDialog(context);
             },
           )
         ],
@@ -424,4 +401,31 @@ class RatingPrice extends StatelessWidget {
       ])
     ]);
   }
+}
+
+void showGuestDialog(BuildContext context) {
+  ElevatedButton registerButton = ElevatedButton(
+      child: Text("Sign in"),
+      style: ElevatedButton.styleFrom(backgroundColor: Colors.blueAccent),
+      onPressed: () => Navigator.push(
+            context,
+            MaterialPageRoute(
+              builder: (context) => AuthGate(),
+            ),
+          ));
+
+  ElevatedButton continueAsGuestButton = ElevatedButton(
+    child: Text("Continue as a guest"),
+    style: ElevatedButton.styleFrom(backgroundColor: Colors.pinkAccent),
+    onPressed: () => Navigator.of(context).pop(),
+  );
+  showDialog(
+    context: context,
+    builder: (BuildContext context) {
+      return Alert(
+          "Dear guest,",
+          "To perform this action you need to sign in or register an account. We would love to have you on here!",
+          [registerButton, continueAsGuestButton]);
+    },
+  );
 }
