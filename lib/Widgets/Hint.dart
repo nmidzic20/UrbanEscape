@@ -1,35 +1,44 @@
 import 'package:flutter/material.dart';
+import 'package:urban_escape/Widgets/ScoreCount.dart';
+import 'ScoreCount.dart';
 
-class HintWidget extends StatelessWidget {
+class HintWidget extends StatefulWidget {
   final String text;
-  // final Function onHintUsed;
+  final GlobalKey<ScoreCounterState> scoreCountKey;
 
   HintWidget({
-    required this.text
-    // , required this.onHintUsed
+    required this.text,
+    required this.scoreCountKey,
   });
+
+  @override
+  _HintWidgetState createState() => _HintWidgetState();
+}
+
+
+class _HintWidgetState extends State<HintWidget> {
 
   @override
   Widget build(BuildContext context) {
     return ElevatedButton(
       style: ElevatedButton.styleFrom(
-        foregroundColor: Colors.white, //#3B4FE6
+        foregroundColor: Colors.white,
         backgroundColor: Color(0xFF3B4FE6),
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(15.0), // Border radius
         ),
       ),
       onPressed: () {
+        widget.scoreCountKey.currentState!.decreaseScore();
         showDialog(
           context: context,
           builder: (BuildContext context) {
             return AlertDialog(
               title: Text('Hint: '),
-              content: Text(text),
+              content: Text(widget.text),
               actions: [
                 ElevatedButton(
                   onPressed: () {
-                    // onHintUsed();
                     Navigator.of(context).pop();
                   },
                   child: Text('OK'),

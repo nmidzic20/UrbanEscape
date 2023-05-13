@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'Widgets/AnswerCheck.dart';
-import 'Widgets/ResponseWidget.dart';
 import 'Widgets/Hint.dart';
 import 'Widgets/ScoreCount.dart';
 import 'Widgets/Timer.dart';
@@ -9,10 +8,20 @@ void main() {
   runApp(MyApp());
 }
 
-class MyApp extends StatelessWidget {
+class MyApp extends StatefulWidget {
+
+  const MyApp({Key? key}) : super(key: key);
+
+  @override
+  _MyAppState createState() => _MyAppState();
+}
+
+class _MyAppState extends State<MyApp> {
 
   @override
   Widget build(BuildContext context) {
+    var scoreCounter = ScoreCounter(initialScore: 1500, key: GlobalKey<ScoreCounterState>());
+    GlobalKey<ScoreCounterState> key = scoreCounter.key as GlobalKey<ScoreCounterState>;
 
     return MaterialApp(
       title: 'Flutter Widgets',
@@ -31,7 +40,7 @@ class MyApp extends StatelessWidget {
 
               // ScoreCounter at top left
               Positioned(
-                child: ScoreCounter(initialScore: 15000),
+                child: scoreCounter,
                 top: 15,
                 left: 15,
               ),
@@ -56,7 +65,9 @@ class MyApp extends StatelessWidget {
 
               // HintWidget at bottom right
               Positioned(
-                child: HintWidget(text: "This is a hint",),
+                child: HintWidget(text: "This is a hint",
+                  scoreCountKey: key,
+                ),
                 bottom: 15.0,
                 right: 15.0,
               )

@@ -1,15 +1,19 @@
 import 'package:flutter/material.dart';
 
 class ScoreCounter extends StatefulWidget {
-  int initialScore;
+  final int initialScore;
 
-  ScoreCounter({required this.initialScore});
+  const ScoreCounter({required this.initialScore, Key? key}): super(key: key);
+
+  static ScoreCounterState? of(BuildContext context) {
+    return context.findAncestorStateOfType<ScoreCounterState>();
+  }
 
   @override
-  _ScoreCounterState createState() => _ScoreCounterState();
+  ScoreCounterState createState() => ScoreCounterState();
 }
 
-class _ScoreCounterState extends State<ScoreCounter> {
+class ScoreCounterState extends State<ScoreCounter> {
   late int _score;
 
   @override
@@ -21,9 +25,12 @@ class _ScoreCounterState extends State<ScoreCounter> {
   void decreaseScore() {
     setState(() {
       _score--;
-    });
+      });
+    print("This is  score: $_score");
   }
-
+  void emptyFunc(){
+    print("HELP ME!");
+  }
   @override
   Widget build(BuildContext context) {
     return Container(
