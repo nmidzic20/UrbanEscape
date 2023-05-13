@@ -13,7 +13,6 @@ class PuzzleCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-
     return Card(
       elevation: 20,
       shape: RoundedRectangleBorder(
@@ -23,11 +22,11 @@ class PuzzleCard extends StatelessWidget {
         borderRadius: BorderRadius.circular(50),
         onTap: () {
           Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) => PuzzleScreenWelcome(id: puzzle.id),
-                  ),
-                );
+            context,
+            MaterialPageRoute(
+              builder: (context) => PuzzleScreenWelcome(id: puzzle.id),
+            ),
+          );
         },
         child: SizedBox(
           width: 300,
@@ -43,7 +42,12 @@ class PuzzleCard extends StatelessWidget {
                 ),
               ),
             ),
-            Text(puzzle.title, style: TextStyle(fontSize: 20, color: (themeManager.themeMode == ThemeMode.dark) ? Colors.white : Colors.black))
+            Text(puzzle.title,
+                style: TextStyle(
+                    fontSize: 20,
+                    color: (themeManager.themeMode == ThemeMode.dark)
+                        ? Colors.white
+                        : Colors.black))
           ]),
         ),
       ),

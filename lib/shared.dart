@@ -18,3 +18,11 @@ bool getBoolValuesFromSharedPrefs(String key) {
   if (boolValue == null) boolValue = false;
   return boolValue;
 }
+
+class Player {
+  Player(this.coinsAmount);
+
+  int coinsAmount;
+}
+
+Player player = Player(0);

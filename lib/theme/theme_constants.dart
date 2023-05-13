@@ -9,6 +9,12 @@ const COLOR_TEXT = Colors.white;
 const LINEAR_GRADIENT = LinearGradient(
   begin: Alignment.topLeft,
   end: Alignment(0.8, 1),
+  stops: [
+    0.4,
+    0.7,
+    0.8,
+    0.9,
+  ],
   colors: <Color>[
     Color(0xff1f005c),
     Color(0xff5b0060),

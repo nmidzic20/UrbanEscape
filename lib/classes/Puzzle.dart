@@ -8,7 +8,7 @@ class Puzzle {
   late String country;
   late String avg_time;
   late String rating;
-  late String price;
+  late int price;
   late String description;
   late String start_location;
   late List<Prompt> prompts;

@@ -9,7 +9,7 @@ import '../shared.dart';
 import '../widgets/Alert.dart';
 import '../widgets/NavDrawer.dart';
 import '/classes/Puzzles.dart';
-import 'BookingScreen.dart';
+import 'PurchasePuzzle.dart';
 import 'PuzzleScreenPrompt.dart';
 
 class PuzzleScreenWelcome extends StatefulWidget {
@@ -21,13 +21,23 @@ class PuzzleScreenWelcome extends StatefulWidget {
   late final Puzzle puzzle;
 
   @override
-  State<PuzzleScreenWelcome> createState() => _PuzzleScreenWelcomeState();
+  State<PuzzleScreenWelcome> createState() => _PuzzleScreenWelcomeState(puzzle);
 }
 
 class _PuzzleScreenWelcomeState extends State<PuzzleScreenWelcome> {
+  _PuzzleScreenWelcomeState(this.puzzle);
+
+  final Puzzle puzzle;
+  late Function updateParentWidget;
+
   @override
   void initState() {
     super.initState();
+    updateParentWidget = () {
+      setState(() {
+        puzzle.purchased = true;
+      });
+    };
   }
 
   final Map<String, double> dataMap = {
@@ -45,7 +55,7 @@ class _PuzzleScreenWelcomeState extends State<PuzzleScreenWelcome> {
             onPressed: () => Navigator.of(context).pop(),
           );
         }),
-        title: Text(widget.puzzle.title),
+        title: Text(puzzle.title),
         actions: [
           Padding(
             padding: const EdgeInsets.all(8.0),
@@ -74,7 +84,7 @@ class _PuzzleScreenWelcomeState extends State<PuzzleScreenWelcome> {
             children: [
               FittedBox(
                 child: Image.asset(
-                  widget.puzzle.poster_image_url,
+                  puzzle.poster_image_url,
                   height: 100,
                 ),
                 fit: BoxFit.fitWidth,
@@ -104,7 +114,7 @@ class _PuzzleScreenWelcomeState extends State<PuzzleScreenWelcome> {
                                 style: TextStyle(
                                     fontWeight: FontWeight.bold,
                                     color: Colors.pinkAccent)),
-                            Text(widget.puzzle.avg_time),
+                            Text(puzzle.avg_time),
                           ],
                         ),
                         CircularPercentIndicator(
@@ -124,14 +134,14 @@ class _PuzzleScreenWelcomeState extends State<PuzzleScreenWelcome> {
                     ),
                     Padding(padding: EdgeInsets.all(5.0)),
                     Visibility(
-                        visible: !widget.puzzle.purchased,
-                        child: RatingPrice(puzzle: widget))
+                        visible: !puzzle.purchased,
+                        child: RatingPrice(puzzle: puzzle))
                   ],
                 ),
               ),
-              (widget.puzzle.purchased)
-                  ? StartPuzzle(puzzle: widget.puzzle)
-                  : PurchasePuzzle(puzzle: widget.puzzle)
+              (puzzle.purchased)
+                  ? StartPuzzle(puzzle: puzzle)
+                  : BookNow(updateParentWidget, puzzle: puzzle)
             ],
           ),
         ),
@@ -140,11 +150,22 @@ class _PuzzleScreenWelcomeState extends State<PuzzleScreenWelcome> {
   }
 }
 
-class PurchasePuzzle extends StatelessWidget {
-  const PurchasePuzzle({
+class BookNow extends StatefulWidget {
+  BookNow(
+    this.updateParentWidget, {
     super.key,
     required this.puzzle,
   });
+
+  final Puzzle puzzle;
+  Function updateParentWidget;
+
+  @override
+  State<BookNow> createState() => _BookNowState(puzzle);
+}
+
+class _BookNowState extends State<BookNow> {
+  _BookNowState(this.puzzle);
 
   final Puzzle puzzle;
 
@@ -234,22 +255,21 @@ class PurchasePuzzle extends StatelessWidget {
                 onPressed: () => Navigator.of(context).pop(),
               );
 
-              (!getBoolValuesFromSharedPrefs("isLoggedIn"))
-                  ? showDialog(
-                      context: context,
-                      builder: (BuildContext context) {
-                        return Alert(
-                            "Dear guest,",
-                            "To perform this action you need to register an account. We would love to have you on here!",
-                            [registerButton, continueAsGuestButton]);
-                      },
-                    )
-                  : Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) => BookingScreen(puzzle),
-                      ),
-                    );
+              if (!getBoolValuesFromSharedPrefs("isLoggedIn"))
+                showDialog(
+                  context: context,
+                  builder: (BuildContext context) {
+                    return Alert(
+                        "Dear guest,",
+                        "To perform this action you need to register an account. We would love to have you on here!",
+                        [registerButton, continueAsGuestButton]);
+                  },
+                );
+              else
+                setState(() {
+                  player.coinsAmount = player.coinsAmount - puzzle.price;
+                  widget.updateParentWidget();
+                });
             },
           )
         ],
@@ -333,7 +353,7 @@ class RatingPrice extends StatelessWidget {
     required this.puzzle,
   });
 
-  final PuzzleScreenWelcome puzzle;
+  final Puzzle puzzle;
 
   @override
   Widget build(BuildContext context) {
@@ -354,7 +374,7 @@ class RatingPrice extends StatelessWidget {
                 Icons.star,
                 color: Colors.white,
               ),
-              Text(puzzle.puzzle.rating,
+              Text(puzzle.rating,
                   style: TextStyle(
                       fontWeight: FontWeight.bold,
                       fontSize: 20,
@@ -372,7 +392,7 @@ class RatingPrice extends StatelessWidget {
               TextStyle(fontWeight: FontWeight.bold, color: Colors.pinkAccent),
         ),
         Text(
-          puzzle.puzzle.price + "€",
+          puzzle.price.toString() + "€",
           style: TextStyle(
               fontWeight: FontWeight.bold, fontSize: 20, color: Colors.black),
         ),
