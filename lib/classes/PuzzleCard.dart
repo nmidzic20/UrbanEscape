@@ -26,10 +26,42 @@ class PuzzleCard extends StatelessWidget {
         },
         child: Column(
           children: [
-            Image.asset(
-              puzzle.poster_image_url,
-              fit: BoxFit.fill,
-            ),
+            Stack(children: <Widget>[
+              Image.asset(
+                puzzle.poster_image_url,
+                fit: BoxFit.fill,
+              ),
+              Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Align(
+                  child: Container(
+                    width: 70,
+                    height: 30,
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      children: [
+                        Icon(
+                          Icons.star,
+                          color: Colors.white,
+                          size: 18,
+                        ),
+                        Text(puzzle.rating,
+                            style: TextStyle(
+                                fontWeight: FontWeight.bold,
+                                fontSize: 16,
+                                color: Colors.white))
+                      ],
+                    ),
+                    padding: EdgeInsets.all(5.0),
+                    decoration: BoxDecoration(
+                      color: Colors.pinkAccent,
+                      borderRadius: BorderRadius.all(Radius.elliptical(100, 50)),
+                    ),
+                  ),
+                  alignment: Alignment.topRight,
+                ),
+              ),
+            ]),
             Padding(
               padding: const EdgeInsets.all(8.0),
               child: Text(puzzle.title,
@@ -53,7 +85,7 @@ class PuzzleCard extends StatelessWidget {
                       ),
                       Text(puzzle.city + ", " + puzzle.country,
                           style: TextStyle(
-                            fontWeight: FontWeight.bold,
+                              fontWeight: FontWeight.bold,
                               fontSize: 16,
                               color: (themeManager.themeMode == ThemeMode.dark)
                                   ? Colors.white

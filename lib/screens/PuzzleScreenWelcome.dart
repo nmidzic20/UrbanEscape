@@ -91,7 +91,7 @@ class _PuzzleScreenWelcomeState extends State<PuzzleScreenWelcome> {
                 fit: BoxFit.fitWidth,
               ),
               Container(
-                height: 180,
+                height: (puzzle.purchased) ? 100 : 180,
                 color: Colors.white,
                 child: Column(
                   children: <Widget>[
