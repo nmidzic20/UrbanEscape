@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:urban_escape/main.dart';
+import 'package:urban_escape/theme/theme_constants.dart';
 
 import '../theme/theme_manager.dart';
 import 'Puzzle.dart';
@@ -14,43 +15,78 @@ class PuzzleCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Card(
-      elevation: 20,
-      shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(50),
-      ),
-      child: InkWell(
-        borderRadius: BorderRadius.circular(50),
+      clipBehavior: Clip.antiAliasWithSaveLayer,
+      child: GestureDetector(
         onTap: () {
           Navigator.push(
-            context,
-            MaterialPageRoute(
-              builder: (context) => PuzzleScreenWelcome(id: puzzle.id),
-            ),
-          );
+              context,
+              MaterialPageRoute(
+                builder: (context) => PuzzleScreenWelcome(id: puzzle.id),
+              ));
         },
-        child: SizedBox(
-          width: 300,
-          height: 200,
-          child: Column(children: [
-            Expanded(
-              child: ClipRRect(
-                borderRadius: BorderRadius.circular(50),
-                child: Image.asset(
-                  puzzle.poster_image_url,
-                  fit: BoxFit.fitWidth,
-                  width: double.infinity,
-                ),
-              ),
+        child: Column(
+          children: [
+            Image.asset(
+              puzzle.poster_image_url,
+              fit: BoxFit.fill,
             ),
-            Text(puzzle.title,
-                style: TextStyle(
-                    fontSize: 20,
-                    color: (themeManager.themeMode == ThemeMode.dark)
-                        ? Colors.white
-                        : Colors.black))
-          ]),
+            Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Text(puzzle.title,
+                  style: TextStyle(
+                      fontSize: 20,
+                      fontWeight: FontWeight.bold,
+                      color: (themeManager.themeMode == ThemeMode.dark)
+                          ? Colors.white
+                          : COLOR_PRIMARY_VARIANT)),
+            ),
+            Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Row(
+                    children: [
+                      Icon(
+                        Icons.location_on_sharp,
+                        color: Colors.pinkAccent,
+                      ),
+                      Text(puzzle.city + ", " + puzzle.country,
+                          style: TextStyle(
+                            fontWeight: FontWeight.bold,
+                              fontSize: 16,
+                              color: (themeManager.themeMode == ThemeMode.dark)
+                                  ? Colors.white
+                                  : Colors.black)),
+                    ],
+                  ),
+                  Row(
+                    children: [
+                      Text(puzzle.price.toString(),
+                          style: TextStyle(
+                              fontWeight: FontWeight.bold,
+                              fontSize: 16,
+                              color: (themeManager.themeMode == ThemeMode.dark)
+                                  ? Colors.white
+                                  : Colors.black)),
+                      Image.asset(
+                        "assets/images/coinv1.png",
+                        width: 40,
+                        height: 40,
+                      )
+                    ],
+                  )
+                ],
+              ),
+            )
+          ],
         ),
       ),
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(10.0),
+      ),
+      elevation: 5,
+      margin: EdgeInsets.all(10),
     );
   }
 }
