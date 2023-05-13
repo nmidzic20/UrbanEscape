@@ -6,6 +6,7 @@ import 'package:http/http.dart' as http;
 import 'package:flutter_stripe/flutter_stripe.dart';
 import '../classes/Coins.dart';
 import '../shared.dart';
+import '../theme/theme_constants.dart';
 import '../widgets/MyAppBar.dart';
 import '../widgets/NavDrawer.dart';
 
@@ -15,10 +16,12 @@ class ShopScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: MyAppBar("Coins", true),
-      drawer: NavDrawer(),
-      body: ShopContent(),
-    );
+        appBar: MyAppBar("Coins", true),
+        drawer: NavDrawer(),
+        body: Container(
+          decoration: BoxDecoration(gradient: LINEAR_GRADIENT),
+          child: ShopContent(),
+        ));
   }
 }
 
@@ -88,7 +91,8 @@ class _ShopContentState extends State<ShopContent> {
                                       [
                                         ElevatedButton(
                                           style: ElevatedButton.styleFrom(
-                                              backgroundColor: Colors.pinkAccent),
+                                              backgroundColor:
+                                                  Colors.pinkAccent),
                                           child: const Text('Make Payment'),
                                           onPressed: () async {
                                             await makePayment(

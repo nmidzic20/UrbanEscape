@@ -7,6 +7,7 @@ import 'package:percent_indicator/percent_indicator.dart';
 import 'package:pie_chart/pie_chart.dart';
 import '../auth_gate.dart';
 import '../shared.dart';
+import '../theme/theme_manager.dart';
 import '../widgets/Alert.dart';
 import '../widgets/NavDrawer.dart';
 import '/classes/Puzzles.dart';
@@ -115,14 +116,16 @@ class _PuzzleScreenWelcomeState extends State<PuzzleScreenWelcome> {
                                 style: TextStyle(
                                     fontWeight: FontWeight.bold,
                                     color: Colors.pinkAccent)),
-                            Text(puzzle.avg_time),
+                            Text(puzzle.avg_time,
+                                style: TextStyle(color: Colors.pinkAccent)),
                           ],
                         ),
                         CircularPercentIndicator(
                           radius: 20.0,
                           lineWidth: 8.0,
                           percent: 0.25,
-                          center: new Text("1"),
+                          center: new Text("1",
+                              style: TextStyle(color: Colors.pinkAccent)),
                           progressColor: Colors.pink,
                         ),
                         Text(
@@ -270,7 +273,8 @@ class _BookNowState extends State<BookNow> {
                 }
               }
             },
-          )
+          ),
+          Padding(padding: EdgeInsets.all(10)),
         ],
       ),
     );
