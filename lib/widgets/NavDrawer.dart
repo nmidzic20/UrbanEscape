@@ -13,7 +13,6 @@ class NavDrawer extends StatefulWidget {
 }
 
 class _NavDrawerState extends State<NavDrawer> {
-
   List<String> list = <String>['English', 'Croatian'];
   late String dropdownValue;
 
@@ -102,42 +101,51 @@ class _NavDrawerState extends State<NavDrawer> {
                   items: list.map<DropdownMenuItem<String>>((String value) {
                     return DropdownMenuItem<String>(
                       value: value,
-                      child: Text(value, style: TextStyle(
-                          color: (themeManager.themeMode == ThemeMode.dark)
-                              ? Colors.white
-                              : Colors.black)),
+                      child: Text(value,
+                          style: TextStyle(
+                              color: (themeManager.themeMode == ThemeMode.dark)
+                                  ? Colors.white
+                                  : Colors.black)),
                     );
                   }).toList(),
                 )
               ],
             ),
           ),
-          Visibility(
-            visible: getBoolValuesFromSharedPrefs("isLoggedIn"),
-            child: Padding(
-              padding: const EdgeInsets.only(top: 150),
-              child: Center(
-                child: ElevatedButton(
-                  child: Text("Log out",
-                      style: TextStyle(
-                          fontWeight: FontWeight.bold, fontSize: 20)),
-                  style: ElevatedButton.styleFrom(
-                      backgroundColor: Colors.pinkAccent),
-                  onPressed: () {
-                    setBoolToSharedPrefs("isLoggedIn", false);
-                    //signOut(); //fix
+          Padding(
+            padding: const EdgeInsets.only(top: 150),
+            child: Center(
+              child: (getBoolValuesFromSharedPrefs("isLoggedIn"))
+                  ? ElevatedButton(
+                      child: Text("Log out",
+                          style: TextStyle(
+                              fontWeight: FontWeight.bold, fontSize: 20)),
+                      style: ElevatedButton.styleFrom(
+                          backgroundColor: Colors.pinkAccent),
+                      onPressed: () {
+                        setBoolToSharedPrefs("isLoggedIn", false);
+                        //signOut(); //fix
 
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) => HomeScreen(),
-                      ),
-                    );
-                  },
-                ),
-              ),
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => HomeScreen(),
+                          ),
+                        );
+                      },
+                    )
+                  : ElevatedButton(
+                      child: Text("Sign in"),
+                      style: ElevatedButton.styleFrom(
+                          backgroundColor: Colors.blueAccent),
+                      onPressed: () => Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => AuthGate(),
+                            ),
+                          )),
             ),
-          )
+          ),
         ],
       ),
     );
