@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:urban_escape/Widgets/ScoreCount.dart';
-import 'ScoreCount.dart';
 
 class HintWidget extends StatefulWidget {
   final String text;

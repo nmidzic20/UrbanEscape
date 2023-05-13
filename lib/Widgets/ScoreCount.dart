@@ -28,9 +28,7 @@ class ScoreCounterState extends State<ScoreCounter> {
       });
     print("This is  score: $_score");
   }
-  void emptyFunc(){
-    print("HELP ME!");
-  }
+  
   @override
   Widget build(BuildContext context) {
     return Container(
