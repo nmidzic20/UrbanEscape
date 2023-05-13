@@ -13,11 +13,11 @@ import 'BookingScreen.dart';
 import 'PuzzleScreenPrompt.dart';
 
 class PuzzleScreenWelcome extends StatefulWidget {
-  PuzzleScreenWelcome({super.key, required this.puzzleIndex}) {
-    this.puzzle = puzzles[this.puzzleIndex];
+  PuzzleScreenWelcome({super.key, required this.id}) {
+    this.puzzle = puzzles.where((p) => p.id == id).first;
   }
 
-  final int puzzleIndex;
+  final int id;
   late final Puzzle puzzle;
 
   @override

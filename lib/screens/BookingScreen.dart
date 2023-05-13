@@ -103,7 +103,7 @@ class _BookingScreenState extends State<BookingScreen> {
                         context,
                         MaterialPageRoute(
                           builder: (context) =>
-                              PuzzleScreenWelcome(puzzleIndex: puzzle.id - 1),
+                              PuzzleScreenWelcome(id: puzzle.id),
                         ),
                       ),
                     )

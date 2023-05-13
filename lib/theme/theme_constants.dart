@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 
 const COLOR_PRIMARY = Color.fromRGBO(38, 34, 53, 1); //deep purple
-const COLOR = Color.fromRGBO(46, 49, 146, 1); //deep blue
-const COLOR_SECONDARY = Color.fromRGBO(252, 82, 133, 1); //hot pink
+const COLOR_PRIMARY_VARIANT = Color.fromRGBO(46, 49, 146, 1); //deep blue
+const COLOR_SECONDARY = Colors.pinkAccent;//Color.fromRGBO(252, 82, 133, 1); //hot pink
 const COLOR_BACKGROUND = Color.fromRGBO(76, 86, 107, 1.0); //grey blue
 const COLOR_TEXT = Colors.white;
 

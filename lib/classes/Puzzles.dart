@@ -112,9 +112,9 @@ List<Puzzle> puzzles = [
       ],
       10),
   Puzzle(2,"Search for Ivana Brlić-Mažuranić", "assets/images/ivana-brlic.png",
-      "TODO", "TODO", "TODO", "TODO", "TODO", "TODO", "TODO", List.empty(), 0),
-  Puzzle(3,"True Witch of Grič", "assets/images/gricki-top.png", "TODO", "TODO",
+      "Split", "TODO", "TODO", "TODO", "TODO", "TODO", "TODO", List.empty(), 0),
+  Puzzle(3,"True Witch of Grič", "assets/images/gricki-top.png", "Zagreb", "TODO",
       "TODO", "TODO", "TODO", "TODO", "TODO", List.empty(), 0),
-  Puzzle(4,"Nikola Tesla’s Secret Invention", "assets/images/tesla.jpg", "TODO",
+  Puzzle(4,"Nikola Tesla’s Secret Invention", "assets/images/tesla.jpg", "Varaždin",
       "TODO", "TODO", "TODO", "TODO", "TODO", "TODO", List.empty(), 0),
 ];

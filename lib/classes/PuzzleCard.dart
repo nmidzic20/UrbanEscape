@@ -7,11 +7,8 @@ import './Puzzles.dart';
 import '../screens/PuzzleScreenWelcome.dart';
 
 class PuzzleCard extends StatelessWidget {
-  PuzzleCard(this.index, {Key? key}) : super(key: key) {
-    this.puzzle = puzzles[this.index];
-  }
+  PuzzleCard(this.puzzle, {Key? key}) : super(key: key);
 
-  late final int index;
   late final Puzzle puzzle;
 
   @override
@@ -28,7 +25,7 @@ class PuzzleCard extends StatelessWidget {
           Navigator.push(
                   context,
                   MaterialPageRoute(
-                    builder: (context) => PuzzleScreenWelcome(puzzleIndex: index),
+                    builder: (context) => PuzzleScreenWelcome(id: puzzle.id),
                   ),
                 );
         },
