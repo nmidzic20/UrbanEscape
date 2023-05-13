@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:urban_escape/classes/Puzzle.dart';
 import 'package:urban_escape/main.dart';
+import 'package:urban_escape/screens/ShopScreen.dart';
 import 'package:urban_escape/theme/theme_constants.dart';
 import 'package:percent_indicator/percent_indicator.dart';
 import 'package:pie_chart/pie_chart.dart';
@@ -265,11 +266,35 @@ class _BookNowState extends State<BookNow> {
                         [registerButton, continueAsGuestButton]);
                   },
                 );
-              else
-                setState(() {
-                  player.coinsAmount = player.coinsAmount - puzzle.price;
-                  widget.updateParentWidget();
-                });
+              else {
+                if (puzzle.price <= player.coinsAmount) {
+                  setState(() {
+                    player.coinsAmount = player.coinsAmount - puzzle.price;
+                    widget.updateParentWidget();
+                  });
+                } else {
+                  ElevatedButton goToShopButton = ElevatedButton(
+                      child: Text("Go to store"),
+                      style: ElevatedButton.styleFrom(
+                          backgroundColor: Colors.pinkAccent),
+                      onPressed: () => Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => ShopScreen(),
+                            ),
+                          ));
+
+                  showDialog(
+                    context: context,
+                    builder: (BuildContext context) {
+                      return Alert(
+                          "Insufficient funds :(",
+                          "You don't have enough coins! Try purchasing some in the store",
+                          [goToShopButton]);
+                    },
+                  );
+                }
+              }
             },
           )
         ],
