@@ -91,7 +91,6 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
-
   List<Widget> pages = <Widget>[
     HomeContent(),
     ShopContent(),
@@ -108,25 +107,26 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: MyAppBar("Home", false),
-      drawer: NavDrawer(),
-      body: pages.elementAt(selectedIndex),
-      bottomNavigationBar: BottomNavigationBar(
-        items: const <BottomNavigationBarItem>[
-          BottomNavigationBarItem(
-            icon: Icon(Icons.home),
-            label: 'Home',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.shopify),
-            label: 'Shop',
-          ),
-        ],
-        currentIndex: selectedIndex,
-        selectedItemColor: Colors.amber[800],
-        onTap: _onItemTapped,
-      )
-    );
+        appBar: MyAppBar("Home", false),
+        drawer: NavDrawer(),
+        body: Container(
+            decoration: BoxDecoration(gradient: LINEAR_GRADIENT),
+            child: pages.elementAt(selectedIndex)),
+        bottomNavigationBar: BottomNavigationBar(
+          items: const <BottomNavigationBarItem>[
+            BottomNavigationBarItem(
+              icon: Icon(Icons.home),
+              label: 'Home',
+            ),
+            BottomNavigationBarItem(
+              icon: Icon(Icons.shopify),
+              label: 'Shop',
+            ),
+          ],
+          currentIndex: selectedIndex,
+          selectedItemColor: Colors.pinkAccent,
+          onTap: _onItemTapped,
+        ));
   }
 }
 
@@ -154,10 +154,10 @@ class _HomeContentState extends State<HomeContent> {
     } else {
       results = allPuzzles
           .where((puzzle) =>
-      puzzle.city
-          .toLowerCase()
-          .contains(enteredKeyword.toLowerCase()) ||
-          puzzle.title.toLowerCase().contains(enteredKeyword.toLowerCase()))
+              puzzle.city
+                  .toLowerCase()
+                  .contains(enteredKeyword.toLowerCase()) ||
+              puzzle.title.toLowerCase().contains(enteredKeyword.toLowerCase()))
           .toList();
     }
     setState(() {
@@ -184,35 +184,22 @@ class _HomeContentState extends State<HomeContent> {
         const SizedBox(
           height: 20,
         ),
-        Center(
-          child: Padding(
-            padding: const EdgeInsets.all(15.0),
-            child: Text(
-              "Available puzzles",
-              style: TextStyle(
-                  fontSize: 20,
-                  fontWeight: FontWeight.bold,
-                  color: COLOR_TEXT),
-            ),
-          ),
-        ),
         Expanded(
           child: foundPuzzles.isNotEmpty
               ? ListView.builder(
-              itemCount: foundPuzzles.length,
-              itemBuilder: (BuildContext context, int index) {
-                return Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: new PuzzleCard(foundPuzzles[index],
-                        key: ValueKey(foundPuzzles[index].id)));
-              })
+                  itemCount: foundPuzzles.length,
+                  itemBuilder: (BuildContext context, int index) {
+                    return Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: new PuzzleCard(foundPuzzles[index],
+                            key: ValueKey(foundPuzzles[index].id)));
+                  })
               : const Text(
-            'No results found',
-            style: TextStyle(fontSize: 24),
-          ),
+                  'No results found',
+                  style: TextStyle(fontSize: 24),
+                ),
         ),
       ],
     );
   }
 }
-

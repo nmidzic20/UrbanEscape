@@ -93,6 +93,10 @@ flutter:
      - assets/images/SSV_q1.jpg
      - assets/logo_spin.gif
      - assets/.env
+     - assets/images/coinv1.png
+     - assets/images/coinv2.png
+     - assets/images/coinv3.png
+     - assets/images/coinv4.png
 
   #   - images/a_dot_ham.jpeg
 

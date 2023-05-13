@@ -6,7 +6,7 @@ const COLOR_SECONDARY = Colors.pinkAccent;//Color.fromRGBO(252, 82, 133, 1); //h
 const COLOR_BACKGROUND = Color.fromRGBO(76, 86, 107, 1.0); //grey blue
 const COLOR_TEXT = Colors.white;
 
-const gradient = LinearGradient(
+const LINEAR_GRADIENT = LinearGradient(
   begin: Alignment.topLeft,
   end: Alignment(0.8, 1),
   colors: <Color>[
