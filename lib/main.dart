@@ -5,13 +5,11 @@ import 'Widgets/ScoreCount.dart';
 import 'Widgets/Timer.dart';
 import 'Classes/Puzzle.dart';
 
-
 void main() {
   runApp(MyApp());
 }
 
 class MyApp extends StatefulWidget {
-
   const MyApp({Key? key}) : super(key: key);
 
   @override
@@ -19,7 +17,6 @@ class MyApp extends StatefulWidget {
 }
 
 class _MyAppState extends State<MyApp> {
-
   @override
   Widget build(BuildContext context) {
     var scoreCounter = ScoreCounter(
@@ -48,30 +45,31 @@ class _MyAppState extends State<MyApp> {
                 left: 15,
               ),
 
-
               Positioned(
-                child: TimerWidget(),
-                top: 15,
-                right: 15,
+                  child: AnswerCheckWidget(
+                    scoreCountKey: key,
+                  ),
+                  bottom: 120,
+                  left: 35,
+                  right: 35
               ),
 
-              // Positioned(
-              //   child: QuestionWidget(
-              //       challenge: Challenge(),
-              //     scoreCountKey: key,
-              //   ),
-              //   bottom: 100,
-              //   left: 55,
-              //   right: 55,
-              // ),
-
-              // Positioned(
-                // child: HintWidget(challenge: Challenge(),
-                //   scoreCountKey: key,
-                // ),
-                // bottom: 15.0,
-                // right: 15.0,
-              // )
+              Positioned(
+                child: Container(
+                  padding: EdgeInsets.only(top: 20),
+                  color: Color(0xFF262235),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      TimerWidget(),
+                      HintWidget(scoreCountKey: key),
+                    ],
+                  ),
+                ),
+                bottom: 0,
+                left: 0,
+                right: 0,
+              ),
             ]
         ),
       ),

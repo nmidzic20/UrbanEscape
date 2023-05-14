@@ -1,18 +1,28 @@
-  import 'package:flutter/material.dart';
-  import 'package:urban_escape/Classes/Puzzle.dart';
-  import 'ScoreCount.dart';
+import 'package:flutter/material.dart';
+import 'package:urban_escape/Classes/Puzzle.dart';
+import 'ScoreCount.dart';
 
-  class QuestionWidget extends StatelessWidget {
-    final Challenge challenge;
-    final GlobalKey<ScoreCounterState> scoreCountKey;
+class AnswerCheckWidget extends StatelessWidget {
+  final Challenge challenge;
+  final GlobalKey<ScoreCounterState> scoreCountKey;
 
-    QuestionWidget({
-      required this.challenge,
-      required this.scoreCountKey
-    });
+  // Default constructor
+  AnswerCheckWidget({
+    Challenge? challenge,
+    required this.scoreCountKey
+  }) : this.challenge = challenge ?? Challenge(
+    0, // id
+    Text('Default question'), // question
+    'Default answer', // answer
+    [], // options
+    'Default hint', // hint
+    0, // points
+        (answer) {}, // handleAnswer
+    answerAttempts: 0,
+  );
 
-    @override
-    Widget build(BuildContext context) {
+  @override
+  Widget build(BuildContext context) {
       return ElevatedButton(
         style: ElevatedButton.styleFrom(
           foregroundColor: Colors.white,
@@ -27,7 +37,7 @@
             builder: (BuildContext context) {
               TextEditingController answerController = TextEditingController();
               return AlertDialog(
-                title: Text('Question:'),
+                // title: Text('Question:'),
                 content: Column(
                   mainAxisSize: MainAxisSize.min,
                   crossAxisAlignment: CrossAxisAlignment.start,

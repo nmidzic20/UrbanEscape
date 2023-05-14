@@ -1,103 +1,74 @@
 import 'package:flutter/material.dart';
 import 'package:urban_escape/Classes/Puzzle.dart';
-import 'ScoreCount.dart';
+import 'package:urban_escape/Widgets/ScoreCount.dart';
 
-class QuestionWidget extends StatelessWidget {
-  // The Challenge object which contains the question and answer
+class HintWidget extends StatefulWidget {
+  // The Challenge object which contains the hint, global key to access ScoreCounterState
   final Challenge challenge;
-
-  // Global key to access ScoreCounterState
   final GlobalKey<ScoreCounterState> scoreCountKey;
 
-  // Constructor of QuestionWidget, takes challenge and scoreCountKey as parameters
-  QuestionWidget({
-    required this.challenge,
-    required this.scoreCountKey
-  });
+  // Constructor of HintWidget, takes challenge and scoreCountKey as parameters
 
+  // Default constructor
+  HintWidget({
+    Challenge? challenge,
+    required this.scoreCountKey
+  }) : this.challenge = challenge ?? Challenge(
+    0, // id
+    Text('Default question'), // question
+    'Default answer', // answer
+    [], // options
+    'Default hint', // hint
+    0, // points
+        (answer) {}, // handleAnswer
+    answerAttempts: 0,
+  );
+
+  // Create the mutable state for this widget
+  @override
+  _HintWidgetState createState() => _HintWidgetState();
+}
+
+// The state class that goes along with HintWidget
+class _HintWidgetState extends State<HintWidget> {
   // Override the build method to define what UI components to include
   @override
   Widget build(BuildContext context) {
-    // Use an ElevatedButton which shows the question upon being pressed
     return ElevatedButton(
       style: ElevatedButton.styleFrom(
         foregroundColor: Colors.white,
-        backgroundColor: Color(0xFFFC5285),
+        backgroundColor: Color(0xFF3B4FE6),
         shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(15.0),
+          borderRadius: BorderRadius.circular(15.0), // Border radius
         ),
       ),
-      // Define what happens when the button is pressed
       onPressed: () {
+        // Call the hintUsed method of ScoreCounterState
+        widget.scoreCountKey.currentState!.hintUsed();
+        // Show a dialog with the hint
         showDialog(
           context: context,
           builder: (BuildContext context) {
-            // Define a TextEditingController to retrieve the user's answer
-            TextEditingController answerController = TextEditingController();
-            // Use an AlertDialog to display the question and get the user's answer
+            // Use an AlertDialog to display the hint
             return AlertDialog(
-              title: Text('Question:'),
-              content: Column(
-                mainAxisSize: MainAxisSize.min,
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  // The question is taken from the challenge object
-                  Text(challenge.question.toString()),
-                  // The user's answer is entered in a TextField
-                  TextField(
-                    controller: answerController,
-                    decoration: InputDecoration(labelText: 'Your answer'),
-                  ),
-                ],
-              ),
+              title: Text('Hint: '),
+              // The hint is taken from the challenge object
+              content: Text(widget.challenge.hint),
               actions: [
+                // Include an 'OK' button to close the dialog
                 ElevatedButton(
                   onPressed: () {
-                    String userAnswer = answerController.text;
-                    // Check if the user's answer is correct
-                    bool isCorrect = userAnswer == challenge.answer;
-                    // Close the AlertDialog
                     Navigator.of(context).pop();
-
-                    // If the answer is correct, increase the score, otherwise decrease it
-                    if (isCorrect) {
-                      ScoreCounter.of(context)?.increaseScore(challenge);
-                    } else {
-                      challenge.answerAttempts++;
-                      ScoreCounter.of(context)?.decreaseScore(challenge);
-                    }
-
-                    // Show a dialog to inform the user if their answer is correct
-                    showDialog(
-                      context: context,
-                      builder: (BuildContext context) {
-                        return AlertDialog(
-                          title: Text(isCorrect ? 'Correct!' : 'Incorrect!'),
-                          content: Text(isCorrect
-                              ? 'Your answer is correct!'
-                              : 'Your answer is incorrect.'),
-                          actions: [
-                            // Include an 'OK' button to close the dialog
-                            ElevatedButton(
-                              onPressed: () {
-                                Navigator.of(context).pop();
-                              },
-                              child: Text('OK'),
-                            ),
-                          ],
-                        );
-                      },
-                    );
                   },
-                  child: Text('Submit'),
+                  child: Text('OK'),
                 ),
               ],
             );
           },
         );
       },
-      // The button displays 'Answer question'
-      child: Text('Answer question'),
+      // The button displays 'Show Hint'
+      child: Text('Show Hint'),
     );
   }
 }
