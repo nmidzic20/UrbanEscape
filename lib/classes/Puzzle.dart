@@ -37,6 +37,7 @@ class Challenge {
   late int id;
   late Widget question;
   late String answer;
+  late bool optionsRadioButtons;
   late List<Widget> options;
   late String hint;
   late int points;
@@ -46,6 +47,7 @@ class Challenge {
       this.id,
       this.question,
       this.answer,
+      this.optionsRadioButtons,
       this.options,
       this.hint,
       this.points,

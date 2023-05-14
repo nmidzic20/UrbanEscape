@@ -100,6 +100,21 @@ flutter:
      - assets/images/maskota1.png
      - assets/images/maskota2.png
      - assets/images/maskota3.png
+     - assets/images/coinv1.png
+     - assets/images/ssv1.jpg
+     - assets/images/ssv3.jpg
+     - assets/images/ssv4.jpg
+     - assets/images/ssv5.jpg
+     - assets/images/ssv6.jpg
+     - assets/images/ssv7.jpg
+     - assets/images/ssv8.JPG
+     - assets/images/ssv9.png
+     - assets/images/ssv10.png
+     - assets/images/ssv11.png
+     - assets/images/ssv12.jpg
+     - assets/images/ssv13.jpg
+     - assets/images/ssv14.jpg
+     - assets/images/observatory.png
 
   #   - images/a_dot_ham.jpeg
 

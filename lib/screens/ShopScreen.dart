@@ -122,7 +122,6 @@ class _ShopContentState extends State<ShopContent> {
                     ));
               }),
         ),
-        //Align(alignment: Alignment.bottomLeft, child: SizedBox(width: MediaQuery.of(context)!.size.width/2,child: Image.asset('assets/images/maskota3.png', fit: BoxFit.cover)))
 
       ],
     );
