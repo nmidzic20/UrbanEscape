@@ -3,6 +3,7 @@ import 'package:urban_escape/classes/Puzzle.dart';
 import 'package:urban_escape/widgets/Alert.dart';
 
 import '../main.dart';
+import '../shared.dart';
 import '../theme/theme_constants.dart';
 import '../theme/theme_manager.dart';
 import '../widgets/NavDrawer.dart';
@@ -37,10 +38,40 @@ class _PuzzleScreenState extends State<PuzzleScreen> {
       ),
       style: ElevatedButton.styleFrom(backgroundColor: Colors.blueAccent),
       onPressed: () {
+
+        if (puzzle.currentPrompt == puzzle.promptsTotal-1)
+          {
+            puzzle.currentPrompt = 0;
+            showDialog(
+                context: context,
+                builder: (BuildContext context) {
+                  return Alert("Congratulations", "Story completed!", [
+                    ElevatedButton(
+                      child: Text("OK",
+                          style: TextStyle(
+                              fontWeight: FontWeight.bold, fontSize: 20)),
+                      style: ElevatedButton.styleFrom(
+                          backgroundColor: Colors.pinkAccent),
+                      onPressed: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => HomeScreen(),
+                          ),
+                        );
+                      },
+                    )
+                  ]);
+                });
+          }
+
         setState(() {
           if (currentPrompt.isChallenge) {
+
+            String? givenAnswer = (currentPrompt.challenge!.optionsRadioButtons) ? selectedAnswer : userAnswer;
+
             bool result = currentPrompt.challenge!.handleAnswer(
-                selectedAnswer, currentPrompt.challenge!.answer, context);
+                givenAnswer, currentPrompt.challenge!.answer, context);
             if (result) {
               puzzle.currentPrompt++;
               currentPrompt = puzzle.prompts[puzzle.currentPrompt];
@@ -187,7 +218,7 @@ class TemplateFirst extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Column(mainAxisSize: MainAxisSize.max, children: [
-      Image.asset(currentPrompt.image_path),
+      SizedBox( width: double.infinity, height: 200, child: Image.asset(currentPrompt.image_path, fit: BoxFit.cover,)),
       SizedBox(height: 10),
       Text(
         currentPrompt.title,
@@ -203,11 +234,12 @@ class TemplateFirst extends StatelessWidget {
             : currentPrompt.content!,
       ),
       currentPrompt.isChallenge
-          ? RadioButton(currentPrompt.challenge!.options)
+          ? (currentPrompt.challenge!.optionsRadioButtons) ? RadioButton(currentPrompt.challenge!.options) : currentPrompt.challenge!.options!.first
           : Text(""),
       nextButton,
     ]);
   }
+
 }
 
 class TemplateSecond extends StatelessWidget {
@@ -240,7 +272,7 @@ class TemplateSecond extends StatelessWidget {
                 padding: EdgeInsets.all(30),
                 child: ClipRRect(
                   borderRadius: BorderRadius.circular(30.0),
-                  child: Image.asset(puzzle.poster_image_url),
+                  child: Image.asset(currentPrompt.image_path),
                 ),
               ),
               Padding(
