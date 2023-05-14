@@ -2,15 +2,19 @@ import 'package:flutter/material.dart';
 import 'package:urban_escape/Classes/Puzzle.dart';
 
 class ScoreCounter extends StatefulWidget {
+  // The initial score and the current Puzzle
   final int initialScore;
   final Puzzle? puzzle;
 
+  // Constructor of ScoreCounter
   const ScoreCounter({required this.initialScore, this.puzzle, Key? key}): super(key: key);
 
+  // Method to find the closest ScoreCounterState in the widget tree
   static ScoreCounterState? of(BuildContext context) {
     return context.findAncestorStateOfType<ScoreCounterState>();
   }
 
+  // Create the mutable state for this widget
   @override
   ScoreCounterState createState() => ScoreCounterState();
 }
@@ -18,19 +22,22 @@ class ScoreCounter extends StatefulWidget {
 class ScoreCounterState extends State<ScoreCounter> {
   late int _score;
 
+  // Initialize the state
   @override
   void initState() {
     super.initState();
-    _score = widget.initialScore;
+    _score = widget.initialScore; // Set the initial score
   }
 
+  // Decrease the score by one, used for testing
   void scoreTest() {
     setState(() {
       _score--;
-      });
+    });
     print("This is  score: $_score");
   }
 
+  // Decrease the score by one when a hint is used
   void hintUsed(){
     setState(() {
       _score--;
@@ -38,6 +45,7 @@ class ScoreCounterState extends State<ScoreCounter> {
     print("Hint was used, current score: $_score");
   }
 
+  // Increase the total score by the points value of the challenge
   void increaseScore(Challenge challenge) {
     setState(() {
       widget.puzzle?.totalScore += challenge.points;
@@ -45,6 +53,7 @@ class ScoreCounterState extends State<ScoreCounter> {
     print("This is the total score: ${widget.puzzle?.totalScore}");
   }
 
+  // Decrease the total score by the answer attempts of the challenge
   void decreaseScore(Challenge challenge) {
     setState(() {
       if (widget.puzzle?.totalScore != null && widget.puzzle!.totalScore > 0) {
@@ -54,6 +63,7 @@ class ScoreCounterState extends State<ScoreCounter> {
     print("This is the total score: ${widget.puzzle?.totalScore}");
   }
 
+  // Define the UI of the widget
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -76,6 +86,7 @@ class ScoreCounterState extends State<ScoreCounter> {
           SizedBox(
             width: 8.0,
           ),
+          // Display the current score
           Text(
             'Score: $_score',
             style: TextStyle(
