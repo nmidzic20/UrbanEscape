@@ -1,10 +1,15 @@
 import 'package:flutter/material.dart';
+import 'package:urban_escape/Classes/Puzzle.dart';
+import 'ScoreCount.dart';
 
 class QuestionWidget extends StatelessWidget {
-  final String question;
-  final String correctAnswer;
+  final Challenge challenge;
+  final GlobalKey<ScoreCounterState> scoreCountKey;
 
-  QuestionWidget({required this.question, required this.correctAnswer});
+  QuestionWidget({
+    required this.challenge,
+    required this.scoreCountKey
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -13,9 +18,8 @@ class QuestionWidget extends StatelessWidget {
         foregroundColor: Colors.white,
         backgroundColor: Color(0xFFFC5285),
         shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(15.0), // Border radius
+          borderRadius: BorderRadius.circular(15.0),
         ),
-
       ),
       onPressed: () {
         showDialog(
@@ -28,7 +32,7 @@ class QuestionWidget extends StatelessWidget {
                 mainAxisSize: MainAxisSize.min,
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text(question),
+                  Text(challenge.question.toString()),
                   TextField(
                     controller: answerController,
                     decoration: InputDecoration(labelText: 'Your answer'),
@@ -39,8 +43,15 @@ class QuestionWidget extends StatelessWidget {
                 ElevatedButton(
                   onPressed: () {
                     String userAnswer = answerController.text;
-                    bool isCorrect = userAnswer == correctAnswer;
+                    bool isCorrect = userAnswer == challenge.answer;
                     Navigator.of(context).pop();
+
+                    if (isCorrect) {
+                      ScoreCounter.of(context)?.increaseScore(challenge);
+                    } else {
+                      challenge.answerAttempts++;
+                      ScoreCounter.of(context)?.decreaseScore(challenge);
+                    }
 
                     showDialog(
                       context: context,

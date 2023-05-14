@@ -1,12 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:urban_escape/Classes/Puzzle.dart';
 import 'package:urban_escape/Widgets/ScoreCount.dart';
 
 class HintWidget extends StatefulWidget {
-  final String text;
+  final Challenge challenge;
   final GlobalKey<ScoreCounterState> scoreCountKey;
 
   HintWidget({
-    required this.text,
+    required this.challenge,
     required this.scoreCountKey,
   });
 
@@ -14,9 +15,7 @@ class HintWidget extends StatefulWidget {
   _HintWidgetState createState() => _HintWidgetState();
 }
 
-
 class _HintWidgetState extends State<HintWidget> {
-
   @override
   Widget build(BuildContext context) {
     return ElevatedButton(
@@ -28,13 +27,13 @@ class _HintWidgetState extends State<HintWidget> {
         ),
       ),
       onPressed: () {
-        widget.scoreCountKey.currentState!.decreaseScore();
+        widget.scoreCountKey.currentState!.hintUsed();
         showDialog(
           context: context,
           builder: (BuildContext context) {
             return AlertDialog(
               title: Text('Hint: '),
-              content: Text(widget.text),
+              content: Text(widget.challenge.hint),
               actions: [
                 ElevatedButton(
                   onPressed: () {

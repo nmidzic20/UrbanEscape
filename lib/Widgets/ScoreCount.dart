@@ -24,13 +24,36 @@ class ScoreCounterState extends State<ScoreCounter> {
     _score = widget.initialScore;
   }
 
-  void decreaseScore() {
+  void scoreTest() {
     setState(() {
       _score--;
       });
     print("This is  score: $_score");
   }
-  
+
+  void hintUsed(){
+    setState(() {
+      _score--;
+    });
+    print("Hint was used, current score: $_score");
+  }
+
+  void increaseScore(Challenge challenge) {
+    setState(() {
+      widget.puzzle?.totalScore += challenge.points;
+    });
+    print("This is the total score: ${widget.puzzle?.totalScore}");
+  }
+
+  void decreaseScore(Challenge challenge) {
+    setState(() {
+      if (widget.puzzle?.totalScore != null && widget.puzzle!.totalScore > 0) {
+        widget.puzzle!.totalScore -= challenge.answerAttempts;
+      }
+    });
+    print("This is the total score: ${widget.puzzle?.totalScore}");
+  }
+
   @override
   Widget build(BuildContext context) {
     return Container(
