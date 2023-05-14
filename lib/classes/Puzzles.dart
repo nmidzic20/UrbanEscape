@@ -66,7 +66,7 @@ List<Puzzle> puzzles = [
             Challenge(
                 1,
                 Text(
-                    "There are 2 stars in front of you. They both have the same, strange shape. What is the shape of the 2 stars?"),
+                    "There are 2 stars in front of you. They both have the same, strange shape. What is the shape of the 2 stars?", style: TextStyle(color: Colors.black),),
                 "1",
                 [
                   Icon(Icons.star_border, color: Colors.black),
@@ -106,7 +106,7 @@ List<Puzzle> puzzles = [
             "DID YOU KNOW?",
             false,
             Text(
-                "The Observatory was founded by the Croatian Society for Natural Sciences. The premises in Popov Toranj were provided by the city government, which gave the funds for the reconstruction and the installation of an astronomic dome and a telescope. The grand opening took place on December 5, 1903. The first manager of the Observatory was Oton Kučera, a major promoter of science in Croatia."),
+                "The Observatory was founded by the Croatian Society for Natural Sciences. The premises in Popov Toranj were provided by the city government, which gave the funds for the reconstruction and the installation of an astronomic dome and a telescope. The grand opening took place on December 5, 1903. The first manager of the Observatory was Oton Kučera, a major promoter of science in Croatia.", style: TextStyle(color: Colors.black),),
             null,
             true),
       ],

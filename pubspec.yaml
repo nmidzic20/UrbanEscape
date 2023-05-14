@@ -97,6 +97,9 @@ flutter:
      - assets/images/coinv2.png
      - assets/images/coinv3.png
      - assets/images/coinv4.png
+     - assets/images/maskota1.png
+     - assets/images/maskota2.png
+     - assets/images/maskota3.png
 
   #   - images/a_dot_ham.jpeg
 

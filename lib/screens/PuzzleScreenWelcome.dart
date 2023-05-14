@@ -87,7 +87,7 @@ class _PuzzleScreenWelcomeState extends State<PuzzleScreenWelcome> {
               FittedBox(
                 child: Image.asset(
                   puzzle.poster_image_url,
-                  height: 100,
+                  height: 60,
                 ),
                 fit: BoxFit.fitWidth,
               ),
@@ -144,7 +144,7 @@ class _PuzzleScreenWelcomeState extends State<PuzzleScreenWelcome> {
                 ),
               ),
               (puzzle.purchased)
-                  ? StartPuzzle(puzzle: puzzle)
+                  ? StartPuzzle(updateParentWidget, puzzle: puzzle)
                   : BookNow(updateParentWidget, puzzle: puzzle)
             ],
           ),
@@ -242,7 +242,7 @@ class _BookNowState extends State<BookNow> {
             style: ElevatedButton.styleFrom(backgroundColor: Colors.pinkAccent),
             onPressed: () {
               if (!getBoolValuesFromSharedPrefs("isLoggedIn"))
-                showGuestDialog(context);
+                showGuestDialog(context, widget.updateParentWidget, puzzle);
               else {
                 if (puzzle.price <= player.coinsAmount) {
                   setState(() {
@@ -250,26 +250,7 @@ class _BookNowState extends State<BookNow> {
                     widget.updateParentWidget();
                   });
                 } else {
-                  ElevatedButton goToShopButton = ElevatedButton(
-                      child: Text("Go to store"),
-                      style: ElevatedButton.styleFrom(
-                          backgroundColor: Colors.pinkAccent),
-                      onPressed: () => Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                              builder: (context) => ShopScreen(),
-                            ),
-                          ));
-
-                  showDialog(
-                    context: context,
-                    builder: (BuildContext context) {
-                      return Alert(
-                          "Insufficient funds :(",
-                          "You don't have enough coins! Try purchasing some in the store",
-                          [goToShopButton]);
-                    },
-                  );
+                  handleInsufficientFunds(context);
                 }
               }
             },
@@ -279,15 +260,39 @@ class _BookNowState extends State<BookNow> {
       ),
     );
   }
+
+  void handleInsufficientFunds(BuildContext context) {
+    ElevatedButton goToShopButton = ElevatedButton(
+        child: Text("Go to store"),
+        style: ElevatedButton.styleFrom(
+            backgroundColor: Colors.pinkAccent),
+        onPressed: () => Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (context) => ShopScreen(),
+              ),
+            ));
+
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return Alert(
+            "Insufficient funds :(",
+            "You don't have enough coins! Try purchasing some in the store",
+            [goToShopButton]);
+      },
+    );
+  }
 }
 
 class StartPuzzle extends StatefulWidget {
-  StartPuzzle({
+  StartPuzzle(this.updateParentWidget, {
     super.key,
     required this.puzzle,
   });
 
   final Puzzle puzzle;
+  Function updateParentWidget;
 
   @override
   State<StartPuzzle> createState() => _StartPuzzleState(puzzle);
@@ -335,7 +340,6 @@ class _StartPuzzleState extends State<StartPuzzle> {
                 style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20)),
             style: ElevatedButton.styleFrom(backgroundColor: Colors.pinkAccent),
             onPressed: () {
-              if (getBoolValuesFromSharedPrefs("isLoggedIn")) {
                 puzzle.started = true;
                 Navigator.push(
                   context,
@@ -343,10 +347,11 @@ class _StartPuzzleState extends State<StartPuzzle> {
                     builder: (context) => PuzzleScreen(puzzle),
                   ),
                 );
-              } else
-                showGuestDialog(context);
             },
-          )
+          ),
+          //SizedBox(height: 40,),
+          Align(alignment: Alignment.bottomRight, child: SizedBox(width: MediaQuery.of(context)!.size.width/2,child: Image.asset('assets/images/maskota2.png', fit: BoxFit.cover)))
+
         ],
       ),
     );
@@ -397,17 +402,31 @@ class RatingPrice extends StatelessWidget {
           style:
               TextStyle(fontWeight: FontWeight.bold, color: Colors.pinkAccent),
         ),
-        Text(
+        Row(
+          children: [
+            Text(puzzle.price.toString(),
+                style: TextStyle(
+                    fontWeight: FontWeight.bold,
+                    fontSize: 16,
+                    color: Colors.black)),
+            Image.asset(
+              "assets/images/coinv1.png",
+              width: 40,
+              height: 40,
+            )
+          ],
+        ),
+        /*Text(
           puzzle.price.toString() + "€",
           style: TextStyle(
               fontWeight: FontWeight.bold, fontSize: 20, color: Colors.black),
-        ),
+        ),*/
       ])
     ]);
   }
 }
 
-void showGuestDialog(BuildContext context) {
+void showGuestDialog(BuildContext context, Function updateParentWidget, Puzzle puzzle) {
   ElevatedButton registerButton = ElevatedButton(
       child: Text("Sign in"),
       style: ElevatedButton.styleFrom(backgroundColor: Colors.blueAccent),
@@ -418,17 +437,30 @@ void showGuestDialog(BuildContext context) {
             ),
           ));
 
+  Function allowPlayingFreePuzzlesAsGuest = () {
+    updateParentWidget();
+
+  };
+
   ElevatedButton continueAsGuestButton = ElevatedButton(
     child: Text("Continue as a guest"),
     style: ElevatedButton.styleFrom(backgroundColor: Colors.pinkAccent),
-    onPressed: () => Navigator.of(context).pop(),
+    onPressed: () {
+      if (puzzle.price == 0) {
+        allowPlayingFreePuzzlesAsGuest();
+        Navigator.of(context).pop();
+      }
+      else
+        Navigator.of(context).pop();
+    }
   );
   showDialog(
     context: context,
     builder: (BuildContext context) {
       return Alert(
           "Dear guest,",
-          "To perform this action you need to sign in or register an account. We would love to have you on here!",
+          "To perform this action you need to sign in or register an account. We would love to have you on here!"
+              "\nNote that you can still play free puzzles as a guest!",
           [registerButton, continueAsGuestButton]);
     },
   );

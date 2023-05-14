@@ -7,6 +7,7 @@ import 'package:flutter_stripe/flutter_stripe.dart';
 import '../classes/Coins.dart';
 import '../shared.dart';
 import '../theme/theme_constants.dart';
+import '../theme/theme_manager.dart';
 import '../widgets/MyAppBar.dart';
 import '../widgets/NavDrawer.dart';
 
@@ -43,8 +44,24 @@ class _ShopContentState extends State<ShopContent> {
             Padding(
               padding: EdgeInsets.all(8),
               child: ElevatedButton(
-                child: Text(
-                    "Current amount: " + player.coinsAmount.toString() + "€"),
+                child: Row(
+                  children: [
+                    Text("Current amount: " + player.coinsAmount.toString(),
+                        style: TextStyle(
+                            fontWeight: FontWeight.bold,
+                            fontSize: 16,
+                            color: (themeManager.themeMode == ThemeMode.dark)
+                                ? Colors.white
+                                : Colors.black)),
+                    Image.asset(
+                      "assets/images/coinv1.png",
+                      width: 40,
+                      height: 40,
+                    )
+                  ],
+                ),
+                /*Text(
+                    "Current amount: " + player.coinsAmount.toString() + "€"),*/
                 style: ElevatedButton.styleFrom(
                     backgroundColor: Colors.blueAccent),
                 onPressed: () {},
@@ -55,7 +72,7 @@ class _ShopContentState extends State<ShopContent> {
         Expanded(
           child: GridView.builder(
               gridDelegate: const SliverGridDelegateWithMaxCrossAxisExtent(
-                  maxCrossAxisExtent: 200, childAspectRatio: 3 / 4),
+                  maxCrossAxisExtent: 200, childAspectRatio: 3 / 5),
               itemCount: coins.length,
               itemBuilder: (BuildContext context, int index) {
                 return Container(
@@ -105,6 +122,8 @@ class _ShopContentState extends State<ShopContent> {
                     ));
               }),
         ),
+        //Align(alignment: Alignment.bottomLeft, child: SizedBox(width: MediaQuery.of(context)!.size.width/2,child: Image.asset('assets/images/maskota3.png', fit: BoxFit.cover)))
+
       ],
     );
   }

@@ -4,6 +4,7 @@ import 'package:urban_escape/widgets/Alert.dart';
 
 import '../main.dart';
 import '../theme/theme_constants.dart';
+import '../theme/theme_manager.dart';
 import '../widgets/NavDrawer.dart';
 import '../widgets/RadioButton.dart';
 
@@ -61,13 +62,17 @@ class _PuzzleScreenState extends State<PuzzleScreen> {
         leading: Builder(builder: (context) {
           return IconButton(
             icon: Icon(Icons.arrow_back),
-            color: (puzzle.currentPrompt == 0 || !puzzle.prompts[puzzle.currentPrompt - 1].isChallenge) ? Colors.white : Colors.grey,
+            color: (puzzle.currentPrompt == 0 ||
+                    !puzzle.prompts[puzzle.currentPrompt - 1].isChallenge)
+                ? Colors.white
+                : Colors.grey,
             onPressed: () {
               if (puzzle.currentPrompt == 0)
                 Navigator.of(context).pop();
               else
                 setState(() {
-                  if (puzzle.currentPrompt != 0 && !puzzle.prompts[puzzle.currentPrompt - 1].isChallenge) {
+                  if (puzzle.currentPrompt != 0 &&
+                      !puzzle.prompts[puzzle.currentPrompt - 1].isChallenge) {
                     puzzle.currentPrompt--;
                     currentPrompt = puzzle.prompts[puzzle.currentPrompt];
                   }
@@ -186,7 +191,10 @@ class TemplateFirst extends StatelessWidget {
       SizedBox(height: 10),
       Text(
         currentPrompt.title,
-        style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+        style: TextStyle(
+            fontSize: 20,
+            fontWeight: FontWeight.bold,
+            color: Colors.black),
       ),
       Padding(
         padding: const EdgeInsets.all(8.0),
@@ -226,7 +234,7 @@ class TemplateSecond extends StatelessWidget {
               SizedBox(height: 10),
               Text(
                 currentPrompt.title,
-                style: TextStyle(fontSize: 20, fontWeight: FontWeight.w900),
+                style: TextStyle(fontSize: 20, fontWeight: FontWeight.w900, color: Colors.black),
               ),
               Padding(
                 padding: EdgeInsets.all(30),
