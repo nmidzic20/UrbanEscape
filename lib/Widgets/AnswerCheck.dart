@@ -57,10 +57,10 @@ class AnswerCheckWidget extends StatelessWidget {
                       Navigator.of(context).pop();
 
                       if (isCorrect) {
-                        ScoreCounter.of(context)?.increaseScore(challenge);
+                        scoreCountKey.currentState!.increaseScore(challenge);
                       } else {
                         challenge.answerAttempts++;
-                        ScoreCounter.of(context)?.decreaseScore(challenge);
+                        scoreCountKey.currentState!.decreaseScore(challenge);
                       }
 
                       showDialog(

@@ -3,11 +3,10 @@ import 'package:urban_escape/Classes/Puzzle.dart';
 
 class ScoreCounter extends StatefulWidget {
   // The initial score and the current Puzzle
-  final int initialScore;
   final Puzzle? puzzle;
 
   // Constructor of ScoreCounter
-  const ScoreCounter({required this.initialScore, this.puzzle, Key? key}): super(key: key);
+  const ScoreCounter({this.puzzle, Key? key}): super(key: key);
 
   // Method to find the closest ScoreCounterState in the widget tree
   static ScoreCounterState? of(BuildContext context) {
@@ -26,7 +25,7 @@ class ScoreCounterState extends State<ScoreCounter> {
   @override
   void initState() {
     super.initState();
-    _score = widget.initialScore; // Set the initial score
+    _score = widget.puzzle?.totalScore; // Set the initial score
   }
 
   // Decrease the score by one, used for testing
@@ -48,7 +47,8 @@ class ScoreCounterState extends State<ScoreCounter> {
   // Increase the total score by the points value of the challenge
   void increaseScore(Challenge challenge) {
     setState(() {
-      widget.puzzle?.totalScore += challenge.points;
+      _score++;
+      // widget.puzzle?.totalScore += challenge.points;
     });
     print("This is the total score: ${widget.puzzle?.totalScore}");
   }
@@ -57,7 +57,8 @@ class ScoreCounterState extends State<ScoreCounter> {
   void decreaseScore(Challenge challenge) {
     setState(() {
       if (widget.puzzle?.totalScore != null && widget.puzzle!.totalScore > 0) {
-        widget.puzzle!.totalScore -= challenge.answerAttempts;
+        _score--;
+        // widget.puzzle!.totalScore -= challenge.answerAttempts;
       }
     });
     print("This is the total score: ${widget.puzzle?.totalScore}");

@@ -7,8 +7,6 @@ class HintWidget extends StatefulWidget {
   final Challenge challenge;
   final GlobalKey<ScoreCounterState> scoreCountKey;
 
-  // Constructor of HintWidget, takes challenge and scoreCountKey as parameters
-
   // Default constructor
   HintWidget({
     Challenge? challenge,
