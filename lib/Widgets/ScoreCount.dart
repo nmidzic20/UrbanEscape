@@ -25,7 +25,7 @@ class ScoreCounterState extends State<ScoreCounter> {
   @override
   void initState() {
     super.initState();
-    _score = widget.puzzle?.totalScore; // Set the initial score
+    _score = 0; // Set the initial score
   }
 
   // Decrease the score by one, used for testing
