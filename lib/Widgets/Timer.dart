@@ -32,7 +32,6 @@ class _TimerWidgetState extends State<TimerWidget> {
   void _stopStopwatch() {
     _stopwatch.stop();
     _timer.cancel();
-    print(getFullTime());
   }
 
   String getShortTime() {

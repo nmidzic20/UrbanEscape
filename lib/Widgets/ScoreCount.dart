@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:urban_escape/Classes/Puzzle.dart';
 
 class ScoreCounter extends StatefulWidget {
   final int initialScore;
+  final Puzzle? puzzle;
 
-  const ScoreCounter({required this.initialScore, Key? key}): super(key: key);
+  const ScoreCounter({required this.initialScore, this.puzzle, Key? key}): super(key: key);
 
   static ScoreCounterState? of(BuildContext context) {
     return context.findAncestorStateOfType<ScoreCounterState>();
