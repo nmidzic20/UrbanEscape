@@ -14,6 +14,7 @@ class Puzzle {
   late List<Prompt> prompts;
   late int promptsTotal;
   int currentPrompt = 0;
+  late int totalScore;
 
   bool started = false;
   bool purchased = false;
@@ -30,7 +31,10 @@ class Puzzle {
       this.description,
       this.start_location,
       this.prompts,
-      this.promptsTotal);
+      this.promptsTotal,
+      {
+        this.totalScore = 0,
+      });
 }
 
 class Challenge {
@@ -41,6 +45,7 @@ class Challenge {
   late String hint;
   late int points;
   late Function handleAnswer;
+  late int answerAttempts;
 
   Challenge(
       this.id,
@@ -49,7 +54,10 @@ class Challenge {
       this.options,
       this.hint,
       this.points,
-      this.handleAnswer);
+      this.handleAnswer,
+      {
+        this.answerAttempts = 0,
+      });
 }
 
 enum TemplateScreen {
