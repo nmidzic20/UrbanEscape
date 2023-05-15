@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
-import 'package:urban_escape/Classes/Puzzle.dart';
+import 'package:urban_escape/classes/Puzzle.dart';
 
 class ScoreCounter extends StatefulWidget {
   // The initial score and the current Puzzle
-  final Puzzle? puzzle;
+  final Puzzle puzzle;
 
   // Constructor of ScoreCounter
-  const ScoreCounter({this.puzzle, Key? key}): super(key: key);
+  const ScoreCounter({required this.puzzle, Key? key}): super(key: key);
 
   // Method to find the closest ScoreCounterState in the widget tree
   static ScoreCounterState? of(BuildContext context) {

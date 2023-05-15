@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:urban_escape/Widgets/ScoreCount.dart';
 import 'package:urban_escape/classes/Puzzle.dart';
 import 'package:urban_escape/widgets/Alert.dart';
 
@@ -38,37 +39,36 @@ class _PuzzleScreenState extends State<PuzzleScreen> {
       ),
       style: ElevatedButton.styleFrom(backgroundColor: Colors.blueAccent),
       onPressed: () {
-
-        if (puzzle.currentPrompt == puzzle.promptsTotal-1)
-          {
-            puzzle.currentPrompt = 0;
-            showDialog(
-                context: context,
-                builder: (BuildContext context) {
-                  return Alert("Congratulations", "Story completed!", [
-                    ElevatedButton(
-                      child: Text("OK",
-                          style: TextStyle(
-                              fontWeight: FontWeight.bold, fontSize: 20)),
-                      style: ElevatedButton.styleFrom(
-                          backgroundColor: Colors.pinkAccent),
-                      onPressed: () {
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                            builder: (context) => HomeScreen(),
-                          ),
-                        );
-                      },
-                    )
-                  ]);
-                });
-          }
+        if (puzzle.currentPrompt == puzzle.promptsTotal - 1) {
+          puzzle.currentPrompt = 0;
+          showDialog(
+              context: context,
+              builder: (BuildContext context) {
+                return Alert("Congratulations", "Story completed!", [
+                  ElevatedButton(
+                    child: Text("OK",
+                        style: TextStyle(
+                            fontWeight: FontWeight.bold, fontSize: 20)),
+                    style: ElevatedButton.styleFrom(
+                        backgroundColor: Colors.pinkAccent),
+                    onPressed: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => HomeScreen(),
+                        ),
+                      );
+                    },
+                  )
+                ]);
+              });
+        }
 
         setState(() {
           if (currentPrompt.isChallenge) {
-
-            String? givenAnswer = (currentPrompt.challenge!.optionsRadioButtons) ? selectedAnswer : userAnswer;
+            String? givenAnswer = (currentPrompt.challenge!.optionsRadioButtons)
+                ? selectedAnswer
+                : userAnswer;
 
             bool result = currentPrompt.challenge!.handleAnswer(
                 givenAnswer, currentPrompt.challenge!.answer, context);
@@ -112,12 +112,20 @@ class _PuzzleScreenState extends State<PuzzleScreen> {
           );
         }),
         title: Center(
-          child: Image.asset(
+            child: Stack(children: <Widget>[
+          Image.asset(
+            puzzle.poster_image_url,
+            fit: BoxFit.fill,
+          ),
+          Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Align(
+                  child: ScoreCounter(puzzle: puzzle ))) /*Image.asset(
             "assets/logo_spin.gif",
             height: 50.0,
             width: 50.0,
-          ),
-        ),
+          ),*/
+        ])),
         actions: [
           Padding(
             padding: const EdgeInsets.all(8.0),
@@ -218,14 +226,18 @@ class TemplateFirst extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Column(mainAxisSize: MainAxisSize.max, children: [
-      SizedBox( width: double.infinity, height: 200, child: Image.asset(currentPrompt.image_path, fit: BoxFit.cover,)),
+      SizedBox(
+          width: double.infinity,
+          height: 200,
+          child: Image.asset(
+            currentPrompt.image_path,
+            fit: BoxFit.cover,
+          )),
       SizedBox(height: 10),
       Text(
         currentPrompt.title,
         style: TextStyle(
-            fontSize: 20,
-            fontWeight: FontWeight.bold,
-            color: Colors.black),
+            fontSize: 20, fontWeight: FontWeight.bold, color: Colors.black),
       ),
       Padding(
         padding: const EdgeInsets.all(8.0),
@@ -234,12 +246,13 @@ class TemplateFirst extends StatelessWidget {
             : currentPrompt.content!,
       ),
       currentPrompt.isChallenge
-          ? (currentPrompt.challenge!.optionsRadioButtons) ? RadioButton(currentPrompt.challenge!.options) : currentPrompt.challenge!.options!.first
+          ? (currentPrompt.challenge!.optionsRadioButtons)
+              ? RadioButton(currentPrompt.challenge!.options)
+              : currentPrompt.challenge!.options!.first
           : Text(""),
       nextButton,
     ]);
   }
-
 }
 
 class TemplateSecond extends StatelessWidget {
@@ -266,7 +279,10 @@ class TemplateSecond extends StatelessWidget {
               SizedBox(height: 10),
               Text(
                 currentPrompt.title,
-                style: TextStyle(fontSize: 20, fontWeight: FontWeight.w900, color: Colors.black),
+                style: TextStyle(
+                    fontSize: 20,
+                    fontWeight: FontWeight.w900,
+                    color: Colors.black),
               ),
               Padding(
                 padding: EdgeInsets.all(30),

@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:urban_escape/Classes/Puzzle.dart';
+import 'package:urban_escape/classes/Puzzle.dart';
 import 'package:urban_escape/Widgets/ScoreCount.dart';
 
 class HintWidget extends StatefulWidget {
@@ -15,6 +15,7 @@ class HintWidget extends StatefulWidget {
     0, // id
     Text('Default question'), // question
     'Default answer', // answer
+    false,
     [], // options
     'Default hint', // hint
     0, // points
