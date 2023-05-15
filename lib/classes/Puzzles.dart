@@ -439,23 +439,30 @@ List<Puzzle> puzzles = [
 
 handleAnswer(selectedAnswer, correctAnswer, context) {
   String msg = "";
-  if (selectedAnswer == correctAnswer)
+  if (selectedAnswer == correctAnswer) {
     msg = "Correct!";
-  else
+    ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+      duration: Duration(seconds: 2),
+      content: Text(msg),
+    ));
+  } else {
     msg = "Incorrect :( Try again!";
-  showDialog(
-      context: context,
-      builder: (BuildContext context) {
-        return Alert("", msg, [
-          ElevatedButton(
-            child: Text("OK",
-                style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20)),
-            style: ElevatedButton.styleFrom(backgroundColor: Colors.pinkAccent),
-            onPressed: () {
-              Navigator.of(context).pop();
-            },
-          )
-        ]);
-      });
+    showDialog(
+        context: context,
+        builder: (BuildContext context) {
+          return Alert("", msg, [
+            ElevatedButton(
+              child: Text("OK",
+                  style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20)),
+              style:
+                  ElevatedButton.styleFrom(backgroundColor: Colors.pinkAccent),
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+            )
+          ]);
+        });
+  }
+
   return selectedAnswer == correctAnswer;
 }
