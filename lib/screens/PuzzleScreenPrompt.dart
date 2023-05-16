@@ -10,7 +10,6 @@ import '../widgets/NavDrawer.dart';
 import '../widgets/RadioButton.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 
-
 class PuzzleScreen extends StatefulWidget {
   PuzzleScreen(this.puzzle, {Key? key}) : super(key: key);
 
@@ -40,39 +39,38 @@ class _PuzzleScreenState extends State<PuzzleScreen> {
       ),
       style: ElevatedButton.styleFrom(backgroundColor: Colors.blueAccent),
       onPressed: () {
-
         selectedValue = 0;
 
-        if (puzzle.currentPrompt == puzzle.promptsTotal-1)
-          {
-            puzzle.currentPrompt = 0;
-            showDialog(
-                context: context,
-                builder: (BuildContext context) {
-                  return Alert("Congratulations", "Story completed!", [
-                    ElevatedButton(
-                      child: Text("OK",
-                          style: TextStyle(
-                              fontWeight: FontWeight.bold, fontSize: 20)),
-                      style: ElevatedButton.styleFrom(
-                          backgroundColor: Colors.pinkAccent),
-                      onPressed: () {
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                            builder: (context) => HomeScreen(),
-                          ),
-                        );
-                      },
-                    )
-                  ]);
-                });
-          }
+        if (puzzle.currentPrompt == puzzle.promptsTotal - 1) {
+          puzzle.currentPrompt = 0;
+          showDialog(
+              context: context,
+              builder: (BuildContext context) {
+                return Alert("Congratulations", "Story completed!", [
+                  ElevatedButton(
+                    child: Text("OK",
+                        style: TextStyle(
+                            fontWeight: FontWeight.bold, fontSize: 20)),
+                    style: ElevatedButton.styleFrom(
+                        backgroundColor: Colors.pinkAccent),
+                    onPressed: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => HomeScreen(),
+                        ),
+                      );
+                    },
+                  )
+                ]);
+              });
+        }
 
         setState(() {
           if (currentPrompt.isChallenge) {
-
-            String? givenAnswer = (currentPrompt.challenge!.optionsRadioButtons) ? selectedAnswer : userAnswer;
+            String? givenAnswer = (currentPrompt.challenge!.optionsRadioButtons)
+                ? selectedAnswer
+                : userAnswer;
 
             bool result = currentPrompt.challenge!.handleAnswer(
                 givenAnswer, currentPrompt.challenge!.answer, context);
@@ -120,7 +118,7 @@ class _PuzzleScreenState extends State<PuzzleScreen> {
             "assets/logo_spin.gif",
             height: 50.0,
             width: 50.0,
-          ),
+          ).animate().fade().scale(),
         ),
         actions: [
           Padding(
@@ -222,14 +220,18 @@ class TemplateFirst extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Column(mainAxisSize: MainAxisSize.max, children: [
-      SizedBox( width: double.infinity, height: 200, child: Image.asset(currentPrompt.image_path, fit: BoxFit.cover,)),
-      SizedBox(height: 10),
+      SizedBox(
+          width: double.infinity,
+          height: 200,
+          child: Image.asset(
+            currentPrompt.image_path,
+            fit: BoxFit.cover,
+          ).animate().fade().scale()),
+      const SizedBox(height: 10),
       Text(
         currentPrompt.title,
-        style: TextStyle(
-            fontSize: 20,
-            fontWeight: FontWeight.bold,
-            color: Colors.black),
+        style: const TextStyle(
+            fontSize: 20, fontWeight: FontWeight.bold, color: Colors.black),
       ).animate().fade().scale(),
       Padding(
         padding: const EdgeInsets.all(8.0),
@@ -238,12 +240,16 @@ class TemplateFirst extends StatelessWidget {
             : currentPrompt.content!.animate().fade().scale(),
       ),
       currentPrompt.isChallenge
-          ? (currentPrompt.challenge!.optionsRadioButtons) ? RadioButton(currentPrompt.challenge!.options).animate().fade().scale() : currentPrompt.challenge!.options!.first.animate().fade().scale()
+          ? (currentPrompt.challenge!.optionsRadioButtons)
+              ? RadioButton(currentPrompt.challenge!.options)
+                  .animate()
+                  .fade()
+                  .scale()
+              : currentPrompt.challenge!.options!.first.animate().fade().scale()
           : Text(""),
       nextButton,
     ]);
   }
-
 }
 
 class TemplateSecond extends StatelessWidget {
@@ -270,13 +276,19 @@ class TemplateSecond extends StatelessWidget {
               SizedBox(height: 10),
               Text(
                 currentPrompt.title,
-                style: TextStyle(fontSize: 20, fontWeight: FontWeight.w900, color: Colors.black),
+                style: TextStyle(
+                    fontSize: 20,
+                    fontWeight: FontWeight.w900,
+                    color: Colors.black),
               ),
               Padding(
                 padding: EdgeInsets.all(30),
                 child: ClipRRect(
                   borderRadius: BorderRadius.circular(30.0),
-                  child: Image.asset(currentPrompt.image_path),
+                  child: Image.asset(currentPrompt.image_path)
+                      .animate()
+                      .fade()
+                      .scale(),
                 ),
               ),
               Padding(

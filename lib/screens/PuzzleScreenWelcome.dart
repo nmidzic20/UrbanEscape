@@ -7,16 +7,15 @@ import 'package:percent_indicator/percent_indicator.dart';
 import 'package:pie_chart/pie_chart.dart';
 import '../auth_gate.dart';
 import '../shared.dart';
-import '../theme/theme_manager.dart';
 import '../widgets/Alert.dart';
 import '../widgets/NavDrawer.dart';
 import '/classes/Puzzles.dart';
-import 'PurchasePuzzle.dart';
 import 'PuzzleScreenPrompt.dart';
+import 'package:flutter_animate/flutter_animate.dart';
 
 class PuzzleScreenWelcome extends StatefulWidget {
   PuzzleScreenWelcome({super.key, required this.id}) {
-    this.puzzle = puzzles.where((p) => p.id == id).first;
+    puzzle = puzzles.where((p) => p.id == id).first;
   }
 
   final int id;
@@ -53,7 +52,7 @@ class _PuzzleScreenWelcomeState extends State<PuzzleScreenWelcome> {
       appBar: AppBar(
         leading: Builder(builder: (context) {
           return IconButton(
-            icon: Icon(Icons.arrow_back),
+            icon: const Icon(Icons.arrow_back),
             onPressed: () => Navigator.of(context).pop(),
           );
         }),
@@ -62,7 +61,7 @@ class _PuzzleScreenWelcomeState extends State<PuzzleScreenWelcome> {
           Padding(
             padding: const EdgeInsets.all(8.0),
             child: IconButton(
-              icon: Icon(
+              icon: const Icon(
                 Icons.home_filled,
               ),
               onPressed: () {
@@ -85,11 +84,11 @@ class _PuzzleScreenWelcomeState extends State<PuzzleScreenWelcome> {
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
               FittedBox(
+                fit: BoxFit.fitWidth,
                 child: Image.asset(
                   puzzle.poster_image_url,
                   height: 60,
-                ),
-                fit: BoxFit.fitWidth,
+                ).animate().fade().scale(),
               ),
               Container(
                 height: (puzzle.purchased) ? 100 : 180,
@@ -103,7 +102,7 @@ class _PuzzleScreenWelcomeState extends State<PuzzleScreenWelcome> {
                           dataMap: dataMap,
                           chartRadius: MediaQuery.of(context).size.width / 6,
                           legendOptions: LegendOptions(showLegends: false),
-                          chartValuesOptions: ChartValuesOptions(
+                          chartValuesOptions: const ChartValuesOptions(
                             showChartValueBackground: false,
                             showChartValues: false,
                           ),
@@ -112,7 +111,7 @@ class _PuzzleScreenWelcomeState extends State<PuzzleScreenWelcome> {
                         ),
                         Column(
                           children: [
-                            Text("AVG. TIME",
+                            const Text("AVG. TIME",
                                 style: TextStyle(
                                     fontWeight: FontWeight.bold,
                                     color: Colors.pinkAccent)),
@@ -124,11 +123,11 @@ class _PuzzleScreenWelcomeState extends State<PuzzleScreenWelcome> {
                           radius: 20.0,
                           lineWidth: 8.0,
                           percent: 0.25,
-                          center: new Text("1",
+                          center: Text("1",
                               style: TextStyle(color: Colors.pinkAccent)),
                           progressColor: Colors.pink,
                         ),
-                        Text(
+                        const Text(
                           "LEVEL",
                           style: TextStyle(
                               fontWeight: FontWeight.bold,
@@ -176,7 +175,7 @@ class _BookNowState extends State<BookNow> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      color: COLOR_BACKGROUND,
+      decoration: const BoxDecoration(gradient: LINEAR_GRADIENT),
       width: double.infinity,
       child: Column(
         children: [
@@ -186,38 +185,43 @@ class _BookNowState extends State<BookNow> {
               width: 250,
               child: Text(
                 puzzle.description,
-                style: TextStyle(color: Colors.white, fontSize: 15),
+                style: const TextStyle(color: Colors.white, fontSize: 15),
                 textAlign: TextAlign.justify,
               ),
             ),
           ),
-          Padding(padding: EdgeInsets.all(10)),
+          const Padding(padding: EdgeInsets.all(10)),
           Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              Icon(
+              const Icon(
                 Icons.location_on,
                 color: Colors.blueAccent,
               ),
               Text(
                 puzzle.start_location,
-                style: TextStyle(
+                style: const TextStyle(
                     color: Colors.white,
                     decoration: TextDecoration.underline,
                     fontSize: 16),
               ),
             ],
           ),
-          Padding(padding: EdgeInsets.all(10)),
+          const Padding(padding: EdgeInsets.all(10)),
           RawMaterialButton(
             padding: EdgeInsets.all(10),
             constraints: BoxConstraints(maxWidth: 200),
             onPressed: () {},
             elevation: 2.0,
             fillColor: Colors.blueAccent,
+            shape: const RoundedRectangleBorder(
+              borderRadius: BorderRadius.all(
+                Radius.circular(5),
+              ),
+            ),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.center,
-              children: [
+              children: const [
                 Icon(
                   Icons.bar_chart,
                   color: Colors.white,
@@ -229,21 +233,14 @@ class _BookNowState extends State<BookNow> {
                         color: Colors.white))
               ],
             ),
-            shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.all(
-                Radius.circular(5),
-              ),
-            ),
           ),
-          Padding(padding: EdgeInsets.all(10)),
+          const Padding(padding: EdgeInsets.all(10)),
           ElevatedButton(
-            child: Text("BOOK NOW",
-                style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20)),
             style: ElevatedButton.styleFrom(backgroundColor: Colors.pinkAccent),
             onPressed: () {
-              if (!getBoolValuesFromSharedPrefs("isLoggedIn"))
+              if (!getBoolValuesFromSharedPrefs("isLoggedIn")) {
                 showGuestDialog(context, widget.updateParentWidget, puzzle);
-              else {
+              } else {
                 if (puzzle.price <= player.coinsAmount) {
                   setState(() {
                     player.coinsAmount = player.coinsAmount - puzzle.price;
@@ -254,6 +251,8 @@ class _BookNowState extends State<BookNow> {
                 }
               }
             },
+            child: const Text("BOOK NOW",
+                style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20)),
           ),
           Padding(padding: EdgeInsets.all(10)),
         ],
@@ -264,8 +263,7 @@ class _BookNowState extends State<BookNow> {
   void handleInsufficientFunds(BuildContext context) {
     ElevatedButton goToShopButton = ElevatedButton(
         child: Text("Go to store"),
-        style: ElevatedButton.styleFrom(
-            backgroundColor: Colors.pinkAccent),
+        style: ElevatedButton.styleFrom(backgroundColor: Colors.pinkAccent),
         onPressed: () => Navigator.push(
               context,
               MaterialPageRoute(
@@ -286,7 +284,8 @@ class _BookNowState extends State<BookNow> {
 }
 
 class StartPuzzle extends StatefulWidget {
-  StartPuzzle(this.updateParentWidget, {
+  StartPuzzle(
+    this.updateParentWidget, {
     super.key,
     required this.puzzle,
   });
@@ -314,7 +313,7 @@ class _StartPuzzleState extends State<StartPuzzle> {
   Widget build(BuildContext context) {
     return Container(
       width: double.infinity,
-      decoration: BoxDecoration(
+      decoration: const BoxDecoration(
         gradient: LinearGradient(
           begin: Alignment.topCenter,
           end: Alignment.bottomCenter,
@@ -336,22 +335,29 @@ class _StartPuzzleState extends State<StartPuzzle> {
           ),
           Padding(padding: EdgeInsets.all(5)),
           ElevatedButton(
-            child: Text(buttonTitle,
-                style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20)),
             style: ElevatedButton.styleFrom(backgroundColor: Colors.pinkAccent),
             onPressed: () {
-                puzzle.started = true;
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) => PuzzleScreen(puzzle),
-                  ),
-                );
+              puzzle.started = true;
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => PuzzleScreen(puzzle),
+                ),
+              );
             },
+            child: Text(buttonTitle,
+                style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20)),
           ),
           //SizedBox(height: 40,),
-          Align(alignment: Alignment.bottomRight, child: SizedBox(width: MediaQuery.of(context)!.size.width/2,child: Image.asset('assets/images/maskota2.png', fit: BoxFit.cover)))
-
+          Align(
+              alignment: Alignment.bottomRight,
+              child: SizedBox(
+                  width: MediaQuery.of(context)!.size.width / 2,
+                  child: Image.asset('assets/images/maskota2.png',
+                          fit: BoxFit.cover)
+                      .animate()
+                      .fade()
+                      .scale()))
         ],
       ),
     );
@@ -370,7 +376,7 @@ class RatingPrice extends StatelessWidget {
   Widget build(BuildContext context) {
     return Row(mainAxisAlignment: MainAxisAlignment.spaceEvenly, children: [
       Column(mainAxisSize: MainAxisSize.min, children: [
-        Text(
+        const Text(
           "RATING",
           style:
               TextStyle(fontWeight: FontWeight.bold, color: Colors.pinkAccent),
@@ -379,25 +385,25 @@ class RatingPrice extends StatelessWidget {
           onPressed: () {},
           elevation: 2.0,
           fillColor: Colors.pinkAccent,
+          padding: const EdgeInsets.all(10.0),
+          shape: const OvalBorder(),
           child: Row(
             children: [
-              Icon(
+              const Icon(
                 Icons.star,
                 color: Colors.white,
               ),
               Text(puzzle.rating,
-                  style: TextStyle(
+                  style: const TextStyle(
                       fontWeight: FontWeight.bold,
                       fontSize: 20,
                       color: Colors.black))
             ],
           ),
-          padding: EdgeInsets.all(10.0),
-          shape: OvalBorder(),
         ),
       ]),
       Column(mainAxisSize: MainAxisSize.min, children: [
-        Text(
+        const Text(
           "PRICE",
           style:
               TextStyle(fontWeight: FontWeight.bold, color: Colors.pinkAccent),
@@ -405,7 +411,7 @@ class RatingPrice extends StatelessWidget {
         Row(
           children: [
             Text(puzzle.price.toString(),
-                style: TextStyle(
+                style: const TextStyle(
                     fontWeight: FontWeight.bold,
                     fontSize: 16,
                     color: Colors.black)),
@@ -413,47 +419,41 @@ class RatingPrice extends StatelessWidget {
               "assets/images/coinv1.png",
               width: 40,
               height: 40,
-            )
+            ).animate().fade().scale()
           ],
         ),
-        /*Text(
-          puzzle.price.toString() + "€",
-          style: TextStyle(
-              fontWeight: FontWeight.bold, fontSize: 20, color: Colors.black),
-        ),*/
       ])
     ]);
   }
 }
 
-void showGuestDialog(BuildContext context, Function updateParentWidget, Puzzle puzzle) {
+void showGuestDialog(
+    BuildContext context, Function updateParentWidget, Puzzle puzzle) {
   ElevatedButton registerButton = ElevatedButton(
-      child: Text("Sign in"),
       style: ElevatedButton.styleFrom(backgroundColor: Colors.blueAccent),
       onPressed: () => Navigator.push(
             context,
             MaterialPageRoute(
               builder: (context) => AuthGate(),
             ),
-          ));
+          ),
+      child: Text("Sign in"));
 
-  Function allowPlayingFreePuzzlesAsGuest = () {
+  allowPlayingFreePuzzlesAsGuest() {
     updateParentWidget();
-
-  };
+  }
 
   ElevatedButton continueAsGuestButton = ElevatedButton(
-    child: Text("Continue as a guest"),
-    style: ElevatedButton.styleFrom(backgroundColor: Colors.pinkAccent),
-    onPressed: () {
-      if (puzzle.price == 0) {
-        allowPlayingFreePuzzlesAsGuest();
-        Navigator.of(context).pop();
-      }
-      else
-        Navigator.of(context).pop();
-    }
-  );
+      style: ElevatedButton.styleFrom(backgroundColor: Colors.pinkAccent),
+      onPressed: () {
+        if (puzzle.price == 0) {
+          allowPlayingFreePuzzlesAsGuest();
+          Navigator.of(context).pop();
+        } else {
+          Navigator.of(context).pop();
+        }
+      },
+      child: const Text("Continue as a guest"));
   showDialog(
     context: context,
     builder: (BuildContext context) {
