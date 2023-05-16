@@ -8,6 +8,8 @@ import '../theme/theme_constants.dart';
 import '../theme/theme_manager.dart';
 import '../widgets/NavDrawer.dart';
 import '../widgets/RadioButton.dart';
+import 'package:flutter_animate/flutter_animate.dart';
+
 
 class PuzzleScreen extends StatefulWidget {
   PuzzleScreen(this.puzzle, {Key? key}) : super(key: key);
@@ -38,6 +40,8 @@ class _PuzzleScreenState extends State<PuzzleScreen> {
       ),
       style: ElevatedButton.styleFrom(backgroundColor: Colors.blueAccent),
       onPressed: () {
+
+        selectedValue = 0;
 
         if (puzzle.currentPrompt == puzzle.promptsTotal-1)
           {
@@ -226,15 +230,15 @@ class TemplateFirst extends StatelessWidget {
             fontSize: 20,
             fontWeight: FontWeight.bold,
             color: Colors.black),
-      ),
+      ).animate().fade().scale(),
       Padding(
         padding: const EdgeInsets.all(8.0),
         child: currentPrompt.isChallenge
-            ? currentPrompt.challenge!.question
-            : currentPrompt.content!,
+            ? currentPrompt.challenge!.question.animate().fade().scale()
+            : currentPrompt.content!.animate().fade().scale(),
       ),
       currentPrompt.isChallenge
-          ? (currentPrompt.challenge!.optionsRadioButtons) ? RadioButton(currentPrompt.challenge!.options) : currentPrompt.challenge!.options!.first
+          ? (currentPrompt.challenge!.optionsRadioButtons) ? RadioButton(currentPrompt.challenge!.options).animate().fade().scale() : currentPrompt.challenge!.options!.first.animate().fade().scale()
           : Text(""),
       nextButton,
     ]);
@@ -278,8 +282,8 @@ class TemplateSecond extends StatelessWidget {
               Padding(
                 padding: const EdgeInsets.all(12.0),
                 child: currentPrompt.isChallenge
-                    ? currentPrompt.challenge!.question
-                    : currentPrompt.content!,
+                    ? currentPrompt.challenge!.question.animate().fade().scale()
+                    : currentPrompt.content!.animate().fade().scale(),
               ),
               nextButton,
             ])));
