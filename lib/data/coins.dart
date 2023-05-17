@@ -1,11 +1,4 @@
-class Coin {
-  Coin(this.id, this.amount, this.price, this.image_url);
-
-  final int id;
-  final int amount;
-  final int price;
-  final String image_url;
-}
+import '../classes/Coin.dart';
 
 List<Coin> coins = [
   Coin(1, 300, 7, "assets/images/coinv1.png"),

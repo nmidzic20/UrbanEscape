@@ -1,14 +1,12 @@
 import 'package:flutter/material.dart';
-import 'package:urban_escape/classes/PuzzleCard.dart';
-import 'package:urban_escape/classes/Puzzles.dart';
+import 'package:urban_escape/screens/Home.dart';
 import 'package:urban_escape/screens/ShopScreen.dart';
 import 'package:urban_escape/shared.dart';
 import 'package:urban_escape/theme/theme_constants.dart';
 import 'package:urban_escape/theme/theme_manager.dart';
 import 'package:firebase_core/firebase_core.dart';
-import 'package:urban_escape/widgets/MyAppBar.dart';
-import 'package:urban_escape/widgets/NavDrawer.dart';
-import 'classes/Puzzle.dart';
+import 'package:urban_escape/components/MyAppBar.dart';
+import 'package:urban_escape/components/NavDrawer.dart';
 import 'firebase_options.dart';
 import 'package:flutterfire_ui/auth.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
@@ -78,7 +76,7 @@ class _MyAppState extends State<MyApp> {
       theme: lightTheme,
       darkTheme: darkTheme,
       themeMode: themeManager.themeMode,
-      home: HomeScreen(),
+      home: const HomeScreen(),
     );
   }
 }
@@ -92,8 +90,8 @@ class HomeScreen extends StatefulWidget {
 
 class _HomeScreenState extends State<HomeScreen> {
   List<Widget> pages = <Widget>[
-    HomeContent(),
-    ShopContent(),
+    const HomeContent(),
+    const ShopContent(),
   ];
 
   int selectedIndex = 0;
@@ -107,10 +105,10 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: MyAppBar("Home", false),
-        drawer: NavDrawer(),
+        appBar: const MyAppBar("Home", false),
+        drawer: const NavDrawer(),
         body: Container(
-            decoration: BoxDecoration(gradient: LINEAR_GRADIENT),
+            decoration: const BoxDecoration(gradient: LINEAR_GRADIENT),
             child: pages.elementAt(selectedIndex)),
         bottomNavigationBar: BottomNavigationBar(
           items: const <BottomNavigationBarItem>[
@@ -130,76 +128,4 @@ class _HomeScreenState extends State<HomeScreen> {
   }
 }
 
-class HomeContent extends StatefulWidget {
-  const HomeContent({Key? key}) : super(key: key);
 
-  @override
-  State<HomeContent> createState() => _HomeContentState();
-}
-
-class _HomeContentState extends State<HomeContent> {
-  final List<Puzzle> allPuzzles = puzzles;
-  List<Puzzle> foundPuzzles = [];
-
-  @override
-  initState() {
-    foundPuzzles = allPuzzles;
-    super.initState();
-  }
-
-  void _runFilter(String enteredKeyword) {
-    List<Puzzle> results = [];
-    if (enteredKeyword.isEmpty) {
-      results = allPuzzles;
-    } else {
-      results = allPuzzles
-          .where((puzzle) =>
-              puzzle.city
-                  .toLowerCase()
-                  .contains(enteredKeyword.toLowerCase()) ||
-              puzzle.title.toLowerCase().contains(enteredKeyword.toLowerCase()))
-          .toList();
-    }
-    setState(() {
-      foundPuzzles = results;
-    });
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return Column(
-      children: [
-        Padding(
-          padding: const EdgeInsets.all(8.0),
-          child: TextField(
-            onChanged: (value) => _runFilter(value),
-            decoration: const InputDecoration(
-                labelText: 'Search by city or puzzle',
-                suffixIcon: Icon(
-                  Icons.search,
-                  color: Colors.white,
-                )),
-          ),
-        ),
-        const SizedBox(
-          height: 20,
-        ),
-        Expanded(
-          child: foundPuzzles.isNotEmpty
-              ? ListView.builder(
-                  itemCount: foundPuzzles.length,
-                  itemBuilder: (BuildContext context, int index) {
-                    return Padding(
-                        padding: const EdgeInsets.all(8.0),
-                        child: new PuzzleCard(foundPuzzles[index],
-                            key: ValueKey(foundPuzzles[index].id)));
-                  })
-              : const Text(
-                  'No results found',
-                  style: TextStyle(fontSize: 24),
-                ),
-        ),
-      ],
-    );
-  }
-}

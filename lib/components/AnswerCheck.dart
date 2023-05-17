@@ -1,9 +1,10 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 class AnswerCheck extends StatelessWidget {
-  TextEditingController _textFieldController = TextEditingController();
+  final TextEditingController _textFieldController = TextEditingController();
   final String _premadeString = "I WANNA DIE!!!";
+
+  AnswerCheck({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -13,14 +14,14 @@ class AnswerCheck extends StatelessWidget {
             context: context,
             builder: (context) {
               return AlertDialog(
-                title: Text('Question'),
+                title: const Text('Question'),
                 content: TextField(
                   controller: _textFieldController,
-                  decoration: InputDecoration(hintText: 'Answer'),
+                  decoration: const InputDecoration(hintText: 'Answer'),
                 ),
                 actions: <Widget>[
                   TextButton(
-                    child: Text('CANCEL'),
+                    child: const Text('CANCEL'),
                     onPressed: () {
                       Navigator.pop(context);
                     },

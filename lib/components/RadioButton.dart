@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:urban_escape/theme/theme_constants.dart';
 
 int? selectedValue = 0;
 String? selectedAnswer = "";
@@ -31,6 +32,7 @@ class _RadioButtonState extends State<RadioButton> {
               return ListTile(
                 title: options[index],
                 leading: Radio<int>(
+                  fillColor: MaterialStateProperty.all<Color>(COLOR_PRIMARY_VARIANT),
                   value: index,
                   groupValue: selectedValue,
                   onChanged: (int? value) {

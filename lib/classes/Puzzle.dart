@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+import 'Prompt.dart';
+
 class Puzzle {
   late int id;
   late String title;
@@ -33,50 +35,7 @@ class Puzzle {
       this.promptsTotal);
 }
 
-class Challenge {
-  late int id;
-  late Widget question;
-  late String answer;
-  late bool optionsRadioButtons;
-  late List<Widget> options;
-  late String hint;
-  late int points;
-  late Function handleAnswer;
 
-  Challenge(
-      this.id,
-      this.question,
-      this.answer,
-      this.optionsRadioButtons,
-      this.options,
-      this.hint,
-      this.points,
-      this.handleAnswer);
-}
 
-enum TemplateScreen {
-  FIRST,
-  SECOND
-}
 
-class Prompt {
-  late int id;
-  late TemplateScreen templateScreen;
-  late String image_path;
-  late String title;
-  late bool isChallenge;
-  late Widget? content;
-  late Challenge? challenge;
-  late bool timerPaused;
 
-  Prompt(
-      this.id,
-      this.templateScreen,
-      this.image_path,
-      this.title,
-      this.isChallenge,
-      this.content,
-      this.challenge,
-      this.timerPaused
-      );
-}

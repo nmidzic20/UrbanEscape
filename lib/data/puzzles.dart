@@ -1,12 +1,12 @@
-import 'package:urban_escape/shared.dart';
-
-import '../widgets/Alert.dart';
-import './Puzzle.dart';
+import '../components/Alert.dart';
+import '../components/AnswerTextField.dart';
+import '../classes/Puzzle.dart';
 import 'package:flutter/material.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:flutter/gestures.dart';
-import 'package:flutter/services.dart';
-import 'package:flutter_animate/flutter_animate.dart';
+
+import '../classes/Challenge.dart';
+import '../classes/Prompt.dart';
 
 Future<void> _launchInBrowser(Uri url) async {
   if (!await launchUrl(
@@ -17,7 +17,37 @@ Future<void> _launchInBrowser(Uri url) async {
   }
 }
 
-List<Puzzle> puzzles = [
+handleAnswer(selectedAnswer, correctAnswer, context) {
+  String msg = "";
+  if (selectedAnswer == correctAnswer) {
+    msg = "Correct!";
+    ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+      duration: Duration(seconds: 2),
+      content: Text(msg),
+    ));
+  } else {
+    msg = "Incorrect :( Try again!";
+    showDialog(
+        context: context,
+        builder: (BuildContext context) {
+          return Alert("", msg, [
+            ElevatedButton(
+              style:
+                  ElevatedButton.styleFrom(backgroundColor: Colors.pinkAccent),
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+              child: const Text("OK",
+                  style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20)),
+            )
+          ]);
+        });
+  }
+
+  return selectedAnswer == correctAnswer;
+}
+
+List<Puzzle> allPuzzles = [
   Puzzle(
       1,
       "Solar System Voyage",
@@ -39,20 +69,20 @@ List<Puzzle> puzzles = [
             RichText(
               text: TextSpan(
                 children: <TextSpan>[
-                  TextSpan(
+                  const TextSpan(
                       text:
                           'You are a space traveller and you’re trying to make your way back home. Your initial location is... the stars!\n\n',
                       style: TextStyle(color: Colors.black)),
                   TextSpan(
                       text: 'Zvjezdarnica Zagreb',
-                      style: TextStyle(
+                      style: const TextStyle(
                         color: Colors.pinkAccent,
                         decoration: TextDecoration.underline,
                       ),
                       recognizer: TapGestureRecognizer()
                         ..onTap = () => _launchInBrowser(
                             Uri.parse("https://zvjezdarnica.hr/"))),
-                  TextSpan(
+                  const TextSpan(
                       text: ' is your starting point.',
                       style: TextStyle(color: Colors.black)),
                 ],
@@ -69,16 +99,16 @@ List<Puzzle> puzzles = [
             null,
             Challenge(
                 1,
-                Text(
+                const Text(
                   "There are 2 stars in front of you. They both have the same, strange shape. What is the shape of the 2 stars?",
                   style: TextStyle(color: Colors.black),
                 ),
                 "1",
                 true,
                 [
-                  Icon(Icons.star_border, color: Colors.black),
-                  Icon(Icons.close, color: Colors.black),
-                  Icon(Icons.favorite_border, color: Colors.black)
+                  const Icon(Icons.star_border, color: Colors.black),
+                  const Icon(Icons.close, color: Colors.black),
+                  const Icon(Icons.favorite_border, color: Colors.black)
                 ],
                 "Look at the walls a bit more carefully...",
                 1,
@@ -90,7 +120,7 @@ List<Puzzle> puzzles = [
             "assets/images/observatory.png",
             "DID YOU KNOW?",
             false,
-            Text(
+            const Text(
               "The Observatory was founded by the Croatian Society for Natural Sciences. The premises in Popov Toranj were provided by the city government, which gave the funds for the reconstruction and the installation of an astronomic dome and a telescope. The grand opening took place on December 5, 1903. The first manager of the Observatory was Oton Kučera, a major promoter of science in Croatia.",
               style: TextStyle(color: Colors.black),
             ),
@@ -105,20 +135,20 @@ List<Puzzle> puzzles = [
             RichText(
               text: TextSpan(
                 children: <TextSpan>[
-                  TextSpan(
+                  const TextSpan(
                       text:
                           'Your next location is a planet named after the Roman god of war. The best way to find it is to locate the ',
                       style: TextStyle(color: Colors.black)),
                   TextSpan(
                       text: '“Bloody Bridge”',
-                      style: TextStyle(
+                      style: const TextStyle(
                         color: Colors.pinkAccent,
                         decoration: TextDecoration.underline,
                       ),
                       recognizer: TapGestureRecognizer()
                         ..onTap = () => _launchInBrowser(Uri.parse(
                             "https://croatia2go.com/bloody-bridge-the-street-in-zagreb/"))),
-                  TextSpan(
+                  const TextSpan(
                       text: ' first.', style: TextStyle(color: Colors.black)),
                 ],
               ),
@@ -134,14 +164,14 @@ List<Puzzle> puzzles = [
             null,
             Challenge(
                 1,
-                Text(
+                const Text(
                   "What is the Diameter of this planet?",
                   style: TextStyle(color: Colors.black),
                 ),
                 "6.786",
                 false,
                 [
-                  Row(mainAxisAlignment: MainAxisAlignment.center, children: [
+                  Row(mainAxisAlignment: MainAxisAlignment.center, children: const [
                     Expanded(
                       child: SizedBox(
                           height: 20,
@@ -166,7 +196,7 @@ List<Puzzle> puzzles = [
             "assets/images/ssv5.jpg",
             "DID YOU KNOW?",
             false,
-            Text(
+            const Text(
               "At the turn of the 20th century, prostitution was legal. In Zagreb it was advertised as a tourist attraction and contributed to the city's economy. Tkalčićeva Street was the main centre for brothels. At one stage every other building was a bordello. To open a brothel, the owner had to register at the town hall and received a licence. The licence required the brothel to be well run and provide a quality service. The women working in the brothels had to have a twice weekly medical examination. Brothels were not allowed to advertise their presence, but a discrete, uncommonly coloured lantern was allowed to be placed outside.",
               style: TextStyle(color: Colors.black),
             ),
@@ -179,7 +209,7 @@ List<Puzzle> puzzles = [
             "LOCATION 3/5",
             false,
             RichText(
-              text: TextSpan(
+              text: const TextSpan(
                 children: <TextSpan>[
                   TextSpan(
                       text:
@@ -214,14 +244,14 @@ List<Puzzle> puzzles = [
             null,
             Challenge(
                 1,
-                Text(
+                const Text(
                   "What is the Diameter of this planet?",
                   style: TextStyle(color: Colors.black),
                 ),
                 "12.103",
                 false,
                 [
-                  Row(mainAxisAlignment: MainAxisAlignment.center, children: [
+                  Row(mainAxisAlignment: MainAxisAlignment.center, children: const [
                     Expanded(
                       child: SizedBox(
                           height: 20,
@@ -246,7 +276,7 @@ List<Puzzle> puzzles = [
             "assets/images/ssv8.JPG",
             "DID YOU KNOW?",
             false,
-            Text(
+            const Text(
               "Dolac, the daily market, on a raised square a set of stairs up from Jelačić, has been the city’s major trading place since 1930. Farmers from surrounding villages come to sell their home-made foodstuffs and very fresh fruit and vegetables. In the covered market downstairs are butchers, fishmongers and old ladies selling the local speciality sir i vrhnje (cheese and cream). Flowers and lace are also widely available. Alongside, the renovated fish market, ribarnica, sells fresh produce every day but Monday.",
               style: TextStyle(color: Colors.black),
             ),
@@ -259,7 +289,7 @@ List<Puzzle> puzzles = [
             "LOCATION 4/5",
             false,
             RichText(
-              text: TextSpan(
+              text: const TextSpan(
                 children: <TextSpan>[
                   TextSpan(
                       text:
@@ -295,22 +325,22 @@ List<Puzzle> puzzles = [
             null,
             Challenge(
                 1,
-                Text(
+                const Text(
                   "What is the original color of this celestial body?",
                   style: TextStyle(color: Colors.black),
                 ),
                 "1",
                 true,
                 [
-                  Text(
+                  const Text(
                     "BROWN",
                     style: TextStyle(color: Colors.brown),
                   ),
-                  Text(
+                  const Text(
                     "GOLD",
                     style: TextStyle(color: Colors.yellow),
                   ),
-                  Text(
+                  const Text(
                     "ORANGE",
                     style: TextStyle(color: Colors.orange),
                   ),
@@ -325,7 +355,7 @@ List<Puzzle> puzzles = [
             "assets/images/ssv11.png",
             "DID YOU KNOW?",
             false,
-            Text(
+            const Text(
               "Nine Views (Croatian: Devet pogleda) is an ambiental installation which, together with the sculpture Prizemljeno Sunce (The Grounded Sun), comprises a scale model of the Solar System. Prizemljeno Sunce by Ivan Kožarić was first displayed in 1971 by the building of the Croatian National Theatre, and since then changed location a few times. Since 1994, it has been situated in Bogovićeva Street. It is a bronze sphere around 2 metres in diameter. In 2004, artist Davor Preis had a two-week exhibition in the Josip Račić Exhibition Hall in Margaretska Street in Zagreb, and afterwards, he placed 9 models of the planets of the Solar System around Zagreb, to complete a model of the entire solar system. The models' sizes as well as their distances from the Prizemljeno Sunce are all in the same scale as the Prizemljeno Sunce itself.",
               style: TextStyle(color: Colors.black),
             ),
@@ -338,7 +368,7 @@ List<Puzzle> puzzles = [
             "LOCATION 5/5",
             false,
             RichText(
-              text: TextSpan(
+              text: const TextSpan(
                 children: <TextSpan>[
                   TextSpan(
                       text:
@@ -368,14 +398,14 @@ List<Puzzle> puzzles = [
             null,
             Challenge(
                 1,
-                Text(
+                const Text(
                   "What is the Diameter of home?",
                   style: TextStyle(color: Colors.black),
                 ),
                 "12.756",
                 false,
                 [
-                  Row(mainAxisAlignment: MainAxisAlignment.center, children: [
+                  Row(mainAxisAlignment: MainAxisAlignment.center, children: const [
                     Expanded(
                       child: SizedBox(
                           height: 20,
@@ -400,7 +430,7 @@ List<Puzzle> puzzles = [
             "assets/images/ssv14.jpg",
             "DID YOU KNOW?",
             false,
-            Text(
+            const Text(
               "Ivan Kožarić (10 June 1921, Petrinja – 15 November 2020, Zagreb) was a Croatian artist who worked primarily with sculpture but also in a wide variety of media, including: permanent and temporary sculptures, assemblages, proclamations, photographs, paintings, and installations. He lived and worked in Zagreb, Croatia. His works are characterized by a sense of mischief, spontaneity and by his nonchalant approach to life. He was one of the founding members of the Gorgona Group, whose active members between 1959 and 1966 were Miljenko Horvat, Julije Knifer, Marijan Jevšovar, Dimitrije Bašičević (who also works under the name Mangelos), Matko Meštrović, Radoslav Putar, Đuro Seder and Josip Vaništa. During his period in Gorgona, his sculptures reduced in form, which would become the main characteristic of his later sculptural project consisting of numerous sculptures entitled the Feeling of Wholeness.",
               style: TextStyle(color: Colors.black),
             ),
@@ -437,33 +467,3 @@ List<Puzzle> puzzles = [
       List.empty(),
       0),
 ];
-
-handleAnswer(selectedAnswer, correctAnswer, context) {
-  String msg = "";
-  if (selectedAnswer == correctAnswer) {
-    msg = "Correct!";
-    ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-      duration: Duration(seconds: 2),
-      content: Text(msg),
-    ));
-  } else {
-    msg = "Incorrect :( Try again!";
-    showDialog(
-        context: context,
-        builder: (BuildContext context) {
-          return Alert("", msg, [
-            ElevatedButton(
-              child: Text("OK",
-                  style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20)),
-              style:
-                  ElevatedButton.styleFrom(backgroundColor: Colors.pinkAccent),
-              onPressed: () {
-                Navigator.of(context).pop();
-              },
-            )
-          ]);
-        });
-  }
-
-  return selectedAnswer == correctAnswer;
-}

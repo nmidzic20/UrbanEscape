@@ -6,16 +6,17 @@ import 'package:urban_escape/theme/theme_constants.dart';
 import 'package:percent_indicator/percent_indicator.dart';
 import 'package:pie_chart/pie_chart.dart';
 import '../auth_gate.dart';
+import '../data/player.dart';
 import '../shared.dart';
-import '../widgets/Alert.dart';
-import '../widgets/NavDrawer.dart';
-import '/classes/Puzzles.dart';
-import 'PuzzleScreenPrompt.dart';
+import '../components/Alert.dart';
+import '../components/NavDrawer.dart';
+import '../data/puzzles.dart';
+import 'PuzzlePromptScreen.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 
 class PuzzleScreenWelcome extends StatefulWidget {
   PuzzleScreenWelcome({super.key, required this.id}) {
-    puzzle = puzzles.where((p) => p.id == id).first;
+    puzzle = allPuzzles.where((p) => p.id == id).first;
   }
 
   final int id;
@@ -123,7 +124,7 @@ class _PuzzleScreenWelcomeState extends State<PuzzleScreenWelcome> {
                           radius: 20.0,
                           lineWidth: 8.0,
                           percent: 0.25,
-                          center: Text("1",
+                          center: const Text("1",
                               style: TextStyle(color: Colors.pinkAccent)),
                           progressColor: Colors.pink,
                         ),
@@ -135,7 +136,7 @@ class _PuzzleScreenWelcomeState extends State<PuzzleScreenWelcome> {
                         )
                       ],
                     ),
-                    Padding(padding: EdgeInsets.all(5.0)),
+                    const Padding(padding: EdgeInsets.all(5.0)),
                     Visibility(
                         visible: !puzzle.purchased,
                         child: RatingPrice(puzzle: puzzle))
@@ -209,8 +210,8 @@ class _BookNowState extends State<BookNow> {
           ),
           const Padding(padding: EdgeInsets.all(10)),
           RawMaterialButton(
-            padding: EdgeInsets.all(10),
-            constraints: BoxConstraints(maxWidth: 200),
+            padding: const EdgeInsets.all(10),
+            constraints: const BoxConstraints(maxWidth: 200),
             onPressed: () {},
             elevation: 2.0,
             fillColor: Colors.blueAccent,
@@ -254,7 +255,7 @@ class _BookNowState extends State<BookNow> {
             child: const Text("BOOK NOW",
                 style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20)),
           ),
-          Padding(padding: EdgeInsets.all(10)),
+          const Padding(padding: EdgeInsets.all(10)),
         ],
       ),
     );
@@ -262,14 +263,14 @@ class _BookNowState extends State<BookNow> {
 
   void handleInsufficientFunds(BuildContext context) {
     ElevatedButton goToShopButton = ElevatedButton(
-        child: Text("Go to store"),
         style: ElevatedButton.styleFrom(backgroundColor: Colors.pinkAccent),
         onPressed: () => Navigator.push(
               context,
               MaterialPageRoute(
                 builder: (context) => ShopScreen(),
               ),
-            ));
+            ),
+        child: const Text("Go to store"));
 
     showDialog(
       context: context,
@@ -346,7 +347,7 @@ class _StartPuzzleState extends State<StartPuzzle> {
               );
             },
             child: Text(buttonTitle,
-                style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20)),
+                style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 20)),
           ),
           //SizedBox(height: 40,),
           Align(
@@ -437,7 +438,7 @@ void showGuestDialog(
               builder: (context) => AuthGate(),
             ),
           ),
-      child: Text("Sign in"));
+      child: const Text("Sign in"));
 
   allowPlayingFreePuzzlesAsGuest() {
     updateParentWidget();

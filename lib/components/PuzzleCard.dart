@@ -1,21 +1,24 @@
 import 'package:flutter/material.dart';
-import 'package:urban_escape/main.dart';
 import 'package:urban_escape/theme/theme_constants.dart';
 
 import '../theme/theme_manager.dart';
-import 'Puzzle.dart';
-import './Puzzles.dart';
-import '../screens/PuzzleScreenWelcome.dart';
+import '../classes/Puzzle.dart';
+import '../screens/PuzzleWelcomeScreen.dart';
 
 class PuzzleCard extends StatelessWidget {
-  PuzzleCard(this.puzzle, {Key? key}) : super(key: key);
+  const PuzzleCard(this.puzzle, {Key? key}) : super(key: key);
 
-  late final Puzzle puzzle;
+  final Puzzle puzzle;
 
   @override
   Widget build(BuildContext context) {
     return Card(
       clipBehavior: Clip.antiAliasWithSaveLayer,
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(10.0),
+      ),
+      elevation: 5,
+      margin: EdgeInsets.all(10),
       child: GestureDetector(
         onTap: () {
           Navigator.push(
@@ -34,31 +37,31 @@ class PuzzleCard extends StatelessWidget {
               Padding(
                 padding: const EdgeInsets.all(8.0),
                 child: Align(
+                  alignment: Alignment.topRight,
                   child: Container(
                     width: 70,
                     height: 30,
+                    padding: const EdgeInsets.all(5.0),
+                    decoration: const BoxDecoration(
+                      color: Colors.pinkAccent,
+                      borderRadius: BorderRadius.all(Radius.elliptical(100, 50)),
+                    ),
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                       children: [
-                        Icon(
+                        const Icon(
                           Icons.star,
                           color: Colors.white,
                           size: 18,
                         ),
                         Text(puzzle.rating,
-                            style: TextStyle(
+                            style: const TextStyle(
                                 fontWeight: FontWeight.bold,
                                 fontSize: 16,
                                 color: Colors.white))
                       ],
                     ),
-                    padding: EdgeInsets.all(5.0),
-                    decoration: BoxDecoration(
-                      color: Colors.pinkAccent,
-                      borderRadius: BorderRadius.all(Radius.elliptical(100, 50)),
-                    ),
                   ),
-                  alignment: Alignment.topRight,
                 ),
               ),
             ]),
@@ -79,7 +82,7 @@ class PuzzleCard extends StatelessWidget {
                 children: [
                   Row(
                     children: [
-                      Icon(
+                      const Icon(
                         Icons.location_on_sharp,
                         color: Colors.pinkAccent,
                       ),
@@ -114,11 +117,6 @@ class PuzzleCard extends StatelessWidget {
           ],
         ),
       ),
-      shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(10.0),
-      ),
-      elevation: 5,
-      margin: EdgeInsets.all(10),
     );
   }
 }

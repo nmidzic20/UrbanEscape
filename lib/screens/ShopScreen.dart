@@ -1,15 +1,17 @@
 import 'dart:convert';
 import 'package:flutter/material.dart';
-import 'package:urban_escape/widgets/Alert.dart';
+import 'package:urban_escape/components/Alert.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:http/http.dart' as http;
 import 'package:flutter_stripe/flutter_stripe.dart';
-import '../classes/Coins.dart';
+import '../classes/Coin.dart';
+import '../data/coins.dart';
+import '../data/player.dart';
 import '../shared.dart';
 import '../theme/theme_constants.dart';
 import '../theme/theme_manager.dart';
-import '../widgets/MyAppBar.dart';
-import '../widgets/NavDrawer.dart';
+import '../components/MyAppBar.dart';
+import '../components/NavDrawer.dart';
 
 class ShopScreen extends StatelessWidget {
   const ShopScreen({Key? key}) : super(key: key);
@@ -17,17 +19,17 @@ class ShopScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: MyAppBar("Coins", true),
-        drawer: NavDrawer(),
+        appBar: const MyAppBar("Coins", true),
+        drawer: const NavDrawer(),
         body: Container(
-          decoration: BoxDecoration(gradient: LINEAR_GRADIENT),
+          decoration: const BoxDecoration(gradient: LINEAR_GRADIENT),
           child: ShopContent(),
         ));
   }
 }
 
 class ShopContent extends StatefulWidget {
-  ShopContent({Key? key}) : super(key: key);
+  const ShopContent({Key? key}) : super(key: key);
 
   @override
   State<ShopContent> createState() => _ShopContentState();
@@ -42,11 +44,14 @@ class _ShopContentState extends State<ShopContent> {
           mainAxisAlignment: MainAxisAlignment.end,
           children: [
             Padding(
-              padding: EdgeInsets.all(8),
+              padding: const EdgeInsets.all(8),
               child: ElevatedButton(
+                style: ElevatedButton.styleFrom(
+                    backgroundColor: Colors.blueAccent),
+                onPressed: () {},
                 child: Row(
                   children: [
-                    Text("Current amount: " + player.coinsAmount.toString(),
+                    Text("Current amount: ${player.coinsAmount}",
                         style: TextStyle(
                             fontWeight: FontWeight.bold,
                             fontSize: 16,
@@ -60,11 +65,6 @@ class _ShopContentState extends State<ShopContent> {
                     )
                   ],
                 ),
-                /*Text(
-                    "Current amount: " + player.coinsAmount.toString() + "€"),*/
-                style: ElevatedButton.styleFrom(
-                    backgroundColor: Colors.blueAccent),
-                onPressed: () {},
               ),
             )
           ],
@@ -86,13 +86,12 @@ class _ShopContentState extends State<ShopContent> {
                           fit: BoxFit.cover,
                         ),
                         Text(
-                          coins[index].amount.toString() + " coins",
-                          style: TextStyle(
+                          "${coins[index].amount} coins",
+                          style: const TextStyle(
                               color: Colors.pinkAccent,
                               fontWeight: FontWeight.bold),
                         ),
                         ElevatedButton(
-                            child: Text(coins[index].price.toString() + "€"),
                             style: ElevatedButton.styleFrom(
                                 backgroundColor: Colors.pinkAccent),
                             onPressed: () => showDialog(
@@ -100,11 +99,7 @@ class _ShopContentState extends State<ShopContent> {
                                 builder: (BuildContext context) {
                                   return Alert(
                                       "Purchase",
-                                      "Purchase " +
-                                          coins[index].amount.toString() +
-                                          " coins for " +
-                                          coins[index].price.toString() +
-                                          " Euros",
+                                      "Purchase ${coins[index].amount} coins for ${coins[index].price} Euros",
                                       [
                                         ElevatedButton(
                                           style: ElevatedButton.styleFrom(
@@ -117,7 +112,8 @@ class _ShopContentState extends State<ShopContent> {
                                           },
                                         ),
                                       ]);
-                                })),
+                                }),
+                            child: Text(coins[index].price.toString() + "€")),
                       ],
                     ));
               }),
@@ -163,7 +159,7 @@ class _ShopContentState extends State<ShopContent> {
                   content: Column(
                     mainAxisSize: MainAxisSize.min,
                     crossAxisAlignment: CrossAxisAlignment.center,
-                    children: [
+                    children: const [
                       Icon(
                         Icons.check_circle,
                         color: Colors.green,
@@ -178,13 +174,13 @@ class _ShopContentState extends State<ShopContent> {
                   ),
                   actions: [
                     ElevatedButton(
-                      child: Text("OK"),
                       style: ElevatedButton.styleFrom(
                           backgroundColor: Colors.pinkAccent),
                       onPressed: () {
                         Navigator.of(context).pop();
                         Navigator.of(context).pop();
                       },
+                      child: const Text("OK"),
                     ),
                   ],
                 ));

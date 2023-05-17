@@ -3,7 +3,6 @@ import 'package:flutterfire_ui/auth.dart';
 import 'package:urban_escape/main.dart';
 
 import '../shared.dart';
-import '../theme/theme_manager.dart';
 
 class MyAppBar extends StatelessWidget implements PreferredSizeWidget {
   @override
@@ -21,7 +20,7 @@ class MyAppBar extends StatelessWidget implements PreferredSizeWidget {
       // in order to be able to call context for Scaffold.of (to open the drawer on clicking the icon)
       leading: Builder(builder: (context) {
         return IconButton(
-          icon: Icon(Icons.menu),
+          icon: const Icon(Icons.menu),
           onPressed: () => Scaffold.of(context).openDrawer(),
         );
       }),
@@ -49,8 +48,9 @@ class MyAppBar extends StatelessWidget implements PreferredSizeWidget {
                       : null),
             ),
             onPressed: () {
-              if (!showHomeIcon && !getBoolValuesFromSharedPrefs("isLoggedIn"))
+              if (!showHomeIcon && !getBoolValuesFromSharedPrefs("isLoggedIn")) {
                 return;
+              }
               Navigator.push(
                 context,
                 MaterialPageRoute(
@@ -70,70 +70,3 @@ class MyAppBar extends StatelessWidget implements PreferredSizeWidget {
     );
   }
 }
-
-/*
-class CustomSearchDelegate extends SearchDelegate {
-  List<String> searchTerms = ['Zagreb', 'Osijek', 'Varaždin', 'Rijeka'];
-
-  @override
-  ThemeData appBarTheme(BuildContext context) {
-    return Theme.of(context).copyWith(
-      hintColor: (themeManager.themeMode == ThemeMode.dark) ? Colors.black : Colors.white,
-      textTheme: Theme.of(context).textTheme.copyWith(
-        titleLarge: TextStyle(color: (themeManager.themeMode == ThemeMode.dark) ? Colors.black : Colors.white),
-      ),
-    );
-  }
-
-  @override
-  List<Widget>? buildActions(BuildContext context) {
-    return [
-      IconButton(
-          onPressed: () {
-            query = '';
-          },
-          icon: const Icon(Icons.clear))
-    ];
-  }
-
-  @override
-  Widget? buildLeading(BuildContext context) {
-    return
-      IconButton(
-          onPressed: () {
-            close(context, null);
-          },
-          icon: const Icon(Icons.arrow_back))
-    ;
-  }
-
-  @override
-  Widget buildResults(BuildContext context) {
-    List<String> matchQuery = [];
-    for (var term in searchTerms)
-      {
-        if (term.toLowerCase().contains(query.toLowerCase())) {
-          matchQuery.add(term);
-        }
-      }
-    return ListView.builder(itemCount: matchQuery.length, itemBuilder: (context, index) {
-      var result = matchQuery[index];
-      return ListTile(title: Text(result),);
-    });
-  }
-
-  @override
-  Widget buildSuggestions(BuildContext context) {
-    List<String> matchQuery = [];
-    for (var term in searchTerms)
-    {
-      if (term.toLowerCase().contains(query.toLowerCase())) {
-        matchQuery.add(term);
-      }
-    }
-    return ListView.builder(itemCount: matchQuery.length, itemBuilder: (context, index) {
-      var result = matchQuery[index];
-      return ListTile(title: Text(result),);
-    });
-  }
-}*/

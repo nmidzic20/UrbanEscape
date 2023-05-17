@@ -6,7 +6,7 @@ class ScoreScreen extends StatefulWidget {
   int maxScore;
   Duration countdownDuration;
 
-  ScoreScreen({
+  ScoreScreen({super.key,
     this.initialScore = 100,
     this.maxScore = 0,
     this.countdownDuration = const Duration(seconds: 30)
@@ -69,18 +69,18 @@ class _ScoreScreenState extends State<ScoreScreen> {
             children: [
               Text(
                 'Score: $_score',
-                style: TextStyle(fontSize: 24.0, fontWeight: FontWeight.bold),
+                style: const TextStyle(fontSize: 24.0, fontWeight: FontWeight.bold),
               ),
               Text(
                 'Time left: $_timeLeft seconds',
-                style: TextStyle(fontSize: 16.0),
+                style: const TextStyle(fontSize: 16.0),
               ),
             ],
           ),
-          SizedBox(height: 16.0),
+          const SizedBox(height: 16.0),
           TextButton(
-            child: Text('Stop'),
             onPressed: _stopCountdown,
+            child: Text('Stop'),
           ),
         ],
       ),

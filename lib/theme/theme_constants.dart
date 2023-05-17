@@ -32,7 +32,7 @@ ThemeData lightTheme = ThemeData(
         secondary: COLOR_SECONDARY,
         background: COLOR_BACKGROUND),
     textTheme:
-    TextTheme(
+    const TextTheme(
       headlineLarge: TextStyle(color: COLOR_TEXT),
       headlineMedium: TextStyle(color: COLOR_TEXT),
       headlineSmall: TextStyle(color: COLOR_TEXT),
@@ -49,7 +49,7 @@ ThemeData lightTheme = ThemeData(
         backgroundColor: Colors.pinkAccent,
       ),
     ),
-    inputDecorationTheme: InputDecorationTheme(
+    inputDecorationTheme: const InputDecorationTheme(
         labelStyle: TextStyle(color: COLOR_TEXT),
         focusedBorder: UnderlineInputBorder(
           borderSide: BorderSide(
@@ -67,7 +67,7 @@ ThemeData darkTheme = ThemeData(
         primary: COLOR_PRIMARY,
         secondary: COLOR_SECONDARY,
         background: COLOR_BACKGROUND),
-    textTheme: TextTheme(
+    textTheme: const TextTheme(
       headlineLarge: TextStyle(color: COLOR_TEXT),
       headlineMedium: TextStyle(color: COLOR_TEXT),
       headlineSmall: TextStyle(color: COLOR_TEXT),
@@ -81,7 +81,7 @@ ThemeData darkTheme = ThemeData(
         backgroundColor: Colors.pinkAccent,
       ),
     ),
-    inputDecorationTheme: InputDecorationTheme(
+    inputDecorationTheme: const InputDecorationTheme(
         labelStyle: TextStyle(color: COLOR_TEXT),
         focusedBorder: UnderlineInputBorder(
           borderSide: BorderSide(

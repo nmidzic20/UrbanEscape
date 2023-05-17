@@ -1,19 +1,19 @@
 import 'package:flutter/material.dart';
 import 'package:urban_escape/classes/Puzzle.dart';
-import 'package:urban_escape/widgets/Alert.dart';
+import 'package:urban_escape/components/Alert.dart';
 
+import '../classes/Prompt.dart';
 import '../main.dart';
 import '../shared.dart';
 import '../theme/theme_constants.dart';
-import '../theme/theme_manager.dart';
-import '../widgets/NavDrawer.dart';
-import '../widgets/RadioButton.dart';
+import '../components/NavDrawer.dart';
+import '../components/RadioButton.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 
 class PuzzleScreen extends StatefulWidget {
-  PuzzleScreen(this.puzzle, {Key? key}) : super(key: key);
+  const PuzzleScreen(this.puzzle, {Key? key}) : super(key: key);
 
-  late final Puzzle puzzle;
+  final Puzzle puzzle;
 
   @override
   State<PuzzleScreen> createState() => _PuzzleScreenState(puzzle);
@@ -33,10 +33,6 @@ class _PuzzleScreenState extends State<PuzzleScreen> {
     currentPrompt = puzzle.prompts[puzzle.currentPrompt];
 
     nextButton = ElevatedButton(
-      child: Row(
-        mainAxisSize: MainAxisSize.min,
-        children: const [Text('Next'), Icon(Icons.arrow_forward_rounded)],
-      ),
       style: ElevatedButton.styleFrom(backgroundColor: Colors.blueAccent),
       onPressed: () {
         selectedValue = 0;
@@ -48,9 +44,6 @@ class _PuzzleScreenState extends State<PuzzleScreen> {
               builder: (BuildContext context) {
                 return Alert("Congratulations", "Story completed!", [
                   ElevatedButton(
-                    child: Text("OK",
-                        style: TextStyle(
-                            fontWeight: FontWeight.bold, fontSize: 20)),
                     style: ElevatedButton.styleFrom(
                         backgroundColor: Colors.pinkAccent),
                     onPressed: () {
@@ -61,6 +54,9 @@ class _PuzzleScreenState extends State<PuzzleScreen> {
                         ),
                       );
                     },
+                    child: Text("OK",
+                        style: TextStyle(
+                            fontWeight: FontWeight.bold, fontSize: 20)),
                   )
                 ]);
               });
@@ -84,6 +80,10 @@ class _PuzzleScreenState extends State<PuzzleScreen> {
           }
         });
       },
+      child: Row(
+        mainAxisSize: MainAxisSize.min,
+        children: const [Text('Next'), Icon(Icons.arrow_forward_rounded)],
+      ),
     );
   }
 
@@ -94,15 +94,15 @@ class _PuzzleScreenState extends State<PuzzleScreen> {
       appBar: AppBar(
         leading: Builder(builder: (context) {
           return IconButton(
-            icon: Icon(Icons.arrow_back),
+            icon: const Icon(Icons.arrow_back),
             color: (puzzle.currentPrompt == 0 ||
                     !puzzle.prompts[puzzle.currentPrompt - 1].isChallenge)
                 ? Colors.white
                 : Colors.grey,
             onPressed: () {
-              if (puzzle.currentPrompt == 0)
+              if (puzzle.currentPrompt == 0) {
                 Navigator.of(context).pop();
-              else
+              } else {
                 setState(() {
                   if (puzzle.currentPrompt != 0 &&
                       !puzzle.prompts[puzzle.currentPrompt - 1].isChallenge) {
@@ -110,6 +110,7 @@ class _PuzzleScreenState extends State<PuzzleScreen> {
                     currentPrompt = puzzle.prompts[puzzle.currentPrompt];
                   }
                 });
+              }
             },
           );
         }),
@@ -124,14 +125,14 @@ class _PuzzleScreenState extends State<PuzzleScreen> {
           Padding(
             padding: const EdgeInsets.all(8.0),
             child: IconButton(
-              icon: Icon(
+              icon: const Icon(
                 Icons.home_filled,
               ),
               onPressed: () {
                 Navigator.push(
                   context,
                   MaterialPageRoute(
-                    builder: (context) => HomeScreen(),
+                    builder: (context) => const HomeScreen(),
                   ),
                 );
               },
@@ -139,7 +140,7 @@ class _PuzzleScreenState extends State<PuzzleScreen> {
           )
         ],
       ),
-      drawer: NavDrawer(),
+      drawer: const NavDrawer(),
       body: SingleChildScrollView(
           child: (currentPrompt.templateScreen == TemplateScreen.FIRST)
               ? TemplateFirst(
@@ -160,14 +161,14 @@ class _PuzzleScreenState extends State<PuzzleScreen> {
               fillColor: (currentPrompt.timerPaused)
                   ? Colors.blueAccent
                   : Colors.pinkAccent,
+              padding: const EdgeInsets.all(10.0),
+              shape: const CircleBorder(),
               child: Icon(
                 (currentPrompt.timerPaused) ? Icons.pause : Icons.timer,
                 color: Colors.white,
               ),
-              padding: EdgeInsets.all(10.0),
-              shape: CircleBorder(),
             ),
-            Text(
+            const Text(
               "14:05",
               style: TextStyle(
                   fontSize: 20,
@@ -178,24 +179,24 @@ class _PuzzleScreenState extends State<PuzzleScreen> {
         ),
       ),
       floatingActionButton: FloatingActionButton.extended(
-          icon: Icon(Icons.lightbulb_outline),
+          icon: const Icon(Icons.lightbulb_outline),
           backgroundColor:
               (currentPrompt.isChallenge) ? Colors.pinkAccent : Colors.grey,
-          label: Text('Hint'),
+          label: const Text('Hint'),
           onPressed: (currentPrompt.isChallenge)
               ? () => showDialog(
                   context: context,
                   builder: (BuildContext context) {
                     return Alert("Hint", currentPrompt.challenge!.hint, [
                       ElevatedButton(
-                        child: Text("OK",
-                            style: TextStyle(
-                                fontWeight: FontWeight.bold, fontSize: 20)),
                         style: ElevatedButton.styleFrom(
                             backgroundColor: Colors.pinkAccent),
                         onPressed: () {
                           Navigator.of(context).pop();
                         },
+                        child: const Text("OK",
+                            style: TextStyle(
+                                fontWeight: FontWeight.bold, fontSize: 20)),
                       )
                     ]);
                   })
@@ -246,7 +247,7 @@ class TemplateFirst extends StatelessWidget {
                   .fade()
                   .scale()
               : currentPrompt.challenge!.options!.first.animate().fade().scale()
-          : Text(""),
+          : const Text(""),
       nextButton,
     ]);
   }
@@ -273,10 +274,10 @@ class TemplateSecond extends StatelessWidget {
             child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: <Widget>[
-              SizedBox(height: 10),
+              const SizedBox(height: 10),
               Text(
                 currentPrompt.title,
-                style: TextStyle(
+                style: const TextStyle(
                     fontSize: 20,
                     fontWeight: FontWeight.w900,
                     color: Colors.black),
