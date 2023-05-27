@@ -61,11 +61,6 @@ class MyAppBar extends StatelessWidget implements PreferredSizeWidget {
             },
           ),
         ),
-        /*IconButton(
-            onPressed: () {
-              showSearch(context: context, delegate: CustomSearchDelegate());
-            },
-            icon: const Icon(Icons.search))*/
       ],
     );
   }
