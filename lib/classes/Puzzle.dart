@@ -19,6 +19,7 @@ class Puzzle {
   //late int totalScore;
   late ScoreCounter scoreCounter;
   int currentPrompt = 0;
+  String exploredTime = "";
 
   bool started = false;
   bool purchased = false;

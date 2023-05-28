@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:urban_escape/classes/Puzzle.dart';
 import 'package:urban_escape/components/Alert.dart';
 import 'package:urban_escape/components/Timer.dart';
+import 'package:urban_escape/screens/PuzzleCompletedScreen.dart';
 
 import '../classes/Prompt.dart';
 import '../main.dart';
@@ -37,8 +38,18 @@ class _PuzzleScreenState extends State<PuzzleScreen> {
       style: ElevatedButton.styleFrom(backgroundColor: Colors.blueAccent),
       onPressed: () {
         if (puzzle.currentPrompt == puzzle.promptsTotal - 1) {
-          puzzle.currentPrompt = 0;
-          showDialog(
+          //puzzle.currentPrompt = 0;
+
+          Navigator.push(
+            context,
+            MaterialPageRoute(
+              builder: (context) => PuzzleCompletedScreen(puzzle),
+            ),
+          );
+
+          return;
+
+          /*showDialog(
               context: context,
               builder: (BuildContext context) {
                 return Alert("Congratulations", "Story completed! Score: ${puzzle.scoreCounter.score}", [
@@ -58,7 +69,7 @@ class _PuzzleScreenState extends State<PuzzleScreen> {
                             fontWeight: FontWeight.bold, fontSize: 20)),
                   )
                 ]);
-              });
+              });*/
         }
 
         setState(() {
@@ -167,7 +178,10 @@ class _PuzzleScreenState extends State<PuzzleScreen> {
                       borderRadius: BorderRadius.circular(18.0),
                     ))),
                 onPressed: () {},
-                child: TimerWidget(currentPrompt: currentPrompt))
+                child: TimerWidget(
+                  puzzle: puzzle,
+                )),
+            ElevatedButton(onPressed: () {}, child: const Icon(Icons.camera))
           ],
         ),
       ),

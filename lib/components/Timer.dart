@@ -3,11 +3,15 @@ import 'dart:async';
 
 import 'package:urban_escape/classes/Prompt.dart';
 
+import '../classes/Puzzle.dart';
+
 class TimerWidget extends StatefulWidget {
-  Prompt currentPrompt;
+  Puzzle puzzle;
+  late Prompt currentPrompt;
   late bool isFunFactScreen;
 
-  TimerWidget({super.key, required this.currentPrompt}) {
+  TimerWidget({super.key, required this.puzzle}) {
+    currentPrompt = puzzle.prompts[puzzle.currentPrompt];
     isFunFactScreen = currentPrompt.templateScreen == TemplateScreen.SECOND;
   }
 
@@ -89,6 +93,11 @@ class TimerWidgetState extends State<TimerWidget> {
       } else {
         _startStopwatch();
       }
+    }
+
+    //if this is the final puzzle screen, save total time to the puzzle data
+    if (widget.puzzle.currentPrompt == widget.puzzle.promptsTotal - 1) {
+      widget.puzzle.exploredTime = getFullTime();
     }
 
     super.didUpdateWidget(oldWidget);

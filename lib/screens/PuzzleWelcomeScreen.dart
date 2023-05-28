@@ -11,6 +11,7 @@ import '../shared.dart';
 import '../components/Alert.dart';
 import '../components/NavDrawer.dart';
 import '../data/puzzles.dart';
+import 'LeaderboardScreen.dart';
 import 'PuzzlePromptScreen.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 
@@ -143,12 +144,10 @@ class _PuzzleScreenWelcomeState extends State<PuzzleScreenWelcome> {
                   ],
                 ),
               ),
-
               (puzzle.purchased)
                   ? StartPuzzle(updateParentWidget, puzzle: puzzle)
                   : BookNow(updateParentWidget, puzzle: puzzle),
             ],
-
           ),
         ),
       ),
@@ -214,7 +213,14 @@ class _BookNowState extends State<BookNow> {
           RawMaterialButton(
             padding: const EdgeInsets.all(10),
             constraints: const BoxConstraints(maxWidth: 200),
-            onPressed: () {},
+            onPressed: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => const Leaderboard(),
+                ),
+              );
+            },
             elevation: 2.0,
             fillColor: Colors.blueAccent,
             shape: const RoundedRectangleBorder(
@@ -349,7 +355,8 @@ class _StartPuzzleState extends State<StartPuzzle> {
               );
             },
             child: Text(buttonTitle,
-                style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 20)),
+                style:
+                    const TextStyle(fontWeight: FontWeight.bold, fontSize: 20)),
           ),
           //SizedBox(height: 40,),
           Align(

@@ -70,21 +70,21 @@ List<Puzzle> allPuzzles = [
             true,
             null,
             Challenge(
-                1,
-                const Text(
-                  "There are 2 stars in front of you. They both have the same, strange shape. What is the shape of the 2 stars?",
-                  style: TextStyle(color: Colors.black),
-                ),
-                "1",
-                true,
-                [
-                  const Icon(Icons.star_border, color: Colors.black),
-                  const Icon(Icons.close, color: Colors.black),
-                  const Icon(Icons.favorite_border, color: Colors.black)
-                ],
-                "Look at the walls a bit more carefully...",
-                1,
-                ),
+              1,
+              const Text(
+                "There are 2 stars in front of you. They both have the same, strange shape. What is the shape of the 2 stars?",
+                style: TextStyle(color: Colors.black),
+              ),
+              "1",
+              true,
+              [
+                const Icon(Icons.star_border, color: Colors.black),
+                const Icon(Icons.close, color: Colors.black),
+                const Icon(Icons.favorite_border, color: Colors.black)
+              ],
+              "Look at the walls a bit more carefully...",
+              1,
+            ),
             false),
         Prompt(
             3,
@@ -135,34 +135,34 @@ List<Puzzle> allPuzzles = [
             true,
             null,
             Challenge(
-                1,
-                const Text(
-                  "What is the Diameter of this planet?",
-                  style: TextStyle(color: Colors.black),
-                ),
-                "6.786",
-                false,
-                [
-                  Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: const [
-                        Expanded(
-                          child: SizedBox(
-                              height: 20,
-                              width: 300,
-                              child: AnswerTextField("6.786")),
+              1,
+              const Text(
+                "What is the Diameter of this planet?",
+                style: TextStyle(color: Colors.black),
+              ),
+              "6.786",
+              false,
+              [
+                Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: const [
+                      Expanded(
+                        child: SizedBox(
+                            height: 20,
+                            width: 300,
+                            child: AnswerTextField("6.786")),
+                      ),
+                      Expanded(
+                        child: Text(
+                          "   km",
+                          style: TextStyle(color: Colors.black),
                         ),
-                        Expanded(
-                          child: Text(
-                            "km",
-                            style: TextStyle(color: Colors.black),
-                          ),
-                        ),
-                      ]),
-                ],
-                "A small plaque for a small planet... look for it and it shall tell you all you need to know.",
-                1,
-                ),
+                      ),
+                    ]),
+              ],
+              "A small plaque for a small planet... look for it and it shall tell you all you need to know.",
+              1,
+            ),
             false),
         Prompt(
             6,
@@ -217,34 +217,38 @@ List<Puzzle> allPuzzles = [
             true,
             null,
             Challenge(
-                1,
-                const Text(
-                  "What is the Diameter of this planet?",
-                  style: TextStyle(color: Colors.black),
-                ),
-                "12.103",
-                false,
-                [
-                  Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: const [
-                        Expanded(
-                          child: SizedBox(
-                              height: 20,
-                              width: 300,
-                              child: AnswerTextField("12.103")),
-                        ),
-                        Expanded(
-                          child: Text(
-                            "km",
-                            style: TextStyle(color: Colors.black),
+              1,
+              const Text(
+                "What is the Diameter of this planet?",
+                style: TextStyle(color: Colors.black),
+              ),
+              "12.103",
+              false,
+              [
+                Column(
+                  children: [
+                    Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: const [
+                          Expanded(
+                              child: SizedBox(
+                            height: 20,
+                            width: 300,
+                            child: AnswerTextField("12.103"),
+                          )),
+                          Expanded(
+                            child: Text(
+                              "  km",
+                              style: TextStyle(color: Colors.black),
+                            ),
                           ),
-                        ),
-                      ]),
-                ],
-                "There are several columns around, look carefully...",
-                1,
+                        ]),
+                  ],
                 ),
+              ],
+              "There are several columns around, look carefully...",
+              1,
+            ),
             false),
         Prompt(
             9,
@@ -300,30 +304,30 @@ List<Puzzle> allPuzzles = [
             true,
             null,
             Challenge(
-                1,
+              1,
+              const Text(
+                "What is the original color of this celestial body?",
+                style: TextStyle(color: Colors.black),
+              ),
+              "1",
+              true,
+              [
                 const Text(
-                  "What is the original color of this celestial body?",
-                  style: TextStyle(color: Colors.black),
+                  "BROWN",
+                  style: TextStyle(color: Colors.brown),
                 ),
-                "1",
-                true,
-                [
-                  const Text(
-                    "BROWN",
-                    style: TextStyle(color: Colors.brown),
-                  ),
-                  const Text(
-                    "GOLD",
-                    style: TextStyle(color: Colors.yellow),
-                  ),
-                  const Text(
-                    "ORANGE",
-                    style: TextStyle(color: Colors.orange),
-                  ),
-                ],
-                "At least, this is the one celestial body you can't miss :)",
-                1,
+                const Text(
+                  "GOLD",
+                  style: TextStyle(color: Colors.yellow),
                 ),
+                const Text(
+                  "ORANGE",
+                  style: TextStyle(color: Colors.orange),
+                ),
+              ],
+              "At least, this is the one celestial body you can't miss :)",
+              1,
+            ),
             false),
         Prompt(
             12,
@@ -373,34 +377,34 @@ List<Puzzle> allPuzzles = [
             true,
             null,
             Challenge(
-                1,
-                const Text(
-                  "What is the Diameter of home?",
-                  style: TextStyle(color: Colors.black),
-                ),
-                "12.756",
-                false,
-                [
-                  Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: const [
-                        Expanded(
-                          child: SizedBox(
-                              height: 20,
-                              width: 300,
-                              child: AnswerTextField("12.756")),
+              1,
+              const Text(
+                "What is the Diameter of home?",
+                style: TextStyle(color: Colors.black),
+              ),
+              "12.756",
+              false,
+              [
+                Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: const [
+                      Expanded(
+                        child: SizedBox(
+                            height: 20,
+                            width: 300,
+                            child: AnswerTextField("12.756")),
+                      ),
+                      Expanded(
+                        child: Text(
+                          "  km",
+                          style: TextStyle(color: Colors.black),
                         ),
-                        Expanded(
-                          child: Text(
-                            "km",
-                            style: TextStyle(color: Colors.black),
-                          ),
-                        ),
-                      ]),
-                ],
-                "Almost there...",
-                1,
-                ),
+                      ),
+                    ]),
+              ],
+              "Almost there...",
+              1,
+            ),
             false),
         Prompt(
             15,

@@ -35,15 +35,16 @@ class _AnswerTextFieldState extends State<AnswerTextField> {
   @override
   Widget build(BuildContext context) {
     return TextField(
-      style: const TextStyle(
-          color: Colors.black),
-      controller: answerController,
-      decoration: InputDecoration(
-          filled: true,
-          border: const OutlineInputBorder(),
-          labelText: 'Answer: ${widget.correctAnswer}',
-          labelStyle: const TextStyle(
-              color: Colors.grey)),
+        style: const TextStyle(
+            color: Colors.black),
+        controller: answerController,
+        decoration: InputDecoration(
+            filled: true,
+            border: const OutlineInputBorder(),
+            labelText: 'Answer: ${widget.correctAnswer}',
+            labelStyle: const TextStyle(
+                color: Colors.grey)),
+
     );
   }
 }

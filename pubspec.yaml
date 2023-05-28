@@ -117,6 +117,10 @@ flutter:
      - assets/images/ssv13.jpg
      - assets/images/ssv14.jpg
      - assets/images/observatory.png
+     - assets/icons/ic_distance.png
+     - assets/icons/ic_explored_time.png
+     - assets/icons/ic_score.png
+     - assets/icons/ic_total_time.png
 
   #   - images/a_dot_ham.jpeg
 
