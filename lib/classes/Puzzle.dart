@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+import '../components/ScoreCount.dart';
 import 'Prompt.dart';
 
 class Puzzle {
@@ -15,7 +16,8 @@ class Puzzle {
   late String start_location;
   late List<Prompt> prompts;
   late int promptsTotal;
-  late int totalScore;
+  //late int totalScore;
+  late ScoreCounter scoreCounter;
   int currentPrompt = 0;
 
   bool started = false;
@@ -34,9 +36,8 @@ class Puzzle {
       this.start_location,
       this.prompts,
       this.promptsTotal,
-      {
-        this.totalScore = 0,
-      });
+  //{this.totalScore = 0;},
+      this.scoreCounter);
 }
 
 

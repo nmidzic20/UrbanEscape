@@ -1,3 +1,5 @@
+import 'package:urban_escape/components/ScoreCount.dart';
+
 import '../components/Alert.dart';
 import '../components/AnswerTextField.dart';
 import '../classes/Puzzle.dart';
@@ -15,38 +17,6 @@ Future<void> _launchInBrowser(Uri url) async {
   )) {
     throw Exception('Could not launch $url');
   }
-}
-
-handleAnswer(selectedAnswer, correctAnswer, context) {
-
-  print("Selected answer: " + selectedAnswer + " Correct answer: " + correctAnswer);
-  String msg = "";
-  if (selectedAnswer == correctAnswer) {
-    msg = "Correct!";
-    ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-      duration: Duration(seconds: 2),
-      content: Text(msg),
-    ));
-  } else {
-    msg = "Incorrect :( Try again!";
-    showDialog(
-        context: context,
-        builder: (BuildContext context) {
-          return Alert("", msg, [
-            ElevatedButton(
-              style:
-                  ElevatedButton.styleFrom(backgroundColor: Colors.pinkAccent),
-              onPressed: () {
-                Navigator.of(context).pop();
-              },
-              child: const Text("OK",
-                  style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20)),
-            )
-          ]);
-        });
-  }
-
-  return selectedAnswer == correctAnswer;
 }
 
 List<Puzzle> allPuzzles = [
@@ -114,7 +84,7 @@ List<Puzzle> allPuzzles = [
                 ],
                 "Look at the walls a bit more carefully...",
                 1,
-                handleAnswer),
+                ),
             false),
         Prompt(
             3,
@@ -173,24 +143,26 @@ List<Puzzle> allPuzzles = [
                 "6.786",
                 false,
                 [
-                  Row(mainAxisAlignment: MainAxisAlignment.center, children: const [
-                    Expanded(
-                      child: SizedBox(
-                          height: 20,
-                          width: 300,
-                          child: AnswerTextField("6.786")),
-                    ),
-                    Expanded(
-                      child: Text(
-                        "km",
-                        style: TextStyle(color: Colors.black),
-                      ),
-                    ),
-                  ]),
+                  Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: const [
+                        Expanded(
+                          child: SizedBox(
+                              height: 20,
+                              width: 300,
+                              child: AnswerTextField("6.786")),
+                        ),
+                        Expanded(
+                          child: Text(
+                            "km",
+                            style: TextStyle(color: Colors.black),
+                          ),
+                        ),
+                      ]),
                 ],
                 "A small plaque for a small planet... look for it and it shall tell you all you need to know.",
                 1,
-                handleAnswer),
+                ),
             false),
         Prompt(
             6,
@@ -253,24 +225,26 @@ List<Puzzle> allPuzzles = [
                 "12.103",
                 false,
                 [
-                  Row(mainAxisAlignment: MainAxisAlignment.center, children: const [
-                    Expanded(
-                      child: SizedBox(
-                          height: 20,
-                          width: 300,
-                          child: AnswerTextField("12.103")),
-                    ),
-                    Expanded(
-                      child: Text(
-                        "km",
-                        style: TextStyle(color: Colors.black),
-                      ),
-                    ),
-                  ]),
+                  Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: const [
+                        Expanded(
+                          child: SizedBox(
+                              height: 20,
+                              width: 300,
+                              child: AnswerTextField("12.103")),
+                        ),
+                        Expanded(
+                          child: Text(
+                            "km",
+                            style: TextStyle(color: Colors.black),
+                          ),
+                        ),
+                      ]),
                 ],
                 "There are several columns around, look carefully...",
                 1,
-                handleAnswer),
+                ),
             false),
         Prompt(
             9,
@@ -349,7 +323,7 @@ List<Puzzle> allPuzzles = [
                 ],
                 "At least, this is the one celestial body you can't miss :)",
                 1,
-                handleAnswer),
+                ),
             false),
         Prompt(
             12,
@@ -407,24 +381,26 @@ List<Puzzle> allPuzzles = [
                 "12.756",
                 false,
                 [
-                  Row(mainAxisAlignment: MainAxisAlignment.center, children: const [
-                    Expanded(
-                      child: SizedBox(
-                          height: 20,
-                          width: 300,
-                          child: AnswerTextField("12.756")),
-                    ),
-                    Expanded(
-                      child: Text(
-                        "km",
-                        style: TextStyle(color: Colors.black),
-                      ),
-                    ),
-                  ]),
+                  Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: const [
+                        Expanded(
+                          child: SizedBox(
+                              height: 20,
+                              width: 300,
+                              child: AnswerTextField("12.756")),
+                        ),
+                        Expanded(
+                          child: Text(
+                            "km",
+                            style: TextStyle(color: Colors.black),
+                          ),
+                        ),
+                      ]),
                 ],
                 "Almost there...",
                 1,
-                handleAnswer),
+                ),
             false),
         Prompt(
             15,
@@ -439,7 +415,8 @@ List<Puzzle> allPuzzles = [
             null,
             true),
       ],
-      15),
+      15,
+      ScoreCounter()),
   Puzzle(
       2,
       "Search for Ivana Brlić-Mažuranić",
@@ -452,9 +429,22 @@ List<Puzzle> allPuzzles = [
       "TODO",
       "Trg Hrvatskih rodoljuba,  47300 Ogulin",
       List.empty(),
-      0),
-  Puzzle(3, "True Witch of Grič", "assets/images/gricki-top.png", "Zagreb",
-      "Croatia", "90 min", "8.9", 70, "TODO", "TODO", List.empty(), 0),
+      0,
+      ScoreCounter()),
+  Puzzle(
+      3,
+      "True Witch of Grič",
+      "assets/images/gricki-top.png",
+      "Zagreb",
+      "Croatia",
+      "90 min",
+      "8.9",
+      70,
+      "TODO",
+      "TODO",
+      List.empty(),
+      0,
+      ScoreCounter()),
   Puzzle(
       4,
       "Nikola Tesla’s Secret Invention",
@@ -467,5 +457,6 @@ List<Puzzle> allPuzzles = [
       "TODO",
       "TODO",
       List.empty(),
-      0),
+      0,
+      ScoreCounter()),
 ];

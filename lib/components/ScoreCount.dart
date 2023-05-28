@@ -3,25 +3,69 @@ import 'package:flutter/material.dart';
 import '../classes/Challenge.dart';
 import '../classes/Puzzle.dart';
 
+import 'package:flutter/material.dart';
 
-class ScoreCounter extends StatefulWidget {
+import '../classes/Challenge.dart';
+import '../classes/Puzzle.dart';
+
+class ScoreCounter {
+  // The initial score and the current Puzzle
+  //final Puzzle? puzzle;
+  late int score;
+
+  // Constructor of ScoreCounter
+  ScoreCounter(/*this.puzzle*/) {
+    score = 0; // Set the initial score
+  }
+
+  // Decrease the score by one, used for testing
+  void scoreTest() {
+    score--;
+    print("This is  score: $score");
+  }
+
+  // Decrease the score by one when a hint is used
+  void hintUsed() {
+    score--;
+    print("Hint was used, current score: $score");
+  }
+
+  // Increase the total score by the points value of the challenge
+  void increaseScore(/*Challenge challenge*/) {
+    score++;
+    //puzzle?.totalScore += challenge.points;
+    print("This is the total score: $score");
+  }
+
+  // Decrease the total score by the answer attempts of the challenge
+  void decreaseScore(/*Challenge challenge*/) {
+    if (score > 0) {
+      score--;
+      //puzzle?.totalScore -= challenge.answerAttempts;
+    }
+
+    print("This is the total score: $score");
+  }
+}
+
+class ScoreCounterWidget extends StatefulWidget {
   // The initial score and the current Puzzle
   final Puzzle? puzzle;
 
   // Constructor of ScoreCounter
-  const ScoreCounter({this.puzzle, Key? key}): super(key: key);
+  const ScoreCounterWidget({this.puzzle, Key? key}): super(key: key);
 
   // Method to find the closest ScoreCounterState in the widget tree
-  static ScoreCounterState? of(BuildContext context) {
-    return context.findAncestorStateOfType<ScoreCounterState>();
+  static ScoreCounterWidgetState? of(BuildContext context) {
+    return context.findAncestorStateOfType<ScoreCounterWidgetState>();
   }
 
   // Create the mutable state for this widget
   @override
-  ScoreCounterState createState() => ScoreCounterState();
+  ScoreCounterWidgetState createState() => ScoreCounterWidgetState();
 }
 
-class ScoreCounterState extends State<ScoreCounter> {
+class ScoreCounterWidgetState extends State<ScoreCounterWidget> {
   late int _score;
 
   // Initialize the state
@@ -51,7 +95,7 @@ class ScoreCounterState extends State<ScoreCounter> {
   void increaseScore(Challenge challenge) {
     setState(() {
       _score++;
-      // widget.puzzle?.totalScore += challenge.points;
+      //widget.puzzle?.totalScore += challenge.points;
     });
     print("This is the total score: $_score");
   }
@@ -61,7 +105,7 @@ class ScoreCounterState extends State<ScoreCounter> {
     setState(() {
       if (_score > 0) {
         _score--;
-        // widget.puzzle!.totalScore -= challenge.answerAttempts;
+        //widget.puzzle!.totalScore -= challenge.answerAttempts;
       }
     });
     print("This is the total score: $_score");

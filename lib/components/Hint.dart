@@ -6,7 +6,7 @@ import 'ScoreCount.dart';
 class HintWidget extends StatefulWidget {
   // The Challenge object which contains the hint, global key to access ScoreCounterState
   final Challenge challenge;
-  final GlobalKey<ScoreCounterState> scoreCountKey;
+  final GlobalKey<ScoreCounterWidgetState> scoreCountKey;
 
   // Default constructor
   HintWidget({super.key,
@@ -20,7 +20,7 @@ class HintWidget extends StatefulWidget {
     [], // options
     'Default hint', // hint
     0, // points
-        (answer) {}, // handleAnswer
+        //(answer) {}, // handleAnswer
   );
 
   // Create the mutable state for this widget

@@ -41,7 +41,7 @@ class _PuzzleScreenState extends State<PuzzleScreen> {
           showDialog(
               context: context,
               builder: (BuildContext context) {
-                return Alert("Congratulations", "Story completed!", [
+                return Alert("Congratulations", "Story completed! Score: ${puzzle.scoreCounter.score}", [
                   ElevatedButton(
                     style: ElevatedButton.styleFrom(
                         backgroundColor: Colors.pinkAccent),
@@ -67,13 +67,12 @@ class _PuzzleScreenState extends State<PuzzleScreen> {
                 ? selectedAnswer
                 : userAnswer;
 
-            bool isCorrectAnswer = currentPrompt.challenge!.handleAnswer(
-                givenAnswer, currentPrompt.challenge!.answer, context);
+            bool isCorrectAnswer = handleAnswer(givenAnswer!, puzzle, context);
             if (isCorrectAnswer) {
               puzzle.currentPrompt++;
               currentPrompt = puzzle.prompts[puzzle.currentPrompt];
 
-              // Reset the radio button values for the next question
+              // Reset the radio button values for the next question with radio buttons
               selectedValue = 0;
               selectedAnswer = "";
             }
@@ -158,53 +157,6 @@ class _PuzzleScreenState extends State<PuzzleScreen> {
         color: COLOR_PRIMARY,
         child: Row(
           children: [
-            /*RawMaterialButton(
-              onPressed: () {},
-              elevation: 2.0,
-              fillColor: (currentPrompt.timerPaused)
-                  ? Colors.blueAccent
-                  : Colors.pinkAccent,
-              padding: const EdgeInsets.all(10.0),
-              shape: const CircleBorder(),
-              child: Icon(
-                (currentPrompt.timerPaused) ? Icons.pause : Icons.timer,
-                color: Colors.white,
-              ),
-            ),
-            Text(
-              "14:05",
-              style: TextStyle(
-                  fontSize: 20,
-                  fontWeight: FontWeight.bold,
-                  color: Colors.white),
-            ),
-            Container(
-                height: 90,
-                width: 150,
-                color: const Color(0xFF262235),
-                child: TimerWidget()),*/
-            /*Container(
-                decoration: BoxDecoration(
-                  border: Border.all(color: Colors.black, width: 0.0),
-                  borderRadius:
-                      const BorderRadius.all(Radius.elliptical(50, 20)),
-                  color: (currentPrompt.timerPaused)
-                      ? Colors.blueAccent
-                      : Colors.pinkAccent,
-                ),
-                height: 90,
-                //width: 150,
-
-                child: TimerWidget(currentPrompt: currentPrompt)),
-            RawMaterialButton(
-                onPressed: () {},
-                elevation: 2.0,
-                fillColor: (currentPrompt.timerPaused)
-                    ? Colors.blueAccent
-                    : Colors.pinkAccent,
-                //padding: const EdgeInsets.all(10.0),
-                shape: const CircleBorder(),
-                child: TimerWidget(currentPrompt: currentPrompt)),*/
             ElevatedButton(
                 style: ButtonStyle(
                     backgroundColor: (currentPrompt.timerPaused)
@@ -225,22 +177,25 @@ class _PuzzleScreenState extends State<PuzzleScreen> {
               (currentPrompt.isChallenge) ? Colors.pinkAccent : Colors.grey,
           label: const Text('Hint'),
           onPressed: (currentPrompt.isChallenge)
-              ? () => showDialog(
-                  context: context,
-                  builder: (BuildContext context) {
-                    return Alert("Hint", currentPrompt.challenge!.hint, [
-                      ElevatedButton(
-                        style: ElevatedButton.styleFrom(
-                            backgroundColor: Colors.pinkAccent),
-                        onPressed: () {
-                          Navigator.of(context).pop();
-                        },
-                        child: const Text("OK",
-                            style: TextStyle(
-                                fontWeight: FontWeight.bold, fontSize: 20)),
-                      )
-                    ]);
-                  })
+              ? () {
+                  puzzle.scoreCounter.hintUsed();
+                  showDialog(
+                      context: context,
+                      builder: (BuildContext context) {
+                        return Alert("Hint", currentPrompt.challenge!.hint, [
+                          ElevatedButton(
+                            style: ElevatedButton.styleFrom(
+                                backgroundColor: Colors.pinkAccent),
+                            onPressed: () {
+                              Navigator.of(context).pop();
+                            },
+                            child: const Text("OK",
+                                style: TextStyle(
+                                    fontWeight: FontWeight.bold, fontSize: 20)),
+                          )
+                        ]);
+                      });
+                }
               : null),
       floatingActionButtonLocation: FloatingActionButtonLocation.endDocked,
     );

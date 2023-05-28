@@ -5,7 +5,7 @@ import 'ScoreCount.dart';
 
 class AnswerCheckWidget extends StatelessWidget {
   final Challenge challenge;
-  final GlobalKey<ScoreCounterState> scoreCountKey;
+  final GlobalKey<ScoreCounterWidgetState> scoreCountKey;
 
   // Default constructor
   AnswerCheckWidget({super.key,
@@ -19,7 +19,7 @@ class AnswerCheckWidget extends StatelessWidget {
     [], // options
     'Default hint', // hint
     0, // points
-        (answer) {}, // handleAnswer
+        //(answer) {}, // handleAnswer
 
   );
 
