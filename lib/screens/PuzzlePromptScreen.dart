@@ -36,8 +36,6 @@ class _PuzzleScreenState extends State<PuzzleScreen> {
     nextButton = ElevatedButton(
       style: ElevatedButton.styleFrom(backgroundColor: Colors.blueAccent),
       onPressed: () {
-        selectedValue = 0;
-
         if (puzzle.currentPrompt == puzzle.promptsTotal - 1) {
           puzzle.currentPrompt = 0;
           showDialog(
@@ -55,7 +53,7 @@ class _PuzzleScreenState extends State<PuzzleScreen> {
                         ),
                       );
                     },
-                    child: Text("OK",
+                    child: const Text("OK",
                         style: TextStyle(
                             fontWeight: FontWeight.bold, fontSize: 20)),
                   )
@@ -69,11 +67,15 @@ class _PuzzleScreenState extends State<PuzzleScreen> {
                 ? selectedAnswer
                 : userAnswer;
 
-            bool result = currentPrompt.challenge!.handleAnswer(
+            bool isCorrectAnswer = currentPrompt.challenge!.handleAnswer(
                 givenAnswer, currentPrompt.challenge!.answer, context);
-            if (result) {
+            if (isCorrectAnswer) {
               puzzle.currentPrompt++;
               currentPrompt = puzzle.prompts[puzzle.currentPrompt];
+
+              // Reset the radio button values for the next question
+              selectedValue = 0;
+              selectedAnswer = "";
             }
           } else {
             puzzle.currentPrompt++;
@@ -181,13 +183,39 @@ class _PuzzleScreenState extends State<PuzzleScreen> {
                 width: 150,
                 color: const Color(0xFF262235),
                 child: TimerWidget()),*/
-            Container(
-                    height: 90,
-                    //width: 150,
-                    color: (currentPrompt.timerPaused)
-                        ? Colors.blueAccent
-                        : Colors.pinkAccent,
-                    child: TimerWidget(currentPrompt: currentPrompt))
+            /*Container(
+                decoration: BoxDecoration(
+                  border: Border.all(color: Colors.black, width: 0.0),
+                  borderRadius:
+                      const BorderRadius.all(Radius.elliptical(50, 20)),
+                  color: (currentPrompt.timerPaused)
+                      ? Colors.blueAccent
+                      : Colors.pinkAccent,
+                ),
+                height: 90,
+                //width: 150,
+
+                child: TimerWidget(currentPrompt: currentPrompt)),
+            RawMaterialButton(
+                onPressed: () {},
+                elevation: 2.0,
+                fillColor: (currentPrompt.timerPaused)
+                    ? Colors.blueAccent
+                    : Colors.pinkAccent,
+                //padding: const EdgeInsets.all(10.0),
+                shape: const CircleBorder(),
+                child: TimerWidget(currentPrompt: currentPrompt)),*/
+            ElevatedButton(
+                style: ButtonStyle(
+                    backgroundColor: (currentPrompt.timerPaused)
+                        ? MaterialStateProperty.all<Color>(Colors.blueAccent)
+                        : MaterialStateProperty.all<Color>(Colors.pinkAccent),
+                    shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+                        RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(18.0),
+                    ))),
+                onPressed: () {},
+                child: TimerWidget(currentPrompt: currentPrompt))
           ],
         ),
       ),
@@ -262,6 +290,9 @@ class TemplateFirst extends StatelessWidget {
               : currentPrompt.challenge!.options!.first.animate().fade().scale()
           : const Text(""),
       nextButton,
+      const SizedBox(
+        height: 80,
+      )
     ]);
   }
 }
@@ -312,6 +343,9 @@ class TemplateSecond extends StatelessWidget {
                     : currentPrompt.content!.animate().fade().scale(),
               ),
               nextButton,
+              const SizedBox(
+                height: 50,
+              )
             ])));
   }
 }

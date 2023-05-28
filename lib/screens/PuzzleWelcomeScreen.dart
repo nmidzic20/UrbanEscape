@@ -143,10 +143,12 @@ class _PuzzleScreenWelcomeState extends State<PuzzleScreenWelcome> {
                   ],
                 ),
               ),
+
               (puzzle.purchased)
                   ? StartPuzzle(updateParentWidget, puzzle: puzzle)
-                  : BookNow(updateParentWidget, puzzle: puzzle)
+                  : BookNow(updateParentWidget, puzzle: puzzle),
             ],
+
           ),
         ),
       ),
@@ -255,7 +257,7 @@ class _BookNowState extends State<BookNow> {
             child: const Text("BOOK NOW",
                 style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20)),
           ),
-          const Padding(padding: EdgeInsets.all(10)),
+          const Padding(padding: EdgeInsets.only(bottom: 50)),
         ],
       ),
     );

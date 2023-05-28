@@ -114,9 +114,14 @@ class TimerWidgetState extends State<TimerWidget> {
     return Row(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
+        Icon(
+          (widget.currentPrompt.timerPaused) ? Icons.pause : Icons.timer,
+          color: Colors.white,
+        ),
+        const SizedBox(width: 10,),
         // Display the current time
         Text(
-          'Timer: \n $_formattedFullTime',
+          _formattedFullTime,
           style: const TextStyle(
               fontWeight: FontWeight.bold,
               fontSize: 16.0,

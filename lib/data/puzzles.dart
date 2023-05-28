@@ -18,6 +18,8 @@ Future<void> _launchInBrowser(Uri url) async {
 }
 
 handleAnswer(selectedAnswer, correctAnswer, context) {
+
+  print("Selected answer: " + selectedAnswer + " Correct answer: " + correctAnswer);
   String msg = "";
   if (selectedAnswer == correctAnswer) {
     msg = "Correct!";
