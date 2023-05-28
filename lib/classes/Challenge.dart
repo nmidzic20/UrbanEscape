@@ -9,6 +9,7 @@ class Challenge {
   late String hint;
   late int points;
   late Function handleAnswer;
+  late int answerAttempts;
 
   Challenge(
       this.id,
@@ -18,5 +19,8 @@ class Challenge {
       this.options,
       this.hint,
       this.points,
-      this.handleAnswer);
+      this.handleAnswer,
+      {
+        this.answerAttempts = 0,
+      });
 }

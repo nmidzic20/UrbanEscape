@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:urban_escape/classes/Puzzle.dart';
 import 'package:urban_escape/components/Alert.dart';
+import 'package:urban_escape/components/Timer.dart';
 
 import '../classes/Prompt.dart';
 import '../main.dart';
@@ -155,7 +156,7 @@ class _PuzzleScreenState extends State<PuzzleScreen> {
         color: COLOR_PRIMARY,
         child: Row(
           children: [
-            RawMaterialButton(
+            /*RawMaterialButton(
               onPressed: () {},
               elevation: 2.0,
               fillColor: (currentPrompt.timerPaused)
@@ -168,13 +169,25 @@ class _PuzzleScreenState extends State<PuzzleScreen> {
                 color: Colors.white,
               ),
             ),
-            const Text(
+            Text(
               "14:05",
               style: TextStyle(
                   fontSize: 20,
                   fontWeight: FontWeight.bold,
                   color: Colors.white),
             ),
+            Container(
+                height: 90,
+                width: 150,
+                color: const Color(0xFF262235),
+                child: TimerWidget()),*/
+            Container(
+                    height: 90,
+                    //width: 150,
+                    color: (currentPrompt.timerPaused)
+                        ? Colors.blueAccent
+                        : Colors.pinkAccent,
+                    child: TimerWidget(currentPrompt: currentPrompt))
           ],
         ),
       ),

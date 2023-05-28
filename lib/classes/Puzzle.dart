@@ -15,6 +15,7 @@ class Puzzle {
   late String start_location;
   late List<Prompt> prompts;
   late int promptsTotal;
+  late int totalScore;
   int currentPrompt = 0;
 
   bool started = false;
@@ -32,7 +33,10 @@ class Puzzle {
       this.description,
       this.start_location,
       this.prompts,
-      this.promptsTotal);
+      this.promptsTotal,
+      {
+        this.totalScore = 0,
+      });
 }
 
 
