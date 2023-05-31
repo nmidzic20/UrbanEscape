@@ -318,7 +318,7 @@ List<Puzzle> allPuzzles = [
                 ),
                 const Text(
                   "GOLD",
-                  style: TextStyle(color: Colors.yellow),
+                  style: TextStyle(color: Colors.amber),
                 ),
                 const Text(
                   "ORANGE",

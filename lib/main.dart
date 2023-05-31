@@ -12,6 +12,7 @@ import 'package:flutterfire_ui/auth.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:flutter_stripe/flutter_stripe.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:camera/camera.dart';
 
 const clientId =
     '708215483312-dk8kfdeqc4iku979eid6mle2eoohau7j.apps.googleusercontent.com';
@@ -26,7 +27,7 @@ void main() async {
   ]);
 
   //Initialize Flutter Binding
-  WidgetsFlutterBinding.ensureInitialized();
+  //WidgetsFlutterBinding.ensureInitialized();
 
   //Assign publishable key to flutter_stripe
   Stripe.publishableKey =
@@ -38,6 +39,10 @@ void main() async {
   prefs = await SharedPreferences.getInstance();
   setBoolToSharedPrefs("isLoggedIn", false);
   //signOut(); fix
+
+
+  final List<CameraDescription> _cameras = await availableCameras();
+  firstCamera = _cameras.first;
 
   runApp(const MyApp());
 }

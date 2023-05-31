@@ -263,7 +263,8 @@ class _BookNowState extends State<BookNow> {
             child: const Text("BOOK NOW",
                 style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20)),
           ),
-          const Padding(padding: EdgeInsets.only(bottom: 50)),
+          const Padding(padding: EdgeInsets.only(bottom: 150)),
+
         ],
       ),
     );

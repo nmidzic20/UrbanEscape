@@ -6,6 +6,9 @@ import 'classes/Player.dart';
 import 'classes/Prompt.dart';
 import 'classes/Puzzle.dart';
 import 'components/Alert.dart';
+import 'package:camera/camera.dart';
+
+late CameraDescription firstCamera;
 
 late SharedPreferences prefs;
 bool themeChanged = false;

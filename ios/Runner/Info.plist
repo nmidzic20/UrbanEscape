@@ -49,5 +49,9 @@
 		<true/>
 		<key>UIStatusBarHidden</key>
 		<false/>
+		<key>NSCameraUsageDescription</key>
+        <string>Camera for AR</string>
+        <key>NSMicrophoneUsageDescription</key>
+        <string>Microphone for camera</string>
 	</dict>
 </plist>

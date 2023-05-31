@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:urban_escape/classes/Puzzle.dart';
 import 'package:urban_escape/components/Alert.dart';
+import 'package:urban_escape/components/Camera.dart';
 import 'package:urban_escape/components/Timer.dart';
 import 'package:urban_escape/screens/PuzzleCompletedScreen.dart';
 
@@ -48,28 +49,6 @@ class _PuzzleScreenState extends State<PuzzleScreen> {
           );
 
           return;
-
-          /*showDialog(
-              context: context,
-              builder: (BuildContext context) {
-                return Alert("Congratulations", "Story completed! Score: ${puzzle.scoreCounter.score}", [
-                  ElevatedButton(
-                    style: ElevatedButton.styleFrom(
-                        backgroundColor: Colors.pinkAccent),
-                    onPressed: () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) => HomeScreen(),
-                        ),
-                      );
-                    },
-                    child: const Text("OK",
-                        style: TextStyle(
-                            fontWeight: FontWeight.bold, fontSize: 20)),
-                  )
-                ]);
-              });*/
         }
 
         setState(() {
@@ -181,7 +160,17 @@ class _PuzzleScreenState extends State<PuzzleScreen> {
                 child: TimerWidget(
                   puzzle: puzzle,
                 )),
-            ElevatedButton(onPressed: () {}, child: const Icon(Icons.camera))
+            const SizedBox(width: 30),
+            ElevatedButton(
+                onPressed: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => CameraWidget(),
+                    ),
+                  );
+                },
+                child: const Icon(Icons.camera))
           ],
         ),
       ),

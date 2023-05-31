@@ -51,6 +51,7 @@ class MyAppBar extends StatelessWidget implements PreferredSizeWidget {
               if (!showHomeIcon && !getBoolValuesFromSharedPrefs("isLoggedIn")) {
                 return;
               }
+
               Navigator.push(
                 context,
                 MaterialPageRoute(

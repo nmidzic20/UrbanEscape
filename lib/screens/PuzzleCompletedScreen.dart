@@ -10,23 +10,19 @@ import 'LeaderboardScreen.dart';
 
 class PuzzleCompletedScreen extends StatelessWidget {
   PuzzleCompletedScreen(this.puzzle, {Key? key}) : super(key: key) {
-    currentPrompt = puzzle.prompts[puzzle.currentPrompt - 1];
+    //currentPrompt = puzzle.prompts[puzzle.currentPrompt - 1];
+    puzzle.currentPrompt = 0;
   }
 
   Puzzle puzzle;
-  late Prompt currentPrompt;
+  //late Prompt currentPrompt;
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        leading: Builder(builder: (context) {
-          return IconButton(
-            icon: const Icon(Icons.arrow_back),
-            onPressed: () => Navigator.of(context).pop(),
-          );
-        }),
-        title: Text(puzzle.title),
+        automaticallyImplyLeading: false,
+        title: Center(child: Text(puzzle.title)),
         actions: [
           Padding(
             padding: const EdgeInsets.all(8.0),
