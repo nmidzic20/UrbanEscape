@@ -54,6 +54,8 @@ dependencies:
   flutter_animate: ^4.1.1+1
   camera: ^0.10.5+2
   arcore_flutter_plugin: ^0.1.0
+  google_maps_flutter: ^2.2.8
+  geolocator: ^9.0.2
 
 dev_dependencies:
   flutter_lints: ^2.0.1

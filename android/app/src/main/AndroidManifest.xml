@@ -4,7 +4,10 @@
         android:label="Urban Escape"
         android:name="${applicationName}"
         android:icon="@mipmap/ic_launcher">
-        <activity
+       <meta-data android:name="com.google.android.geo.API_KEY"
+           android:value="AIzaSyDi1DWHsweCB4WRjRTvXP5I_fzOjKv3BhU"/>
+
+       <activity
             android:name=".MainActivity"
             android:exported="true"
             android:launchMode="singleTop"
@@ -37,4 +40,7 @@
     <!-- Limits app visibility in the Google Play Store to ARCore supported devices
          (https://developers.google.com/ar/devices). -->
     <uses-feature android:name="android.hardware.camera.ar" />
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"/>
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>
+    <uses-permission android:name="android.permission.ACCESS_BACKGROUND_LOCATION"/>
 </manifest>

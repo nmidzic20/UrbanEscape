@@ -3,6 +3,8 @@ import 'package:urban_escape/classes/Puzzle.dart';
 import 'package:urban_escape/components/Alert.dart';
 import 'package:urban_escape/components/Camera.dart';
 import 'package:urban_escape/components/Timer.dart';
+import 'package:urban_escape/screens/CurrentLocationScreen.dart';
+import 'package:urban_escape/screens/GoogleMapsScreen.dart';
 import 'package:urban_escape/screens/PuzzleCompletedScreen.dart';
 
 import '../classes/Prompt.dart';
@@ -160,7 +162,6 @@ class _PuzzleScreenState extends State<PuzzleScreen> {
                 child: TimerWidget(
                   puzzle: puzzle,
                 )),
-            const SizedBox(width: 30),
             ElevatedButton(
                 onPressed: () {
                   Navigator.push(
@@ -170,7 +171,17 @@ class _PuzzleScreenState extends State<PuzzleScreen> {
                     ),
                   );
                 },
-                child: const Icon(Icons.camera))
+                child: const Icon(Icons.camera)),
+            ElevatedButton(
+                onPressed: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => CurrentLocation(),
+                    ),
+                  );
+                },
+                child: const Icon(Icons.location_on_sharp))
           ],
         ),
       ),
