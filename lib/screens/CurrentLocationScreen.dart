@@ -22,12 +22,12 @@ class _CurrentLocationState extends State<CurrentLocation> {
 
   // on below line we have created the list of markers
   final List<Marker> _markers = <Marker>[
-    const Marker(
+    /*const Marker(
         markerId: MarkerId('1'),
         position: LatLng(45.8150, 15.9819),
         infoWindow: InfoWindow(
           title: 'My Position',
-        )),
+        )),*/
   ];
 
   // created method for getting user current location
