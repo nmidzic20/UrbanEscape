@@ -36,6 +36,14 @@ class _GoogleMapsScreenState extends State<GoogleMapsScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        leading: Builder(builder: (context) {
+          return IconButton(
+            icon: const Icon(Icons.arrow_back),
+            onPressed: () {
+              Navigator.popUntil(context, ModalRoute.withName('/prompt'));
+            },
+          );
+        }),
         title: const Text('Locations of interest nearby'),
         elevation: 2,
       ),

@@ -351,6 +351,7 @@ class _StartPuzzleState extends State<StartPuzzle> {
               Navigator.push(
                 context,
                 MaterialPageRoute(
+                  settings: const RouteSettings(name: "/prompt"),
                   builder: (context) => PuzzleScreen(puzzle),
                 ),
               );

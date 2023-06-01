@@ -76,6 +76,14 @@ class _CurrentLocationState extends State<CurrentLocation> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        leading: Builder(builder: (context) {
+          return IconButton(
+            icon: const Icon(Icons.arrow_back),
+            onPressed: () {
+              Navigator.popUntil(context, ModalRoute.withName('/prompt'));
+            },
+          );
+        }),
         // on below line we have given title of app
         title: const Text("My location"),
       ),
