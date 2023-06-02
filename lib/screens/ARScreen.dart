@@ -1,6 +1,7 @@
 import 'package:arcore_flutter_plugin/arcore_flutter_plugin.dart';
 import 'package:flutter/material.dart';
 import 'package:vector_math/vector_math_64.dart' as vector;
+import 'package:flutter/services.dart' show Uint8List, rootBundle;
 
 class ARScreen extends StatefulWidget {
   @override
@@ -22,7 +23,7 @@ class _ARScreenState extends State<ARScreen> {
             },
           );
         }),
-        title: const Text('Find the hidden clue in AR'),
+        title: const Text('Examine the planets to find the hidden clue'),
       ),
       body: ArCoreView(
         onArCoreViewCreated: _onArCoreViewCreated,
@@ -30,58 +31,40 @@ class _ARScreenState extends State<ARScreen> {
     );
   }
 
-  void _onArCoreViewCreated(ArCoreController controller) {
+  void _onArCoreViewCreated(ArCoreController controller) async {
     arCoreController = controller;
 
-    _addSphere(arCoreController);
-    _addCylindre(arCoreController);
-    _addCube(arCoreController);
-  }
+    final moonMaterial = ArCoreMaterial(color: Colors.grey);
 
-  void _addSphere(ArCoreController controller) {
-    final material = ArCoreMaterial(color: Color.fromARGB(120, 66, 134, 244));
-    final sphere = ArCoreSphere(
-      materials: [material],
-      radius: 0.1,
+    final moonShape = ArCoreSphere(
+      materials: [moonMaterial],
+      radius: 0.2,
     );
-    final node = ArCoreNode(
-      shape: sphere,
-      position: vector.Vector3(0, 0, -1.5),
-    );
-    controller.addArCoreNode(node);
-  }
 
-  void _addCylindre(ArCoreController controller) {
-    final material = ArCoreMaterial(
-      color: Colors.red,
-      reflectance: 1.0,
-    );
-    final cylindre = ArCoreCylinder(
-      materials: [material],
-      radius: 0.5,
-      height: 0.3,
-    );
-    final node = ArCoreNode(
-      shape: cylindre,
-      position: vector.Vector3(0.0, -0.5, -2.0),
-    );
-    controller.addArCoreNode(node);
-  }
-
-  void _addCube(ArCoreController controller) {
-    final material = ArCoreMaterial(
-      color: Color.fromARGB(120, 66, 134, 244),
-      metallic: 1.0,
-    );
-    final cube = ArCoreCube(
-      materials: [material],
-      size: vector.Vector3(0.5, 0.5, 0.5),
-    );
-    final node = ArCoreNode(
-      shape: cube,
+    final moon = ArCoreNode(
+      shape: moonShape,
       position: vector.Vector3(-0.5, 0.5, -3.5),
+      rotation: vector.Vector4(0, 0, 0, 0),
     );
-    controller.addArCoreNode(node);
+
+    Uint8List bytes = (await rootBundle.load('assets/images/earth.jpg')).buffer.asUint8List();
+
+    final earthMaterial = ArCoreMaterial(
+        color: Color.fromARGB(120, 66, 134, 244), textureBytes: bytes);
+
+    final earthShape = ArCoreSphere(
+      materials: [earthMaterial],
+      radius: 0.4,
+    );
+
+    final earth = ArCoreNode(
+        shape: earthShape,
+        children: [moon],
+        position: vector.Vector3(0.5, 0.5, 0.5),
+      rotation: vector.Vector4(0, 1, 0, 0),);
+
+    arCoreController.addArCoreNode(moon);
+    arCoreController.addArCoreNode(earth);
   }
 
   @override

@@ -30,152 +30,163 @@ class GameScreen extends StatefulWidget {
 class _GameScreenState extends State<GameScreen> {
   IconData? targetIcon;
   String selectedIconIdentifier = "";
+  bool mazeGame = false;
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
-          title: const Text('Mini Game'),
-        ),
-        body: Container(
-          decoration: const BoxDecoration(gradient: LINEAR_GRADIENT),
-          child:
-              Row(mainAxisAlignment: MainAxisAlignment.spaceEvenly, children: [
-            const SizedBox(width: 16.0),
-            Draggable<String>(
-              data: 'mascot',
-              feedback: Opacity(
-                  opacity: 0.5,
-                  child: Image.asset(
-                    'assets/images/maskota_small.png',
-                    height: 50,
-                    width: 50,
-                  )),
-              childWhenDragging: Image.asset(
-                'assets/images/maskota_small.png',
-                height: 50,
-                width: 50,
-                color: Colors.transparent,
-              ),
-              child: Image.asset(
-                'assets/images/maskota_small.png',
-                height: 50,
-                width: 50,
-              ),
-            ),
-            const SizedBox(width: 16.0),
-            Column(
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: [
-                const SizedBox(height: 16.0),
-                DragTarget<String>(
-                  builder: (context, candidateData, rejectedData) {
-                    return Icon(
-                      widget.iconDataList[0],
-                      size: 50,
-                      color: targetIcon == widget.iconDataList[0]
-                          ? Colors.pinkAccent
-                          : Colors.grey,
-                    );
-                  },
-                  onWillAccept: (data) {
-                    return true;
-                  },
-                  onAccept: (data) {
-                    setState(() {
-                      targetIcon = widget.iconDataList[0];
-                      selectedIconIdentifier = 'Icon 0';
-                      print(selectedIconIdentifier);
-                      selectedValue = 0;
-                      selectedAnswer = "0";
-                      widget.onPressed!();
-                    });
-                  },
-                ),
-                const SizedBox(height: 16.0),
-                DragTarget<String>(
-                  builder: (context, candidateData, rejectedData) {
-                    return Icon(
-                      widget.iconDataList[1],
-                      size: 50,
-                      color: targetIcon == widget.iconDataList[1]
-                          ? Colors.pinkAccent
-                          : Colors.grey,
-                    );
-                  },
-                  onWillAccept: (data) {
-                    return true;
-                  },
-                  onAccept: (data) {
-                    setState(() {
-                      targetIcon = widget.iconDataList[1];
-                      selectedIconIdentifier = 'Icon 1';
-                      print(selectedIconIdentifier);
-                      selectedValue = 1;
-                      selectedAnswer = "1";
-                      widget.onPressed!();
-                    });
-                  },
-                ),
-                const SizedBox(height: 16.0),
-                DragTarget<String>(
-                  builder: (context, candidateData, rejectedData) {
-                    return Icon(
-                      widget.iconDataList[2],
-                      size: 50,
-                      color: targetIcon == widget.iconDataList[2]
-                          ? Colors.pinkAccent
-                          : Colors.grey,
-                    );
-                  },
-                  onWillAccept: (data) {
-                    return true;
-                  },
-                  onAccept: (data) {
-                    setState(() {
-                      targetIcon = widget.iconDataList[2];
-                      selectedIconIdentifier = '2';
-                      print(selectedIconIdentifier);
-                      selectedValue = 2;
-                      selectedAnswer = "2";
-                      widget.onPressed!();
-                    });
-                  },
-                ),
-              ],
-            )
+          title: Row(mainAxisAlignment: MainAxisAlignment.center, children: [
+            IconButton(
+                onPressed: () {
+                  setState(() {
+                    mazeGame = !mazeGame;
+                  });
+                },
+                icon: const Icon(Icons.sync_alt)),
+            const Text('Mini Game')
           ]),
-        ));
+        ),
+        body: (!mazeGame)
+            ? Container(
+                decoration: const BoxDecoration(gradient: LINEAR_GRADIENT),
+                child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    children: [
+                      const SizedBox(width: 16.0),
+                      Draggable<String>(
+                        data: 'mascot',
+                        feedback: Opacity(
+                            opacity: 0.5,
+                            child: Image.asset(
+                              'assets/images/maskota_small.png',
+                              height: 50,
+                              width: 50,
+                            )),
+                        childWhenDragging: Image.asset(
+                          'assets/images/maskota_small.png',
+                          height: 50,
+                          width: 50,
+                          color: Colors.transparent,
+                        ),
+                        child: Image.asset(
+                          'assets/images/maskota_small.png',
+                          height: 50,
+                          width: 50,
+                        ),
+                      ),
+                      const SizedBox(width: 16.0),
+                      Column(
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: [
+                          const SizedBox(height: 16.0),
+                          DragTarget<String>(
+                            builder: (context, candidateData, rejectedData) {
+                              return Icon(
+                                widget.iconDataList[0],
+                                size: 50,
+                                color: targetIcon == widget.iconDataList[0]
+                                    ? Colors.pinkAccent
+                                    : Colors.grey,
+                              );
+                            },
+                            onWillAccept: (data) {
+                              return true;
+                            },
+                            onAccept: (data) {
+                              setState(() {
+                                targetIcon = widget.iconDataList[0];
+                                selectedIconIdentifier = 'Icon 0';
+                                print(selectedIconIdentifier);
+                                selectedValue = 0;
+                                selectedAnswer = "0";
+                                widget.onPressed!();
+                              });
+                            },
+                          ),
+                          const SizedBox(height: 16.0),
+                          DragTarget<String>(
+                            builder: (context, candidateData, rejectedData) {
+                              return Icon(
+                                widget.iconDataList[1],
+                                size: 50,
+                                color: targetIcon == widget.iconDataList[1]
+                                    ? Colors.pinkAccent
+                                    : Colors.grey,
+                              );
+                            },
+                            onWillAccept: (data) {
+                              return true;
+                            },
+                            onAccept: (data) {
+                              setState(() {
+                                targetIcon = widget.iconDataList[1];
+                                selectedIconIdentifier = 'Icon 1';
+                                print(selectedIconIdentifier);
+                                selectedValue = 1;
+                                selectedAnswer = "1";
+                                widget.onPressed!();
+                              });
+                            },
+                          ),
+                          const SizedBox(height: 16.0),
+                          DragTarget<String>(
+                            builder: (context, candidateData, rejectedData) {
+                              return Icon(
+                                widget.iconDataList[2],
+                                size: 50,
+                                color: targetIcon == widget.iconDataList[2]
+                                    ? Colors.pinkAccent
+                                    : Colors.grey,
+                              );
+                            },
+                            onWillAccept: (data) {
+                              return true;
+                            },
+                            onAccept: (data) {
+                              setState(() {
+                                targetIcon = widget.iconDataList[2];
+                                selectedIconIdentifier = '2';
+                                print(selectedIconIdentifier);
+                                selectedValue = 2;
+                                selectedAnswer = "2";
+                                widget.onPressed!();
+                              });
+                            },
+                          ),
+                        ],
+                      )
+                    ]),
+              )
+            : MazeWidget(widget.onPressed));
   }
 }
 
-class MazeScreen extends StatefulWidget {
-  const MazeScreen({super.key});
+class MazeWidget extends StatefulWidget {
+  MazeWidget(this.onPressed, {super.key});
+
+  VoidCallback? onPressed;
 
   @override
-  _MazeScreenState createState() => _MazeScreenState();
+  _MazeWidgetState createState() => _MazeWidgetState();
 }
 
-class _MazeScreenState extends State<MazeScreen> {
+class _MazeWidgetState extends State<MazeWidget> {
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-        body: SafeArea(
-            child: Maze(
-                player: MazeItem(
-                    'assets/images/maskota_small.png', ImageType.asset),
-                columns: 6,
-                rows: 12,
-                wallThickness: 4.0,
-                wallColor: Theme.of(context).primaryColor,
-                checkpoints: [
-                  MazeItem('assets/images/maskota_small.png', ImageType.asset),
-                  MazeItem('assets/images/maskota_small.png', ImageType.asset),
-                  MazeItem('assets/images/maskota_small.png', ImageType.asset),
-                ],
-                onCheckpoint: (id) => print("CHECK " + id.toString()),
-                finish: MazeItem(
-                    'assets/images/maskota_small.png', ImageType.asset),
-                onFinish: () => print('Hi from finish line!'))));
+    return SafeArea(
+      child: Maze(
+          player: MazeItem('assets/images/maskota_small.png', ImageType.asset),
+          columns: 6,
+          rows: 12,
+          wallThickness: 4.0,
+          wallColor: Theme.of(context).primaryColor,
+          finish: MazeItem('assets/images/cross.png', ImageType.asset),
+          onFinish: () {
+            selectedValue = 1;
+            selectedAnswer = "1";
+            widget.onPressed!();
+          }),
+    );
   }
 }
