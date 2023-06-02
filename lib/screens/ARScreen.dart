@@ -62,7 +62,7 @@ class _ARScreenState extends State<ARScreen> {
     final earth = ArCoreNode(
       shape: earthShape,
       children: [moon],
-      position: vector.Vector3(-0.5, 0.5, -0.7),
+      position: vector.Vector3(-0.5, 0.2, -0.7),
       rotation: vector.Vector4(0, 1, 0, 0),);
 
     arCoreController.addArCoreNode(
