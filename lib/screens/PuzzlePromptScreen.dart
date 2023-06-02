@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:urban_escape/classes/Puzzle.dart';
 import 'package:urban_escape/components/Alert.dart';
 import 'package:urban_escape/components/Camera.dart';
-import 'package:urban_escape/components/Minigame.dart';
+import 'package:urban_escape/screens/Minigame.dart';
 import 'package:urban_escape/components/Timer.dart';
 import 'package:urban_escape/screens/CurrentLocationScreen.dart';
 import 'package:urban_escape/screens/GoogleMapsScreen.dart';

@@ -4,7 +4,7 @@ import 'package:urban_escape/classes/Puzzle.dart';
 
 import '../classes/Challenge.dart';
 import '../theme/theme_constants.dart';
-import 'RadioButton.dart';
+import '../components/RadioButton.dart';
 
 class GameScreen extends StatefulWidget {
   GameScreen(this.puzzle, this.onPressed, {super.key}) {
@@ -40,7 +40,7 @@ class _GameScreenState extends State<GameScreen> {
         body: Container(
           decoration: const BoxDecoration(gradient: LINEAR_GRADIENT),
           child:
-              Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
+              Row(mainAxisAlignment: MainAxisAlignment.spaceEvenly, children: [
             const SizedBox(width: 16.0),
             Draggable<String>(
               data: 'mascot',
@@ -65,7 +65,7 @@ class _GameScreenState extends State<GameScreen> {
             ),
             const SizedBox(width: 16.0),
             Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
+              crossAxisAlignment: CrossAxisAlignment.center,
               children: [
                 const SizedBox(height: 16.0),
                 DragTarget<String>(

@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:urban_escape/components/Minigame.dart';
+import 'package:urban_escape/screens/Minigame.dart';
 import 'package:urban_escape/data/puzzles.dart';
 import 'package:urban_escape/screens/Home.dart';
 import 'package:urban_escape/screens/ShopScreen.dart';
