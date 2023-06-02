@@ -12,8 +12,10 @@ import '../components/Alert.dart';
 import '../components/NavDrawer.dart';
 import '../data/puzzles.dart';
 import 'LeaderboardScreen.dart';
-import 'PuzzlePromptScreen.dart';
 import 'package:flutter_animate/flutter_animate.dart';
+import 'package:flutter_rating_bar/flutter_rating_bar.dart';
+
+import 'PuzzlePromptScreen.dart';
 
 class PuzzleScreenWelcome extends StatefulWidget {
   PuzzleScreenWelcome({super.key, required this.id}) {
@@ -264,7 +266,6 @@ class _BookNowState extends State<BookNow> {
                 style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20)),
           ),
           const Padding(padding: EdgeInsets.only(bottom: 150)),
-
         ],
       ),
     );
@@ -332,6 +333,21 @@ class _StartPuzzleState extends State<StartPuzzle> {
       ),
       child: Column(
         children: [
+          RatingBar.builder(
+            initialRating: 3,
+            minRating: 1,
+            direction: Axis.horizontal,
+            allowHalfRating: true,
+            itemCount: 5,
+            itemPadding: const EdgeInsets.symmetric(horizontal: 4.0),
+            itemBuilder: (context, _) => const Icon(
+              Icons.star,
+              color: Colors.amber,
+            ),
+            onRatingUpdate: (rating) {
+              print(rating);
+            },
+          ),
           Padding(
             padding: const EdgeInsets.all(15.0),
             child: SizedBox(
