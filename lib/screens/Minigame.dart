@@ -5,6 +5,7 @@ import 'package:urban_escape/classes/Puzzle.dart';
 import '../classes/Challenge.dart';
 import '../theme/theme_constants.dart';
 import '../components/RadioButton.dart';
+import 'dart:math';
 
 class GameScreen extends StatefulWidget {
   GameScreen(this.puzzle, this.onPressed, {super.key}) {
@@ -172,9 +173,48 @@ class MazeWidget extends StatefulWidget {
 }
 
 class _MazeWidgetState extends State<MazeWidget> {
+  double getRandomPosition() {
+    final random = Random();
+    // Define the range of positions you want the icons to appear in
+    final minPosition = 50.0; // Minimum position value
+    final maxPosition = 300.0; // Maximum position value
+    // Generate a random position within the specified range
+    return random.nextDouble() * (maxPosition - minPosition) + minPosition;
+  }
+
   @override
   Widget build(BuildContext context) {
-    return SafeArea(
+    return /*Stack(
+      alignment: Alignment.center,
+      children: <Widget>[
+        SafeArea(
+          child: Maze(
+            player:
+                MazeItem('assets/images/maskota_small.png', ImageType.asset),
+            columns: 6,
+            rows: 12,
+            wallThickness: 4.0,
+            wallColor: Theme.of(context).primaryColor,
+            finish: MazeItem('assets/images/cross.png', ImageType.asset),
+            onFinish: () {
+              selectedValue = 1;
+              selectedAnswer = "1";
+              widget.onPressed!();
+            },
+          ),
+        ),
+        Positioned(
+          top: getRandomPosition(),
+          left: getRandomPosition(),
+          child: Icon(Icons.favorite, color: Colors.red),
+        ),
+        Positioned(
+          top: getRandomPosition(),
+          right: getRandomPosition(),
+          child: Icon(Icons.favorite, color: Colors.red),
+        ),
+      ],
+    ); */SafeArea(
       child: Maze(
           player: MazeItem('assets/images/maskota_small.png', ImageType.asset),
           columns: 6,
@@ -182,6 +222,15 @@ class _MazeWidgetState extends State<MazeWidget> {
           wallThickness: 4.0,
           wallColor: Theme.of(context).primaryColor,
           finish: MazeItem('assets/images/cross.png', ImageType.asset),
+          checkpoints: [
+            MazeItem('assets/images/heart.png', ImageType.asset),
+            MazeItem('assets/images/star.png', ImageType.asset),
+          ],
+          onCheckpoint: (id) {
+            selectedValue = 0;
+            selectedAnswer = "0";
+            widget.onPressed!();
+          },
           onFinish: () {
             selectedValue = 1;
             selectedAnswer = "1";
@@ -189,4 +238,5 @@ class _MazeWidgetState extends State<MazeWidget> {
           }),
     );
   }
+
 }

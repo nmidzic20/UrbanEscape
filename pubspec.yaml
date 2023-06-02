@@ -133,6 +133,8 @@ flutter:
      - assets/images/earth.jpg
      - assets/images/icon.jpg
      - assets/UE.obj
+     - assets/images/heart.png
+     - assets/images/star.png
 
   #   - images/a_dot_ham.jpeg
 
