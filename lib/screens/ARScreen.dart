@@ -23,7 +23,7 @@ class _ARScreenState extends State<ARScreen> {
             },
           );
         }),
-        title: const Text('Examine the planets to find the hidden clue'),
+        title: const Text('Examine the planets to find clues'),
       ),
       body: ArCoreView(
         onArCoreViewCreated: _onArCoreViewCreated,
