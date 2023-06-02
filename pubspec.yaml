@@ -141,6 +141,8 @@ flutter:
      - assets/images/heart.png
      - assets/images/star.png
      - assets/images/maskotamaze.png
+     - assets/images/cubemap.jpg
+     - assets/images/cubemap.png
 
   #   - images/a_dot_ham.jpeg
 
