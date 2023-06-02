@@ -223,7 +223,7 @@ class PuzzleCompletedScreen extends StatelessWidget {
                     Navigator.push(
                       context,
                       MaterialPageRoute(
-                        builder: (context) => const Leaderboard(),
+                        builder: (context) => Leaderboard(puzzle: puzzle),
                       ),
                     );
                   },

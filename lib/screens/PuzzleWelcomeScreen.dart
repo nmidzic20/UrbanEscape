@@ -217,7 +217,7 @@ class _BookNowState extends State<BookNow> {
               Navigator.push(
                 context,
                 MaterialPageRoute(
-                  builder: (context) => const Leaderboard(),
+                  builder: (context) => Leaderboard(puzzle: puzzle),
                 ),
               );
             },
@@ -362,7 +362,7 @@ class _StartPuzzleState extends State<StartPuzzle> {
           Align(
               alignment: Alignment.bottomRight,
               child: SizedBox(
-                  width: MediaQuery.of(context)!.size.width / 2,
+                  width: MediaQuery.of(context).size.width / 2,
                   child: Image.asset('assets/images/maskota2.png',
                           fit: BoxFit.cover)
                       .animate()

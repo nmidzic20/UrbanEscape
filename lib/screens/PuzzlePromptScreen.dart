@@ -256,7 +256,7 @@ class TemplateFirst extends StatelessWidget {
                   .animate()
                   .fade()
                   .scale()
-              : currentPrompt.challenge!.options!.first.animate().fade().scale()
+              : currentPrompt.challenge!.options.first.animate().fade().scale()
           : const Text(""),
       nextButton,
       const SizedBox(
