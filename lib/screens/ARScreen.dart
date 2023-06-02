@@ -65,11 +65,12 @@ class _ARScreenState extends State<ARScreen> {
     arCoreController.addArCoreNode(
         earth); //moon is a child of earth and is added accordingly
     //_addImage();
-    //_addCube();
+    _addCube();
 
     final node = ArCoreReferenceNode(
       name: 'UE',
-      objectUrl: "https://github.com/KhronosGroup/glTF-Sample-Models/raw/master/2.0/Duck/glTF/Duck.gltf",
+      objectUrl: "https://github.com/nmidzic20/UrbanEscape/raw/AR_experimentation/urbanescapegltf.gltf",
+      //"https://github.com/KhronosGroup/glTF-Sample-Models/raw/master/2.0/Duck/glTF/Duck.gltf",
       //"https://github.com/nmidzic20/UrbanEscape/raw/9d2aaaaaf720738cca525a0b99c378006fc8d4c0/urbanescapegltf.gltf",
       scale: vector.Vector3(1.0, 1.0, 1.0),
       position: vector.Vector3(0, 0, -2.5),
@@ -96,7 +97,7 @@ Future<Uint8List> getImageBytes(String imageName) async {
   void _addCube() async {
     final material = ArCoreMaterial(
       color: Colors.pinkAccent,
-      textureBytes: await getImageBytes("images/cubemap.png")
+      textureBytes: await getImageBytes("images/icon.jpg")
     );
     final cube = ArCoreCube(
       materials: [material],
