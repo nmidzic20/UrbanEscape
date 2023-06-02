@@ -260,7 +260,7 @@ class TemplateFirst extends StatelessWidget {
               : currentPrompt.challenge!.options!.first.animate().fade().scale()
           : const Text(""),
       Visibility(
-        visible: currentPrompt.isChallenge,
+        visible: currentPrompt.id == 2,
         child: ElevatedButton(
             onPressed: () {
               Navigator.push(

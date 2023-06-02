@@ -3,6 +3,7 @@ import 'package:maze/maze.dart';
 import 'package:urban_escape/classes/Puzzle.dart';
 
 import '../classes/Challenge.dart';
+import '../theme/theme_constants.dart';
 import 'RadioButton.dart';
 
 class GameScreen extends StatefulWidget {
@@ -33,118 +34,118 @@ class _GameScreenState extends State<GameScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('Mini Game'),
-      ),
-      body: Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
-        const SizedBox(width: 16.0),
-        Draggable<String>(
-          data: 'mascot',
-          feedback: Opacity(
-              opacity: 0.5,
+        appBar: AppBar(
+          title: const Text('Mini Game'),
+        ),
+        body: Container(
+          decoration: const BoxDecoration(gradient: LINEAR_GRADIENT),
+          child:
+              Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
+            const SizedBox(width: 16.0),
+            Draggable<String>(
+              data: 'mascot',
+              feedback: Opacity(
+                  opacity: 0.5,
+                  child: Image.asset(
+                    'assets/images/maskota_small.png',
+                    height: 50,
+                    width: 50,
+                  )),
+              childWhenDragging: Image.asset(
+                'assets/images/maskota_small.png',
+                height: 50,
+                width: 50,
+                color: Colors.transparent,
+              ),
               child: Image.asset(
                 'assets/images/maskota_small.png',
                 height: 50,
                 width: 50,
-              )),
-          childWhenDragging: Image.asset(
-            'assets/images/maskota_small.png',
-            height: 50,
-            width: 50,
-            color: Colors.transparent,
-          ),
-          child: Image.asset(
-            'assets/images/maskota_small.png',
-            height: 50,
-            width: 50,
-          ),
-        ),
-        const SizedBox(width: 16.0),
-        Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            const SizedBox(height: 16.0),
-            DragTarget<String>(
-              builder: (context, candidateData, rejectedData) {
-                return Icon(
-                  widget.iconDataList[0],
-                  size: 50,
-                  color: targetIcon == Icons.favorite
-                      ? Colors.pinkAccent
-                      : Colors.grey,
-                );
-              },
-              onWillAccept: (data) {
-                return true;
-              },
-              onAccept: (data) {
-                setState(() {
-                  targetIcon = widget.iconDataList[0];
-                  selectedIconIdentifier = 'Icon 0';
-                  print(selectedIconIdentifier);
-                  selectedValue = 0;
-                  selectedAnswer = "0";
-                  widget.onPressed!();
-                });
-
-              },
+              ),
             ),
-            const SizedBox(height: 16.0),
-            DragTarget<String>(
-              builder: (context, candidateData, rejectedData) {
-                return Icon(
-                  widget.iconDataList[1],
-                  size: 50,
-                  color: targetIcon == Icons.star
-                      ? Colors.pinkAccent
-                      : Colors.grey,
-                );
-              },
-              onWillAccept: (data) {
-                return true;
-              },
-              onAccept: (data) {
-                setState(() {
-                  targetIcon = widget.iconDataList[1];
-                  selectedIconIdentifier = 'Icon 1';
-                  print(selectedIconIdentifier);
-                  selectedValue = 1;
-                  selectedAnswer = "1";
-                  widget.onPressed!();
-                });
-
-              },
-            ),
-            const SizedBox(height: 16.0),
-            DragTarget<String>(
-              builder: (context, candidateData, rejectedData) {
-                return Icon(
-                  widget.iconDataList[2],
-                  size: 50,
-                  color: targetIcon == widget.iconDataList[2]
-                      ? Colors.pinkAccent
-                      : Colors.grey,
-                );
-              },
-              onWillAccept: (data) {
-                return true;
-              },
-              onAccept: (data) {
-                setState(() {
-                  targetIcon = Icons.thumb_up;
-                  selectedIconIdentifier = '2';
-                  print(selectedIconIdentifier);
-                  selectedValue = 2;
-                  selectedAnswer = "2";
-                  widget.onPressed!();
-                });
-
-              },
-            ),
-          ],
-        )
-      ]),
-    );
+            const SizedBox(width: 16.0),
+            Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                const SizedBox(height: 16.0),
+                DragTarget<String>(
+                  builder: (context, candidateData, rejectedData) {
+                    return Icon(
+                      widget.iconDataList[0],
+                      size: 50,
+                      color: targetIcon == widget.iconDataList[0]
+                          ? Colors.pinkAccent
+                          : Colors.grey,
+                    );
+                  },
+                  onWillAccept: (data) {
+                    return true;
+                  },
+                  onAccept: (data) {
+                    setState(() {
+                      targetIcon = widget.iconDataList[0];
+                      selectedIconIdentifier = 'Icon 0';
+                      print(selectedIconIdentifier);
+                      selectedValue = 0;
+                      selectedAnswer = "0";
+                      widget.onPressed!();
+                    });
+                  },
+                ),
+                const SizedBox(height: 16.0),
+                DragTarget<String>(
+                  builder: (context, candidateData, rejectedData) {
+                    return Icon(
+                      widget.iconDataList[1],
+                      size: 50,
+                      color: targetIcon == widget.iconDataList[1]
+                          ? Colors.pinkAccent
+                          : Colors.grey,
+                    );
+                  },
+                  onWillAccept: (data) {
+                    return true;
+                  },
+                  onAccept: (data) {
+                    setState(() {
+                      targetIcon = widget.iconDataList[1];
+                      selectedIconIdentifier = 'Icon 1';
+                      print(selectedIconIdentifier);
+                      selectedValue = 1;
+                      selectedAnswer = "1";
+                      widget.onPressed!();
+                    });
+                  },
+                ),
+                const SizedBox(height: 16.0),
+                DragTarget<String>(
+                  builder: (context, candidateData, rejectedData) {
+                    return Icon(
+                      widget.iconDataList[2],
+                      size: 50,
+                      color: targetIcon == widget.iconDataList[2]
+                          ? Colors.pinkAccent
+                          : Colors.grey,
+                    );
+                  },
+                  onWillAccept: (data) {
+                    return true;
+                  },
+                  onAccept: (data) {
+                    setState(() {
+                      targetIcon = widget.iconDataList[2];
+                      selectedIconIdentifier = '2';
+                      print(selectedIconIdentifier);
+                      selectedValue = 2;
+                      selectedAnswer = "2";
+                      widget.onPressed!();
+                    });
+                  },
+                ),
+              ],
+            )
+          ]),
+        ));
   }
 }
 
