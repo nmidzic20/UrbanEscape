@@ -131,6 +131,8 @@ flutter:
      - assets/images/maskota_small.png
      - assets/images/cross.png
      - assets/images/earth.jpg
+     - assets/images/icon.jpg
+     - assets/UE.obj
 
   #   - images/a_dot_ham.jpeg
 

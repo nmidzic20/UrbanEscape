@@ -1,7 +1,7 @@
 import 'package:arcore_flutter_plugin/arcore_flutter_plugin.dart';
 import 'package:flutter/material.dart';
 import 'package:vector_math/vector_math_64.dart' as vector;
-import 'package:flutter/services.dart' show Uint8List, rootBundle;
+import 'package:flutter/services.dart' show ByteData, Uint8List, rootBundle;
 
 class ARScreen extends StatefulWidget {
   @override
@@ -47,10 +47,12 @@ class _ARScreenState extends State<ARScreen> {
       rotation: vector.Vector4(0, 0, 0, 0),
     );
 
-    Uint8List bytes = (await rootBundle.load('assets/images/earth.jpg')).buffer.asUint8List();
+    Uint8List bytes = (await rootBundle.load('assets/images/earth.jpg')).buffer
+        .asUint8List();
 
     final earthMaterial = ArCoreMaterial(
-        color: Color.fromARGB(120, 66, 134, 244), textureBytes: bytes);
+        color: Color.fromARGB(120, 66, 134, 244),
+        textureBytes: await getImageBytes("images/earth.jpg"));
 
     final earthShape = ArCoreSphere(
       materials: [earthMaterial],
@@ -58,13 +60,56 @@ class _ARScreenState extends State<ARScreen> {
     );
 
     final earth = ArCoreNode(
-        shape: earthShape,
-        children: [moon],
-        position: vector.Vector3(0.5, 0.5, 0.5),
+      shape: earthShape,
+      children: [moon],
+      position: vector.Vector3(-0.5, 0.5, -0.5),
       rotation: vector.Vector4(0, 1, 0, 0),);
 
-    arCoreController.addArCoreNode(moon);
-    arCoreController.addArCoreNode(earth);
+    arCoreController.addArCoreNode(
+        earth); //moon is a child of earth and is added accordingly?
+    //_addImage();
+    //_addCube();
+
+
+    final node = ArCoreReferenceNode(
+      name: '3D Model',
+      object3DFileName: 'UE.obj',
+      scale: vector.Vector3(1.0, 1.0, 1.0),
+      position: vector.Vector3(0.8, 0, -2.5),
+    );
+
+    arCoreController.addArCoreNode(node);
+  }
+
+
+Future<Uint8List> getImageBytes(String imageName) async {
+    final ByteData data = await rootBundle.load('assets/$imageName');
+    return data.buffer.asUint8List();
+  }
+
+  void _addImage() async {
+    final imageBytes = await getImageBytes("images/icon.jpg");
+    final node = ArCoreNode(
+      image:ArCoreImage(bytes:imageBytes,width: 100, height: 100),
+      position: vector.Vector3(0, 0, -1.5),
+    );
+    arCoreController.addArCoreNode(node);
+  }
+
+  void _addCube() async {
+    final material = ArCoreMaterial(
+      color: Colors.pinkAccent,
+      textureBytes: await getImageBytes("images/icon.jpg")
+    );
+    final cube = ArCoreCube(
+      materials: [material],
+      size: vector.Vector3(0.5, 0.5, 0.5),
+    );
+    final node = ArCoreNode(
+      shape: cube,
+      position: vector.Vector3(0.8, 0, -2.5),
+    );
+    arCoreController.addArCoreNode(node);
   }
 
   @override
