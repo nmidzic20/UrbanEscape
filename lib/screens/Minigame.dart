@@ -31,7 +31,7 @@ class GameScreen extends StatefulWidget {
 class _GameScreenState extends State<GameScreen> {
   IconData? targetIcon;
   String selectedIconIdentifier = "";
-  bool mazeGame = false;
+  bool mazeGame = true;
 
   @override
   Widget build(BuildContext context) {
@@ -48,8 +48,9 @@ class _GameScreenState extends State<GameScreen> {
             const Text('Mini Game')
           ]),
         ),
-        body: (!mazeGame)
-            ? Container(
+        body: (mazeGame)
+            ? MazeWidget(widget.onPressed)
+            : Container(
                 decoration: const BoxDecoration(gradient: LINEAR_GRADIENT),
                 child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -158,8 +159,7 @@ class _GameScreenState extends State<GameScreen> {
                         ],
                       )
                     ]),
-              )
-            : MazeWidget(widget.onPressed));
+              ));
   }
 }
 
@@ -214,7 +214,8 @@ class _MazeWidgetState extends State<MazeWidget> {
           child: Icon(Icons.favorite, color: Colors.red),
         ),
       ],
-    ); */SafeArea(
+    ); */
+        SafeArea(
       child: Maze(
           player: MazeItem('assets/images/maskota_small.png', ImageType.asset),
           columns: 6,
@@ -238,5 +239,4 @@ class _MazeWidgetState extends State<MazeWidget> {
           }),
     );
   }
-
 }

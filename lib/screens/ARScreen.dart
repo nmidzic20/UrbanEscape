@@ -43,7 +43,7 @@ class _ARScreenState extends State<ARScreen> {
 
     final moon = ArCoreNode(
       shape: moonShape,
-      position: vector.Vector3(-0.5, 0.5, -3.5),
+      position: vector.Vector3(-0.5, 0.5, 3.5),
       rotation: vector.Vector4(0, 0, 0, 0),
     );
 
@@ -62,13 +62,13 @@ class _ARScreenState extends State<ARScreen> {
     final earth = ArCoreNode(
       shape: earthShape,
       children: [moon],
-      position: vector.Vector3(-0.5, 0.5, -0.5),
+      position: vector.Vector3(-0.5, 0.5, -0.7),
       rotation: vector.Vector4(0, 1, 0, 0),);
 
     arCoreController.addArCoreNode(
         earth); //moon is a child of earth and is added accordingly?
     //_addImage();
-    //_addCube();
+    _addCube();
 
 
     final node = ArCoreReferenceNode(
