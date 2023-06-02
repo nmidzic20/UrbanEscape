@@ -135,6 +135,7 @@ flutter:
      - assets/UE.obj
      - assets/images/heart.png
      - assets/images/star.png
+     - assets/images/maskotamaze.png
 
   #   - images/a_dot_ham.jpeg
 

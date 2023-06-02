@@ -61,18 +61,18 @@ class _GameScreenState extends State<GameScreen> {
                         feedback: Opacity(
                             opacity: 0.5,
                             child: Image.asset(
-                              'assets/images/maskota_small.png',
+                              'assets/images/maskotamaze.png',
                               height: 50,
                               width: 50,
                             )),
                         childWhenDragging: Image.asset(
-                          'assets/images/maskota_small.png',
+                          'assets/images/maskotamaze.png',
                           height: 50,
                           width: 50,
                           color: Colors.transparent,
                         ),
                         child: Image.asset(
-                          'assets/images/maskota_small.png',
+                          'assets/images/maskotamaze.png',
                           height: 50,
                           width: 50,
                         ),
@@ -190,7 +190,7 @@ class _MazeWidgetState extends State<MazeWidget> {
         SafeArea(
           child: Maze(
             player:
-                MazeItem('assets/images/maskota_small.png', ImageType.asset),
+                MazeItem('assets/images/maskotamaze.png', ImageType.asset),
             columns: 6,
             rows: 12,
             wallThickness: 4.0,
@@ -217,7 +217,7 @@ class _MazeWidgetState extends State<MazeWidget> {
     ); */
         SafeArea(
       child: Maze(
-          player: MazeItem('assets/images/maskota_small.png', ImageType.asset),
+          player: MazeItem('assets/images/maskotamaze.png', ImageType.asset),
           columns: 6,
           rows: 12,
           wallThickness: 4.0,
