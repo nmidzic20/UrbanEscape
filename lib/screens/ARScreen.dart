@@ -47,9 +47,6 @@ class _ARScreenState extends State<ARScreen> {
       rotation: vector.Vector4(0, 0, 0, 0),
     );
 
-    Uint8List bytes = (await rootBundle.load('assets/images/earth.jpg')).buffer
-        .asUint8List();
-
     final earthMaterial = ArCoreMaterial(
         color: Color.fromARGB(120, 66, 134, 244),
         textureBytes: await getImageBytes("images/earth.jpg"));
@@ -66,10 +63,9 @@ class _ARScreenState extends State<ARScreen> {
       rotation: vector.Vector4(0, 1, 0, 0),);
 
     arCoreController.addArCoreNode(
-        earth); //moon is a child of earth and is added accordingly?
+        earth); //moon is a child of earth and is added accordingly
     //_addImage();
     _addCube();
-
 
     final node = ArCoreReferenceNode(
       name: '3D Model',
