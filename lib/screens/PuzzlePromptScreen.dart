@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:urban_escape/classes/Puzzle.dart';
 import 'package:urban_escape/components/Alert.dart';
 import 'package:urban_escape/components/Camera.dart';
+import 'package:urban_escape/components/Minigame.dart';
 import 'package:urban_escape/components/Timer.dart';
 import 'package:urban_escape/screens/CurrentLocationScreen.dart';
 import 'package:urban_escape/screens/GoogleMapsScreen.dart';
@@ -258,6 +259,19 @@ class TemplateFirst extends StatelessWidget {
                   .scale()
               : currentPrompt.challenge!.options!.first.animate().fade().scale()
           : const Text(""),
+      Visibility(
+        visible: currentPrompt.isChallenge,
+        child: ElevatedButton(
+            onPressed: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => GameScreen(puzzle, nextButton.onPressed),
+                ),
+              );
+            },
+            child: const Text("Play as minigame")),
+      ),
       nextButton,
       const SizedBox(
         height: 80,

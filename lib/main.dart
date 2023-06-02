@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:urban_escape/screens/ARScreen.dart';
+import 'package:urban_escape/components/Minigame.dart';
+import 'package:urban_escape/data/puzzles.dart';
 import 'package:urban_escape/screens/Home.dart';
 import 'package:urban_escape/screens/ShopScreen.dart';
 import 'package:urban_escape/shared.dart';
@@ -41,7 +42,6 @@ void main() async {
   setBoolToSharedPrefs("isLoggedIn", false);
   //signOut(); fix
 
-
   final List<CameraDescription> _cameras = await availableCameras();
   firstCamera = _cameras.first;
 
@@ -82,7 +82,7 @@ class _MyAppState extends State<MyApp> {
       theme: lightTheme,
       darkTheme: darkTheme,
       themeMode: themeManager.themeMode,
-      home: const HomeScreen(),
+      home: HomeScreen(),
     );
   }
 }
@@ -133,5 +133,3 @@ class _HomeScreenState extends State<HomeScreen> {
         ));
   }
 }
-
-

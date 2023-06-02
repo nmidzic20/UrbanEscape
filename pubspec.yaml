@@ -56,6 +56,7 @@ dependencies:
   arcore_flutter_plugin: ^0.1.0
   google_maps_flutter: ^2.2.8
   geolocator: ^9.0.2
+  maze: 3.0.0
 
 dev_dependencies:
   flutter_lints: ^2.0.1
@@ -125,6 +126,7 @@ flutter:
      - assets/icons/ic_explored_time.png
      - assets/icons/ic_score.png
      - assets/icons/ic_total_time.png
+     - assets/images/maskota_small.png
 
   #   - images/a_dot_ham.jpeg
 
