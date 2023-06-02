@@ -257,7 +257,7 @@ class TemplateFirst extends StatelessWidget {
                   .animate()
                   .fade()
                   .scale()
-              : currentPrompt.challenge!.options!.first.animate().fade().scale()
+              : currentPrompt.challenge!.options.first.animate().fade().scale()
           : const Text(""),
       Visibility(
         visible: currentPrompt.id == 2,
