@@ -48,6 +48,7 @@ class _GameScreenState extends State<GameScreen> {
             const Text('Mini Game')
           ]),
         ),
+        backgroundColor: Colors.white,
         body: (mazeGame)
             ? MazeWidget(widget.onPressed)
             : Container(
@@ -221,7 +222,7 @@ class _MazeWidgetState extends State<MazeWidget> {
           columns: 6,
           rows: 12,
           wallThickness: 4.0,
-          wallColor: Theme.of(context).primaryColor,
+          wallColor: Colors.pinkAccent,
           finish: MazeItem('assets/images/cross.png', ImageType.asset),
           checkpoints: [
             MazeItem('assets/images/heart.png', ImageType.asset),
